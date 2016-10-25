@@ -11,6 +11,7 @@
 <body>
 	<input type="text" id="id" hidden="true">
 	<div class="container">
+	<h1>Especificacion de Planos y Documentos - Proyecto Soto</h1>
 		<div class="form-group">
 			<label for="codPdvsa">CodPdvsa</label>
 			<input type="text" class="form-control" id="codPdvsa">
@@ -104,5 +105,6 @@
 		</div>
 	</div>
 	<script src="Assets/js/especificacionesPlanosDocumentos.js"></script>
+	
 </body>
 </html>

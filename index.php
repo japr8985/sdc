@@ -1,9 +1,8 @@
 <?php include("header.php") ?>
-<body>
 	<div class="container-fluid">
 		<ul>
 			<li><a href="listaMaestra.php">Lista Maestra</a></li>
-			<li><a href="#">Ubicacion de Registros (PDVSA)</a></li>
+			<li><a href="ubicacion.php">Ubicacion de Registros (PDVSA)</a></li>
 			<li><a href="especificacionPlanosDocumentos.php">Especificaciones de Registros</a></li>
 			<li><a href="registros.php">Registros PDVSA</a></li><!--Finalizado -->
 			<li><a href="registros_externos.php">Registros Externos</a></li>

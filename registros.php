@@ -5,12 +5,12 @@ $sql_fases = "SELECT * FROM fases ORDER BY FASE";
 $fases = $mysqli->query($sql_fases);
  ?>
 <?php include("header.php"); ?>
-<body>
+
 <!--Campo oculto para guardar el id del registro -->
 <input type="text" hidden="true" id="id">
 	<div class="container">
 		<h1>REGISTROS PDVSA - PROYECTO SOTO</h1>
-		<form action="php/registrar.php" method="POST">
+		<form action="#" method="POST">
 			<div class="form-group">
 				<label for="codPdvsa">
 					CodPdvsa

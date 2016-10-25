@@ -8,7 +8,6 @@
 	$query = $mysqli->query($sql);
 	//desgloce de la data
 	$result = $query->fetch_array();
-	var_dump($result);
 	$data = array(
 		"ID" 						=> $result['ID'],
 		"CodPdvsa" 			=> $result['CodPdvsa'],

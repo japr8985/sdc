@@ -1,28 +1,36 @@
 function setData(data){
 	//set id
 	$("#id").val(data.id);
-	//set codigo de pdvsa
-	$("#codPdvsa").val(data.CodPdvsa);
+	//set ciudad
+	$("#ciudad").val(data.ciudad);
+	//set sede
+	$("#sede").val(data.sede);
+	//set departamento
+	$("#departamento").val(data.departamento);
+	//set numero de proyecto
+	$("#nProyecto").val(data.nProyecto);
+	//set a;o
+	$("#year").val(data.year);
+	//set numero de caja
+	$('#nCaja').val(data.nCaja);
+	//set codigo de carpeta
+	$("#codCarpeta").val(data.codCarpeta);
+	//set sub carpeta
+	$("#subCarpeta").val(data.subCarpeta);
+	//set numero de documento
+	$('#nDoc').val(data.nDoc);
+	//set codigo pdvsa
+	$('#codPdvsa').val(data.codPdvsa);
 	//set fase
-	$("#fase").val(data.fase);
-	//set status
-	$("#status").val(data.status);
-	//set actividad
-	$("#actividad").val(data.actividad);
-	//set disciplina
-	$("#disciplina").val(data.disciplina);
-	//set instalacion
-	$('#instalacion').val(data.instalacion);
-	//set documento/plano
-	$("#docPlano").val(data.docPlano);
-	//set digital/fisico
-	$("#digitalFisico").val(data.digitalFisico);
+	$('#fase').val(data.fase);
+	//set revision
+	$('#rev').val(data.rev)
 	}
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
 	$.getJSON(
-		"php/especificacion_registros/primerRegistro.php",
+		"php/ubicacion/primerRegistro.php",
 		{},
 		function(data){
 			setData(data)
@@ -32,9 +40,9 @@ function inicio(){
 function anterior(){
 	//funcion para traer el 
 	//documento anterior al mostrado
-	console.log($("#id").val());
+
 	$.getJSON(
-		"php/especificacion_registros/anteriorRegistro.php",
+		"php/ubicacion/anteriorRegistro.php",
 		{id:$("#id").val()},
 		function(data){
 			setData(data)
@@ -44,7 +52,7 @@ function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
 	$.getJSON(
-		"php/especificacion_registros/siguienteRegistro.php",
+		"php/ubicacion/siguienteRegistro.php",
 		{id:$("#id").val()},
 		function(data){
 			setData(data)
@@ -54,7 +62,7 @@ function final(){
 	//funcion para traer el ultimo 
 	//documento
 	$.getJSON(
-		"php/especificacion_registros/ultimoRegistro.php",
+		"php/ubicacion/ultimoRegistro.php",
 		{},
 		function(data){
 			setData(data)
@@ -62,7 +70,7 @@ function final(){
 	}
 function buscar(){
 	$.getJSON(
-		"php/especificacion_registros/buscar.php",
+		"php/ubicacion/buscar.php",
 		{data:$("#codPdvsa").val()},
 		function(data){
 			setData(data);
@@ -72,18 +80,22 @@ function agregar(){
 	//variable donde se arma el 
 	//a enviar al php
 	var obj ={
-		codPdvsa 	: $('#codPdvsa').val(),
-		fase 		: $('#fase option:selected').val(),
-		status 		: $('#status option:selected').val(),
-		disciplina 	: $('#disciplina option:selected').val(),
-		actividad 	: $('#actividad option:selected').val(),
-		instalacion : $("#instalacion").val(),
-		doc_plano 	: $("#docPlano").val(),
-		digitalFisico:$("#digitalFisico").val()
+		ciudad 			: $("#ciudad").val(),
+		sede 			: $("#sede").val(),
+		departamento 	: $("#departamento").val(),
+		nproyecto 		: $("#nProyecto").val(),
+		year 			: $("#year").val(),
+		ncaja 			: $('#nCaja').val(),
+		codcarpeta 		: $("#codCarpeta").val(),
+		subcarpeta 		: $("#subCarpeta").val(),
+		ndoc 			: $('#nDoc').val(),
+		codpdvsa 		: $('#codPdvsa').val(),
+		fase 			: $('#fase').val(),
+		rev 			: $('#rev').val()
 		};
 	console.log(obj);
 	$.ajax({
-		url: "php/especificacion_registros/agregarRegistro.php",
+		url: "php/ubicacion/agregarRegistro.php",
 		type:"POST",
 		data: obj,
 		dataType: "json",
@@ -107,7 +119,7 @@ function eliminar(){
 	var yesno=confirm('Desea realmente eliminar este registro?');
 	if (yesno) {
 		$.post(
-			"php/especificacion_registros/eliminarRegistro.php",
+			"php/ubicacion/eliminarRegistro.php",
 			{codpdvsa : $('#codPdvsa').val()},
 			function(data){
 				console.log(data);
