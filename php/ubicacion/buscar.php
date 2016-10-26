@@ -3,13 +3,28 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT * from registros_total where codpdvsa like '%$cod%' limit 0,1";
+	$sql = "SELECT * from ubicacion where codpdvsa like '%$cod%' limit 0,1";
+	//variable de verificacion
+	$success = false;
+	$error ='';
 	//ejecucion de la consulta
-	$query = $mysqli->query($sql);
+	if ($query = $mysqli->query($sql)) {
+		
+		if($query->num_rows == 1)//si consigue 1 registro
+			$success = true;
+		else{//si no consiguio nada
+			$error = "No se ha encontrado el registro";
+			}
+		}
+	else{
+		$error = $mysqli->error;
+	} 
+	
 	//desgloce de la data
 	$result = $query->fetch_array();
 	
 	$data = array(
+		'Success'			=> $success,
 		'id' 					=> $result['id'],
 		'ciudad' 			=> $result['ciudad'],
 		'sede' 				=> $result['sede'],
@@ -22,6 +37,7 @@
 		'nDoc' 				=> $result['ndoc'],
 		'codPdvsa' 		=> $result['codpdvsa'],
 		'fase' 				=> $result['fase'],
-		'rev' 				=> $result['rev']);
+		'rev' 				=> $result['rev'],
+		'error'				=> $error);
 	echo json_encode($data);
  ?>

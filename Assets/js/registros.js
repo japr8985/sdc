@@ -91,10 +91,16 @@ function agregar(){
 		dataType: "json",
 		success:function(data){
 			if (data.Success){
-				console.log(data);
+				$.alert({
+						title:'Agregado',
+						content:data.Msg
+						});
 				}
 			else{
-				console.log(data);
+				$.alert({
+						title:'Error',
+						content:data.Msg
+						});
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
@@ -103,6 +109,55 @@ function agregar(){
 		});
 	}
 function eliminar(){
+	$.confirm({
+		title:'Confirmar',
+		content:'Desea realmente eliminar este registro?',
+		confirm:function(){
+			$.ajax({
+				url:"php/registros/eliminarRegistro.php",
+				data:{codpdvsa : $('#codPdvsa').val()},
+				method:'POST',
+				dataType:'json',
+				success:function(data){
+					if (data.Success){
+						$.alert({
+							title:'Eliminado',
+							content:data.Msg
+							});
+						//set id
+						$("#id").val('');
+						//set codigo de pdvsa
+						$("#codPdvsa").val('');
+						//set descripcion
+						$("#descripcion").val('');
+						//set revision
+						$("#rev").val('');
+						//set disciplina
+						$("#disciplina").val('');
+						//set fase
+						$("#fase").val('');
+						//set status
+						$("#status").val('');
+						//set codigo cliente
+						$("#codCliente").val('');
+						//set fecha
+						$("#fecha").val('');
+						},
+					else{
+						//
+					}
+				},
+				error:function(xhr,ajaxOptions,thrownError){
+				$.alert({
+						title:xhr.status,
+						content: xhr.status+" "+thrownError
+						});
+				//alert(xhr.status+" "+thrownError);
+				}
+				});
+			},
+		cancel:function(){}
+	});
 	var yesno=confirm('Desea realmente eliminar este registro?');
 	if (yesno) {
 		$.post(

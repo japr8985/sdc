@@ -1,5 +1,6 @@
 <?php 
 include ("../../conexion/conexion.php");
+
 //campos enviados
 $ciudad 			= $_POST['ciudad'];
 $sede 				= $_POST['sede'];
@@ -104,5 +105,5 @@ if ($ciudad!='') {
 else {
 	$data['Msg'] = "Ciudad no puede estar vacia";
 	}
-
+echo json_encode($data);
  ?>

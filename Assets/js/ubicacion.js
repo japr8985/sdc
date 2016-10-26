@@ -73,7 +73,15 @@ function buscar(){
 		"php/ubicacion/buscar.php",
 		{data:$("#codPdvsa").val()},
 		function(data){
-			setData(data);
+			if (data.Success) {
+				setData(data);
+				}
+			else{
+				$.alert({
+					title:'Error',
+					content:data.error
+				});
+			}
 		});
 	}
 function agregar(){
@@ -101,29 +109,44 @@ function agregar(){
 		dataType: "json",
 		success:function(data){
 			if (data.Success){
-				alert(data.Msg);
+				$.alert({
+						title:'Agregado',
+						content:data.Msg
+						});
 				}
 			else{
-				console.log(data);
-				$(function(){
-					alert(data.Msg)					
-					});
+				$.alert({
+						title:'Error',
+						content:data.Msg
+						});
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
-			alert(xhr.status+" "+thrownError);
+			$.alert({
+						title:xhr.status,
+						content:xhr.status+" "+thrownError
+						});
+			//alert(xhr.status+" "+thrownError);
 			}
 		});
 	}
 function eliminar(){
-	var yesno=confirm('Desea realmente eliminar este registro?');
-	if (yesno) {
-		$.post(
-			"php/ubicacion/eliminarRegistro.php",
-			{codpdvsa : $('#codPdvsa').val()},
-			function(data){
+	$.confirm({
+		title:'Confirmar',
+		content:'Desea realmente eliminar este registro?',
+		confirm:function(){
+			$.ajax({
+			url:"php/ubicacion/eliminarRegistro.php",
+			type:'POST',
+			data:{codpdvsa : $('#codPdvsa').val()},
+			dataType:'json',
+			success:function(data){
 				console.log(data);
 				if (data.Success){
+					$.alert({
+						title:'Eliminado',
+						content:data.Msg
+						});
 					//set id
 					$("#id").val('');
 					//set codigo de pdvsa
@@ -142,11 +165,22 @@ function eliminar(){
 					$("#docPlano").val('');
 					//set digital/fisico
 					$("#digitalFisico").val('');
-					}
+					}//fin if Success == true
 				else{
-					//Mostrar Msg de error
+					//mostrar msg de error
+					}//fin else
+				},
+			error:function(xhr,ajaxOptions,thrownError){
+				$.alert({
+						title:xhr.status,
+						content: xhr.status+" "+thrownError
+						});
+				//alert(xhr.status+" "+thrownError);
 				}
-			});
-		}//fin if
+			});//fin function y ajax
+			},
+		cancel:function(){}
+		});
+	
 	
 	}
