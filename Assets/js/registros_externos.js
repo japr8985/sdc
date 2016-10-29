@@ -1,4 +1,5 @@
 function setData(data){
+	console.log(data);
 	//set id
 	$("#id").val(data.id);
 	//set Codigo pdvsa
@@ -13,6 +14,8 @@ function setData(data){
 	$("#disciplina").val(data.disciplina);
 	//set fase
 	$("#fase").val(data.fase);
+	//set Number to show
+	$("#numberToShow").val(data.Number);
 	}
 function inicio(){
 	//primer registro externo
@@ -20,7 +23,6 @@ function inicio(){
 		"php/registros_externos/primerRegistro.php",
 		{},
 		function(data){
-			console.log(data);
 			setData(data);
 		});
 	}
@@ -53,6 +55,12 @@ function buscar(){
 		"php/registros_externos/buscar.php",
 		{data:$("#codCliente").val()},
 		function(data){
+			if (data.id==null){
+				$.alert({
+					title:'Registro no encontrado',
+					content:'No se ha podido encontrar el registro solicitado'
+				})
+			}
 			setData(data);
 		});
 	}
@@ -71,47 +79,71 @@ function agregar(){
 		dataType: "json",
 		success:function(data){
 			if (data.Success){
-				alert(data.Msg);
+				$.alert({
+						title:'Agregado',
+						content:data.Msg
+						});
 				}
 			else{
-				console.log(data);
 				$(function(){
-					alert(data.Msg)					
+					$.alert({
+						title:'Error',
+						content:data.Msg
+						});				
 					});
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
-			alert(xhr.status+" "+thrownError);
+			$.alert({
+						title:xhr.status,
+						content:xhr.status+" "+thrownError
+						});
 			}
 	});
 	}
 function eliminar(){
-	var yesno=confirm('Desea realmente eliminar este registro?');
-	if (yesno) {
-		$.post(
-			"php/registros_externos/eliminarRegistro.php",
-			{codcliente : $('#codCliente').val()},
-			function(data){
-				console.log(data);
-				if (data.Success){
-					//set id
-					$("#id").val('');
-					//set Codigo pdvsa
-					$("#codCliente").val('');
-					//set descripcion
-					$("#descripcion").val('');
-					//set Rev
-					$("#rev").val('');
-					//set fecha
-					$("#fecha").val('');
-					//set disciplina
-					$("#disciplina").val('');
-					//set fase
-					$("#fase").val('');
+	$.confirm({
+		title:'Confirmar',
+		content:'Desea realmente eliminar este registro?',
+		confirm:function(){
+			$.ajax({
+				url:"php/registros_externos/eliminarRegistro.php",
+				data:{codcliente : $('#codCliente').val()},
+				method:'POST',
+				dataType:'json',
+				success:function(){
+					if (data.Success){
+						$.alert({
+							title:'Eliminado',
+							content:data.Msg
+							});
+						//set id
+						$("#id").val('');
+						//set Codigo pdvsa
+						$("#codCliente").val('');
+						//set descripcion
+						$("#descripcion").val('');
+						//set Rev
+						$("#rev").val('');
+						//set fecha
+						$("#fecha").val('');
+						//set disciplina
+						$("#disciplina").val('');
+						//set fase
+						$("#fase").val('');
+						}
+					else{
+						//Mostrar Msg de error
+						}
+					},
+				error:function(xhr,status,thrownError){
+					$.alert({
+						title:xhr.status,
+						content: xhr.status+" "+thrownError
+						});
 					}
-				else{
-					//Mostrar Msg de error
-				}
-			});
-		}//fin if
+				});
+			},
+		cancel:function(){}
+		});
 	}

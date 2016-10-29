@@ -2,6 +2,7 @@
 //a los diferentes campos del formulario
 //AGREGAR LOADING
 function setData(data){
+	console.log(data)
 	//set id
 	$("#id").val(data.ID);
 	//set codigo de pdvsa
@@ -20,6 +21,8 @@ function setData(data){
 	$("#codCliente").val(data.CodCliente);
 	//set fecha
 	$("#fecha").val(data.fecha);
+	//set numero del registro
+	$("#numberToShow").val(data.Number);
 	}
 function inicio(){
 	//funcion para traer el primer
@@ -142,7 +145,7 @@ function eliminar(){
 						$("#codCliente").val('');
 						//set fecha
 						$("#fecha").val('');
-						},
+						}
 					else{
 						//
 					}

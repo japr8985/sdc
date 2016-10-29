@@ -24,7 +24,9 @@ function setData(data){
 	//set fase
 	$('#fase').val(data.fase);
 	//set revision
-	$('#rev').val(data.rev)
+	$('#rev').val(data.rev);
+	//set numero del registro
+	$('#numberToShow').val(data.Number);
 	}
 function inicio(){
 	//funcion para traer el primer

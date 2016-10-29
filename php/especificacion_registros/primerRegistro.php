@@ -11,9 +11,14 @@
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//desgloce de la data
 	$result = $query->fetch_array();
-	//echo $result['Descripcion'];
-	//codificacion e impresion del json
+	//---------------------------------------
+	$sql = "SELECT count(id) FROM carac_doc where id < ".$result['id'];
+	$query = $mysqli->query($sql);
+	$num =$query->fetch_array();
+	$num = $num[0]+1;
+	//----------------------------------------
 	$data = array(
+		"Number" 				=> $num,
 		"id" 			=> $result['id'],
 		"CodPdvsa" 		=> $result['codpdvsa'],
 		"fase" 			=> $result['fase'],

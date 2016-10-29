@@ -12,6 +12,9 @@
 <body>
 <header>
 	<div class="container-fluid">
-		<img src="Assets/img/PDVSAlogo.png" alt="">
+		<a href="index.php">
+			<img src="Assets/img/PDVSAlogo.png" alt="">
+		</a>
 	</div>
 </header>
+<hr>

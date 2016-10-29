@@ -12,3 +12,15 @@ hr{
 header{
 	margin-top: 10px;
 }
+
+.numbers{
+	max-width: 80px;
+	border-color: red;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.box{
+	height: 200px;
+	text-align: center;
+	}

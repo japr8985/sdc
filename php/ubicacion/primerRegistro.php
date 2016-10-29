@@ -7,8 +7,15 @@ $sql = "SELECT * FROM ubicacion ORDER BY id ASC LIMIT 0,1";
 $query = $mysqli->query($sql) or die($mysqli->error);
 //desgloce de la data
 $result = $query->fetch_array();
+//---------------------------------
+$sql = "SELECT count(id) FROM ubicacion WHERE id < ".$result['id'];
+$query = $mysqli->query($sql) or die($mysqli->error);
+$num = $query->fetch_array();
+$num = $num[0]+1;
+//---------------------------------
 //arreglo a enviar
 $data = array(
+	"Number" 				=> $num,
 	'id' 						=> $result['id'],
 	'ciudad' 				=> $result['ciudad'],
 	'sede' 					=> $result['sede'],

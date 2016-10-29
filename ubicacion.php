@@ -2,6 +2,10 @@
 	include("conexion/conexion.php"); 
 	$sql_fases = "SELECT * FROM fases ORDER BY FASE";
 	$fases = $mysqli->query($sql_fases);
+	//--------------------------------------------
+	$sql_num_registros = "SELECT count(id) as Total from ubicacion";
+	$result = $mysqli->query($sql_num_registros);
+	$nums = $result->fetch_array();
 ?>
 <?php include("header.php"); ?>
 
@@ -82,6 +86,13 @@
 			</div>
 		</div>
 		<hr>
+		<div class="row">
+			<div class="col-xs-offset-5">
+				<input type="text" class="numbers" id="numberToShow" readonly="true">
+				<input type="text" class="numbers" id="totalnumbers" readonly="true" value="<?php echo $nums[0]; ?>">
+			</div>
+		</div>
+		<br>
 		<div class="row">
 			<div class="col-xs-offset-5">
 				<button class="btn btn-default" onClick="inicio()">Inicio</button>

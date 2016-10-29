@@ -1,4 +1,5 @@
 function setData(data){
+	console.log(data);
 	//set id
 	$("#id").val(data.id);
 	//set codigo de pdvsa
@@ -17,6 +18,7 @@ function setData(data){
 	$("#docPlano").val(data.docPlano);
 	//set digital/fisico
 	$("#digitalFisico").val(data.digitalFisico);
+	$("#numberToShow").val(data.Number);
 	}
 function inicio(){
 	//funcion para traer el primer

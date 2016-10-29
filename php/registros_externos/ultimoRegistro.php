@@ -10,7 +10,14 @@
 	$result = $query->fetch_array();
 	//echo $result['Descripcion'];
 	//codificacion e impresion del json
+	//---------------------------------------
+	$sql = "SELECT count(id) FROM registros_externos where id < ".$result['id'];
+	$query = $mysqli->query($sql);
+	$num =$query->fetch_array();
+	$num = $num[0]+1;
+	//----------------------------------------
 	$data = array(
+		'Number' => $num,
 		'id' 					=> $result['id'],
 		'codCliente'	=> $result['codCliente'],
 		'descripcion' => utf8_encode($result['descripcion']),
