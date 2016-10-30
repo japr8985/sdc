@@ -27,10 +27,14 @@ function setData(data){
 	$('#rev').val(data.rev);
 	//set numero del registro
 	$('#numberToShow').val(data.Number);
+	//ocultar circulo de carga
+	$("#loader").prop('hidden',true);
 	}
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/ubicacion/primerRegistro.php",
 		{},
@@ -42,7 +46,8 @@ function inicio(){
 function anterior(){
 	//funcion para traer el 
 	//documento anterior al mostrado
-
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/ubicacion/anteriorRegistro.php",
 		{id:$("#id").val()},
@@ -53,6 +58,8 @@ function anterior(){
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/ubicacion/siguienteRegistro.php",
 		{id:$("#id").val()},
@@ -63,6 +70,8 @@ function siguiente(){
 function final(){
 	//funcion para traer el ultimo 
 	//documento
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/ubicacion/ultimoRegistro.php",
 		{},
@@ -71,6 +80,8 @@ function final(){
 		});
 	}
 function buscar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/ubicacion/buscar.php",
 		{data:$("#codPdvsa").val()},
@@ -82,26 +93,30 @@ function buscar(){
 				$.alert({
 					title:'Error',
 					content:data.error
-				});
+					});
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
 			}
 		});
 	}
 function agregar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	//variable donde se arma el 
 	//a enviar al php
 	var obj ={
 		ciudad 			: $("#ciudad").val(),
-		sede 			: $("#sede").val(),
-		departamento 	: $("#departamento").val(),
-		nproyecto 		: $("#nProyecto").val(),
-		year 			: $("#year").val(),
+		sede 				: $("#sede").val(),
+		departamento: $("#departamento").val(),
+		nproyecto 	: $("#nProyecto").val(),
+		year 				: $("#year").val(),
 		ncaja 			: $('#nCaja').val(),
-		codcarpeta 		: $("#codCarpeta").val(),
-		subcarpeta 		: $("#subCarpeta").val(),
-		ndoc 			: $('#nDoc').val(),
+		codcarpeta 	: $("#codCarpeta").val(),
+		subcarpeta 	: $("#subCarpeta").val(),
+		ndoc 				: $('#nDoc').val(),
 		codpdvsa 		: $('#codPdvsa').val(),
-		fase 			: $('#fase').val(),
-		rev 			: $('#rev').val()
+		fase 				: $('#fase').val(),
+		rev 				: $('#rev').val()
 		};
 	console.log(obj);
 	$.ajax({
@@ -115,12 +130,15 @@ function agregar(){
 						title:'Agregado',
 						content:data.Msg
 						});
+				//mostrar circulo de carga
+				$("#loader").prop('hidden',true);
 				}
 			else{
 				$.alert({
 						title:'Error',
 						content:data.Msg
 						});
+				$("#loader").prop('hidden',true);
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
@@ -128,11 +146,13 @@ function agregar(){
 						title:xhr.status,
 						content:xhr.status+" "+thrownError
 						});
-			//alert(xhr.status+" "+thrownError);
+			$("#loader").prop('hidden',true);
 			}
 		});
 	}
 function eliminar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.confirm({
 		title:'Confirmar',
 		content:'Desea realmente eliminar este registro?',
@@ -149,6 +169,7 @@ function eliminar(){
 						title:'Eliminado',
 						content:data.Msg
 						});
+					$("#loader").prop('hidden',true);
 					//set id
 					$("#id").val('');
 					//set codigo de pdvsa
@@ -177,11 +198,13 @@ function eliminar(){
 						title:xhr.status,
 						content: xhr.status+" "+thrownError
 						});
-				//alert(xhr.status+" "+thrownError);
+				$("#loader").prop('hidden',true);
 				}
 			});//fin function y ajax
 			},
-		cancel:function(){}
+		cancel:function(){
+			$("#loader").prop('hidden',true);
+			}
 		});
 	
 	

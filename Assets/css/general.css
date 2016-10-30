@@ -24,3 +24,21 @@ header{
 	height: 200px;
 	text-align: center;
 	}
+#loader{
+	border : 16px solid #d7d7d7;
+	border-top: 16px solid red;
+	border-bottom: 16px solid red;
+	border-radius: 50%;
+	height: 60px;
+	width:  60px;
+	-webkit-animation: spin 1s linear infinite;
+  	animation: spin 1s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(180deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

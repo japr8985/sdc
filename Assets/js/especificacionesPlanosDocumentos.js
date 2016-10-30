@@ -18,11 +18,16 @@ function setData(data){
 	$("#docPlano").val(data.docPlano);
 	//set digital/fisico
 	$("#digitalFisico").val(data.digitalFisico);
+	//set numero a mostrar
 	$("#numberToShow").val(data.Number);
+	//ocultar circulo de carga
+	$("#loader").prop('hidden',true);
 	}
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/especificacion_registros/primerRegistro.php",
 		{},
@@ -32,9 +37,10 @@ function inicio(){
 		);
 	}
 function anterior(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	//funcion para traer el 
 	//documento anterior al mostrado
-	console.log($("#id").val());
 	$.getJSON(
 		"php/especificacion_registros/anteriorRegistro.php",
 		{id:$("#id").val()},
@@ -45,6 +51,8 @@ function anterior(){
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/especificacion_registros/siguienteRegistro.php",
 		{id:$("#id").val()},
@@ -55,6 +63,8 @@ function siguiente(){
 function final(){
 	//funcion para traer el ultimo 
 	//documento
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/especificacion_registros/ultimoRegistro.php",
 		{},
@@ -63,6 +73,8 @@ function final(){
 		});
 	}
 function buscar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/especificacion_registros/buscar.php",
 		{data:$("#codPdvsa").val()},
@@ -71,6 +83,8 @@ function buscar(){
 				setData(data);
 				}
 			else{
+				//mostrar circulo de carga
+				$("#loader").prop('hidden',true);
 				$.alert({
 					title:'Error',
 					content:data.error
@@ -79,6 +93,8 @@ function buscar(){
 		});
 	}
 function agregar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	//variable donde se arma el 
 	//a enviar al php
 	var obj ={
@@ -103,6 +119,7 @@ function agregar(){
 						title:'Agregado',
 						content:data.Msg
 						});
+				$("#loader").prop('hidden',true);
 				}
 			else{
 				console.log(data);
@@ -110,18 +127,25 @@ function agregar(){
 						title:'Error',
 						content:data.Msg
 						});
+				$("#loader").prop('hidden',true);
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
-			alert(xhr.status+" "+thrownError);
+			$.alert({
+				title:xhr,
+				content:xhr.status+' '+thrownError
+				});
 			}
 		});
 	}
 function eliminar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.confirm({
 		title:'Confirmar',
 		content:'Desea realmente eliminar este registro?',
 		confirm:function(){
+			
 			$.ajax({
 				url:"php/especificacion_registros/eliminarRegistro.php",
 				type:'POST',
@@ -151,6 +175,7 @@ function eliminar(){
 						$("#docPlano").val('');
 						//set digital/fisico
 						$("#digitalFisico").val('');
+						$("#loader").prop('hidden',true);
 						}
 					else{
 						//Mostrar Msg de error
@@ -165,6 +190,9 @@ function eliminar(){
 					}
 				});
 			},
-		cancel:function(){}
+		cancel:function(){
+			//mostrar circulo de carga
+			$("#loader").prop('hidden',true);
+		}
 		});	
 	}

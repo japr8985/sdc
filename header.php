@@ -12,9 +12,18 @@
 <body>
 <header>
 	<div class="container-fluid">
-		<a href="index.php">
-			<img src="Assets/img/PDVSAlogo.png" alt="">
-		</a>
+		<div class="row">
+			<div class="col-xs-6">
+				<a href="index.php">
+					<img src="Assets/img/PDVSAlogo.png" alt="">
+				</a>
+			</div>
+			<div class="col-xs-offset-6">
+				<div id="loader" hidden="true">
+					<!-- Circulo de carga -->
+				</div>
+			</div>
+		</div>
 	</div>
 </header>
 <hr>

@@ -23,10 +23,14 @@ function setData(data){
 	$("#fecha").val(data.fecha);
 	//set numero del registro
 	$("#numberToShow").val(data.Number);
+	//ocultar circulo de carga
+	$("#loader").prop('hidden',true);
 	}
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros/primerRegistro.php",
 		{},
@@ -38,6 +42,8 @@ function inicio(){
 function anterior(){
 	//funcion para traer el 
 	//documento anterior al mostrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros/anteriorRegistro.php",
 		{id:$("#id").val()},
@@ -48,6 +54,8 @@ function anterior(){
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros/siguienteRegistro.php",
 		{id:$("#id").val()},
@@ -58,6 +66,8 @@ function siguiente(){
 function final(){
 	//funcion para traer el ultimo 
 	//documento
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros/ultimoRegistro.php",
 		{},
@@ -66,6 +76,8 @@ function final(){
 		});
 	}
 function buscar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros/buscar.php",
 		{data:$("#codPdvsa").val()},
@@ -76,6 +88,8 @@ function buscar(){
 function agregar(){
 	//variable donde se arma el 
 	//a enviar al php
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	var obj ={
 		codPdvsa 		: $('#codPdvsa').val(),
 		descripcion : $('#descripcion').val(),
@@ -98,20 +112,28 @@ function agregar(){
 						title:'Agregado',
 						content:data.Msg
 						});
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
 				}
 			else{
 				$.alert({
 						title:'Error',
 						content:data.Msg
 						});
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
 			alert(xhr.status+" "+thrownError);
+			//ocultar circulo de carga
+			$("#loader").prop('hidden',true);
 			}
 		});
 	}
 function eliminar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.confirm({
 		title:'Confirmar',
 		content:'Desea realmente eliminar este registro?',
@@ -155,41 +177,15 @@ function eliminar(){
 						title:xhr.status,
 						content: xhr.status+" "+thrownError
 						});
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
 				//alert(xhr.status+" "+thrownError);
 				}
 				});
 			},
-		cancel:function(){}
+		cancel:function(){
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
+		}
 	});
-	var yesno=confirm('Desea realmente eliminar este registro?');
-	if (yesno) {
-		$.post(
-			"php/registros/eliminarRegistro.php",
-			{codpdvsa : $('#codPdvsa').val()},
-			function(data){
-				console.log(data);
-				if (data.Success){
-					//set id
-					$("#id").val('');
-					//set codigo de pdvsa
-					$("#codPdvsa").val('');
-					//set descripcion
-					$("#descripcion").val('');
-					//set revision
-					$("#rev").val('');
-					//set disciplina
-					$("#disciplina").val('');
-					//set fase
-					$("#fase").val('');
-					//set status
-					$("#status").val('');
-					//set codigo cliente
-					$("#codCliente").val('');
-					//set fecha
-					$("#fecha").val('');
-					}
-				
-			});
-		}//fin if
-	
 	}

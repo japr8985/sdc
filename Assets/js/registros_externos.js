@@ -16,9 +16,13 @@ function setData(data){
 	$("#fase").val(data.fase);
 	//set Number to show
 	$("#numberToShow").val(data.Number);
+	//ocultar circulo de carga
+	$("#loader").prop('hidden',true);
 	}
 function inicio(){
 	//primer registro externo
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros_externos/primerRegistro.php",
 		{},
@@ -27,6 +31,8 @@ function inicio(){
 		});
 	}
 function anterior(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros_externos/anteriorRegistro.php",
 		{id:$("#id").val()},
@@ -35,6 +41,8 @@ function anterior(){
 		});
 	}
 function siguiente(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros_externos/siguienteRegistro.php",
 		{id:$("#id").val()},
@@ -43,6 +51,8 @@ function siguiente(){
 		});
 	}
 function final(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros_externos/ultimoRegistro.php",
 		{},
@@ -51,6 +61,8 @@ function final(){
 		});
 	}
 function buscar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.getJSON(
 		"php/registros_externos/buscar.php",
 		{data:$("#codCliente").val()},
@@ -65,6 +77,8 @@ function buscar(){
 		});
 	}
 function agregar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	var obj = {
 		codCliente 	: $('#codCliente').val(),
 		descripcion : $('#descripcion').val(),
@@ -102,6 +116,8 @@ function agregar(){
 	});
 	}
 function eliminar(){
+	//mostrar circulo de carga
+	$("#loader").prop('hidden',false);
 	$.confirm({
 		title:'Confirmar',
 		content:'Desea realmente eliminar este registro?',
@@ -131,6 +147,8 @@ function eliminar(){
 						$("#disciplina").val('');
 						//set fase
 						$("#fase").val('');
+						//ocultar circulo de carga
+						$("#loader").prop('hidden',true);
 						}
 					else{
 						//Mostrar Msg de error
@@ -141,9 +159,13 @@ function eliminar(){
 						title:xhr.status,
 						content: xhr.status+" "+thrownError
 						});
+					//ocultar circulo de carga
+					$("#loader").prop('hidden',true);
 					}
 				});
 			},
-		cancel:function(){}
+		cancel:function(){
+			$("#loader").prop('hidden',true);
+			}
 		});
 	}
