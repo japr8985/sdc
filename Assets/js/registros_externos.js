@@ -106,12 +106,14 @@ function agregar(){
 						});				
 					});
 				}
+			$("#loader").prop('hidden',true);
 			},
 		error:function(xhr,ajaxOptions,thrownError){
 			$.alert({
 						title:xhr.status,
 						content:xhr.status+" "+thrownError
 						});
+			$("#loader").prop('hidden',true);
 			}
 	});
 	}
