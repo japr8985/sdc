@@ -43,3 +43,8 @@ header{
   100% { transform: rotate(360deg); }
 }
 
+.listaBox{
+	height: 400px;
+	overflow-y: scroll;
+	border: 2px solid black;
+}

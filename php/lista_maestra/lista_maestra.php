@@ -15,7 +15,7 @@ FROM
   disciplina
 WHERE
   lista_maestra.Disciplina = disciplina.Disciplina
-  ORDER BY id ASC
+  ORDER BY id ASC Limit 0,100
 ";
 $listas = $mysqli->query($sql) or die($mysqli->error);
 

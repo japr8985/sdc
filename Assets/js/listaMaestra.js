@@ -1,5 +1,13 @@
+//areglo que contiene todos los id de los registros traidos de la tabla lista maestra
+//estos funcionaran para poder moverse por la tabla generada sin necesidad de realizar
+//mas solicitudes ajax, ni consultas a DB
+var ids = new Array();
+//esta variable sirve para tener el indice del arreglo (ids) y complementar la funcionalidad del arreglo
+var ub = 0;
 function cargar_lista_maestra(){
 	$("#loader").prop('hidden',false);
+	//limpiando arreglo de ids
+	ids=[];
 	$.ajax({
 		url:'php/lista_maestra/lista_maestra.php',
 		method:'POST',
@@ -7,8 +15,6 @@ function cargar_lista_maestra(){
 		success:function(data){
 			//limpiar contenido de la lista maestra
 			$('#listaMaestra').empty()
-			console.log(data);
-			console.log(typeof(data[0][6])+'/'+data[0][6]+'/'+(!data[0][6]));
 			//creando nuevo contenido para la lista
 			for (var i = 0; i < data.length; i++) {
 				//agregando filas a la tabla
@@ -20,7 +26,10 @@ function cargar_lista_maestra(){
 				$("#disciplina"+data[i][0]).val(data[i][5]);
 				if (data[i][6] != null) 
 					$("#fecha"+data[i][0]).val(data[i][6]);
+				ids.push(data[i][0]);
 				}
+			console.log(ids);
+			//agregando estilo al tbody
 			$("#loader").prop('hidden',true);
 			//habilitando boton de busqueda
 			$("#btnSearch").prop('disabled',false);
@@ -36,7 +45,6 @@ function cargar_lista_maestra(){
 			}
 		});
 	}
-
 function row(data){
 	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
 	var row ='<tr>';
@@ -115,4 +123,40 @@ function buscarCodigo(){
 			$("#loader").prop('hidden',true);
 			}
 		});
+	}
+function inicio(){
+	$("#codpdvsa"+ids[0]).focus();
+	ub = 0;
+	}
+function fin(){
+	$("#codpdvsa"+ids[ids.length-1]).focus();
+	ub = ids.length - 1;
+	}
+
+function anterior(){
+	//se toma el valor de la ultima ubicacion
+	//y se le resta 1
+	ub = ub - 1;
+	if (ub < 0) {
+		$.alert({
+				title:"Error",
+				content:"Intenta seleccionar un registro anterior al primero"
+				});
+	}
+	else
+		//esto sera la ubicacion en el arreglos de los id
+		$("#codpdvsa"+ids[ub]).focus();
+	}
+function siguiente(){
+	//se toma el valor de la ultima ubicacion
+	//y se le suma 1
+	ub = ub + 1;
+	if (ub > ids.length-1) {
+		$.alert({
+				title:"Error",
+				content:"No existen mas registros",
+				});
+		}
+	else
+		$("#codpdvsa"+ids[ub]).focus();
 	}
