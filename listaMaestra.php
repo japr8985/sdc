@@ -13,7 +13,7 @@
 	</div>
 	<hr>
 	<div class="listaBox">
-		<table class="table table-condensed table-hover">
+		<table class="table table-condensed table-hover" >
 			<thead>
 				<tr>
 					<td></td>
@@ -31,17 +31,20 @@
 	</div>
 	<hr>
 	<div class="row">
-		<div class="col-xs-3">
+		<div class="col-xs-2">
 			<button class="btn btn-default" onClick="inicio()">Inicio</button>
 		</div>
-		<div class="col-xs-3">
+		<div class="col-xs-2">
 			<button class="btn btn-default" onClick="fin()">Fin</button>
 		</div>
-		<div class="col-xs-3">
+		<div class="col-xs-2">
 			<button class="btn btn-default" onClick="anterior()">Anterior</button>
 		</div>
-		<div class="col-xs-3">
+		<div class="col-xs-2">
 			<button class="btn btn-default" onClick="siguiente()">Siguiente</button>
+		</div>
+		<div class="col-xs-2">
+			<button class="btn btn-default" onClick="limpiar()">Limpiar</button>
 		</div>
 	</div>
 	<hr>

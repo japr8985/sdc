@@ -1,3 +1,21 @@
+function limpiar(data){
+	//limpiando id
+	$("#id").val('');
+	//limpiando Codigo pdvsa
+	$("#codCliente").val('');
+	//limpiando descripcion
+	$("#descripcion").val('');
+	//limpiando Rev
+	$("#rev").val('');
+	//limpiando fecha
+	$("#fecha").val('');
+	//limpiando disciplina
+	$("#disciplina").val('');
+	//limpiando fase
+	$("#fase").val('');
+	//limpiando Number to show
+	$("#numberToShow").val('');
+	}
 function setData(data){
 	console.log(data);
 	//set id

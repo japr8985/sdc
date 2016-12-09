@@ -55,6 +55,7 @@ $nums = $result->fetch_array();
 					<button class="btn btn-default" onClick="buscar()">Buscar</button>
 					<button class="btn btn-default" onClick="agregar()">Agregar Nuevo</button>
 					<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
+					<button class="btn btn-default" onClick="limpiar()">Limpiar</button>
 				</div>
 			</div>
 			<hr>

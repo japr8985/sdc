@@ -35,7 +35,7 @@
 					<input type="text" class="form-control" id="nProyecto">
 				</div>
 				<div class="col-xs-2">
-					<label for="year">A6o</label>
+					<label for="year">Año</label>
 					<input type="text" class="form-control" id="year">
 				</div>
 				<div class="col-xs-2">
@@ -83,6 +83,7 @@
 				<button class="btn btn-default" onClick="buscar()">Buscar</button>
 				<button class="btn btn-default" onClick="agregar()">Agregar Nuevo</button>
 				<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
+				<button class="btn btn-default" onClick="limpiar()">Limpiar</button>
 			</div>
 		</div>
 		<hr>

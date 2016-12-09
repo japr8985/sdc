@@ -1,6 +1,29 @@
 //funcion para la asignacion de la data de respuesta
 //a los diferentes campos del formulario
 //AGREGAR LOADING
+function limpiar(){
+	//clear id
+	$("#id").val('');
+	//clear codigo de pdvsa
+	$("#codPdvsa").val('');
+	//clear descripcion
+	$("#descripcion").val('');
+	//clear revision
+	$("#rev").val('');
+	//clear disciplina
+	$("#disciplina").val('');
+	//clear fase
+	$("#fase").val('');
+	//clear status
+	$("#status").val('');
+	//clear codigo cliente
+	$("#codCliente").val('');
+	//clear fecha
+	$("#fecha").val('');
+	//clear numero del registro
+	$("#numberToShow").val('');
+	
+}
 function setData(data){
 	console.log(data)
 	//set id

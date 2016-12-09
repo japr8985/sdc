@@ -52,10 +52,10 @@ function row(data){
 				row = row+'<input class="form-control" type="hidden" value="'+data+' id="cod'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" type="text" id="codpdvsa'+data+'">';
+				row = row+'<input class="form-control" style="width: 300px;" type="text" id="codpdvsa'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" type="text" id="descripcion'+data+'">';
+				row = row+'<input class="form-control" style="width: 300px;" type="text" id="descripcion'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
 				row = row+'<input class="form-control" type="text" id="rev'+data+'" style="width:60px;">';
@@ -160,3 +160,8 @@ function siguiente(){
 	else
 		$("#codpdvsa"+ids[ub]).focus();
 	}
+function limpiar(){
+	$("#loader").prop('hidden',false);
+	$('table tbody tr').find('tr').remove()
+	$("#loader").prop('hidden',true)
+}

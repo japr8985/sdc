@@ -1,3 +1,25 @@
+function limpiar(){
+	//set id
+	$("#id").val('');
+	//set codigo de pdvsa
+	$("#codPdvsa").val('');
+	//set fase
+	$("#fase").val('');
+	//set status
+	$("#status").val('');
+	//set actividad
+	$("#actividad").val('');
+	//set disciplina
+	$("#disciplina").val('');
+	//set instalacion
+	$('#instalacion').val('');
+	//set documento/plano
+	$("#docPlano").val('');
+	//set digital/fisico
+	$("#digitalFisico").val('');
+	//set numero a mostrar
+	$("#numberToShow").val('');
+	}
 function setData(data){
 	console.log(data);
 	//set id

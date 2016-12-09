@@ -1,3 +1,33 @@
+function limpiar(){
+	//set id
+	$("#id").val('');
+	//set ciudad
+	$("#ciudad").val('');
+	//set sede
+	$("#sede").val('');
+	//set departamento
+	$("#departamento").val('');
+	//set numero de proyecto
+	$("#nProyecto").val('');
+	//set a;o
+	$("#year").val('');
+	//set numero de caja
+	$('#nCaja').val('');
+	//set codigo de carpeta
+	$("#codCarpeta").val('');
+	//set sub carpeta
+	$("#subCarpeta").val('');
+	//set numero de documento
+	$('#nDoc').val('');
+	//set codigo pdvsa
+	$('#codPdvsa').val('');
+	//set fase
+	$('#fase').val('');
+	//set revision
+	$('#rev').val('');
+	//set numero del registro
+	$('#numberToShow').val('');
+	}
 function setData(data){
 	//set id
 	$("#id").val(data.id);

@@ -48,7 +48,7 @@ $codCliente 	= cleaner($codCliente);
 $fecha  			= cleaner($fecha);
 if ($codPdvsa !='') {
 	if ($descripcion !='') {
-		if ($rev != '' AND ($rev == '1' or $rev =='0')) {
+		if ($rev != '') {
 			if ($disciplina!='') {
 				if ($fase !='') {
 					if ($status!='') {
