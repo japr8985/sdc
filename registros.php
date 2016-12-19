@@ -34,7 +34,7 @@ $nums = $result->fetch_array();
 						<label for="rev">
 						Rev
 						</label>
-						<input type="text" class="form-control" id="rev" name="rev">
+						<input type="text" class="form-control" id="rev" name="rev" maxlength="1">
 					</div>
 					<div class="col-xs-4">
 						<label for="disciplina">
@@ -61,15 +61,6 @@ $nums = $result->fetch_array();
 				</div>
 			</div><!--fin grupo de rev disciplina y fase -->
 			<div class="form-group">
-				<label for="status">
-					Status
-				</label>
-				<select name="status" id="status" class="form-control">
-					<option value="Activo">Activo</option>
-					<option value="Superado">Superado</option>
-				</select>
-			</div>
-			<div class="form-group">
 				<label for="codCliente">
 					CodCliente
 				</label>
@@ -81,7 +72,7 @@ $nums = $result->fetch_array();
 				</label>
 				<div class="row">
 					<div class="col-xs-3">
-						<input type="date" class="form-control" id="rev_emi">
+						<input type="date" class="form-control" id="fecha">
 					</div>
 				</div>
 			</div>

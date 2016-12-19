@@ -39,7 +39,7 @@ function cargar_lista_maestra(){
 		error:function(xhr,status,error){
 			$.alert({
 				title:xhr.status,
-				content:xhr.status+" "+thrownError
+				content:xhr.status+" "+error
 				});
 			$("#loader").prop('hidden',true);
 			}
@@ -132,7 +132,6 @@ function fin(){
 	$("#codpdvsa"+ids[ids.length-1]).focus();
 	ub = ids.length - 1;
 	}
-
 function anterior(){
 	//se toma el valor de la ultima ubicacion
 	//y se le resta 1
@@ -164,4 +163,19 @@ function limpiar(){
 	$("#loader").prop('hidden',false);
 	$('table tbody tr').find('tr').remove()
 	$("#loader").prop('hidden',true)
-}
+	}
+function actualizar(){
+	$("#loader").prop("hidden",false);
+	$("table > tbody > tr").each(function(){
+		var id = $(this).find("input.value");
+		 $.ajax({
+		 	url:"php/lista_maestra/actualizar_lista.php",
+		 	method:'post',
+		 	data:{id:id},
+		 	dataType:'json',
+		 	success:function(){},
+		 	error:function(xhr,status,error){}
+		 });
+		});
+	$("#loader").prop("hidden",true);
+	}

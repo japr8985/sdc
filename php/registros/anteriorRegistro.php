@@ -1,10 +1,12 @@
 <?php 
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
-	$sql = "SELECT registros_total.*, disciplina.simbolo AS Disciplina FROM registros_total, disciplina WHERE id = (SELECT max(id) FROM registros_total WHERE id < $id) and disciplina.Disciplina = registros_total.Disciplina";
+	$sql = "SELECT * FROM registros_total WHERE id = (SELECT max(id) FROM registros_total WHERE id < $id) ";
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);
-	//desgloce de la data
+	//si tiene al menos una fila
+	if ($query->num_rows > 0) {
+		//desgloce de la data
 	$result = $query->fetch_array();
 	//echo $result['Descripcion'];
 	//codificacion e impresion del json
@@ -26,4 +28,9 @@
 		"Status" 		=> $result['Status'],
 		"Fase" 			=> $result['Fase']);
 	echo json_encode($data);
+	} else {
+		$mysqli->error;
+	}
+	
+	
  ?>

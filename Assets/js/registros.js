@@ -22,8 +22,7 @@ function limpiar(){
 	$("#fecha").val('');
 	//clear numero del registro
 	$("#numberToShow").val('');
-	
-}
+	}
 function setData(data){
 	console.log(data)
 	//set id
@@ -71,7 +70,8 @@ function anterior(){
 		"php/registros/anteriorRegistro.php",
 		{id:$("#id").val()},
 		function(data){
-			setData(data)
+			setData(data);
+			$("#loader").prop('hidden',true);
 		});
 	}
 function siguiente(){
@@ -79,11 +79,19 @@ function siguiente(){
 	//documento siguiente al mostrado
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
-	$.getJSON(
-		"php/registros/siguienteRegistro.php",
-		{id:$("#id").val()},
-		function(data){
-			setData(data)
+	$.ajax({
+		url:"php/registros/siguienteRegistro.php",
+		data:{id:$("#id").val()},
+		method:'POST',
+		dataType:'json',
+		success:function(data){
+			setData(data);
+			$("#loader").prop('hidden',true);
+		},
+		error:function(xhr,status,error){
+			
+			$("#loader").prop('hidden',true);
+			}
 		});
 	}
 function final(){
@@ -91,12 +99,21 @@ function final(){
 	//documento
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
-	$.getJSON(
-		"php/registros/ultimoRegistro.php",
-		{},
-		function(data){
-			setData(data)
-		});
+	$.ajax({
+		url:"php/registros/ultimoRegistro.php",
+		method:'post',
+		dataType:'json',
+		success:function(data){
+			setData(data);
+		},
+		error:function(xhr,status,error){
+			$.alert({
+				title:'Error',
+				content:xhr.status+" "+status+" "+error
+			})
+		}
+	});
+
 	}
 function buscar(){
 	//mostrar circulo de carga
@@ -141,7 +158,7 @@ function agregar(){
 			else{
 				$.alert({
 						title:'Error',
-						content:data.Msg
+						content:data.Msg+" "+data.Error
 						});
 				//ocultar circulo de carga
 				$("#loader").prop('hidden',true);
@@ -172,24 +189,7 @@ function eliminar(){
 							title:'Eliminado',
 							content:data.Msg
 							});
-						//set id
-						$("#id").val('');
-						//set codigo de pdvsa
-						$("#codPdvsa").val('');
-						//set descripcion
-						$("#descripcion").val('');
-						//set revision
-						$("#rev").val('');
-						//set disciplina
-						$("#disciplina").val('');
-						//set fase
-						$("#fase").val('');
-						//set status
-						$("#status").val('');
-						//set codigo cliente
-						$("#codCliente").val('');
-						//set fecha
-						$("#fecha").val('');
+						limpiar();
 						}
 					else{
 						//

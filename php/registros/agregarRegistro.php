@@ -3,17 +3,59 @@ include ("../../conexion/conexion.php");
 //variables enviadas desde el formulario
 $codPdvsa 	= $_POST['codPdvsa'];
 $descripcion= $_POST['descripcion'];
-$rev 		= $_POST['rev'];
+$rev 		= isset($_POST['rev']) ? $_POST['rev'] : 'A';
 $disciplina = $_POST['disciplina'];
 $fase 		= $_POST['fase'];
-$status 	= $_POST['status'];
 $codCliente = $_POST['codCliente'];
-$fecha		= $_POST['fecha'];
+$fecha 		= isset($_POST['fecha']) ? new DateTime($_POST['fecha']) : new DateTime();
+$fecha 		= $fecha->format('Y-m-d');
 //arreglo de resupesta donde se enviaran los resultados
 //de las validaciones y si la data es guardada correctamente
 $data = array('Success' => false,'Msg' => '', 'Error' => '');
 //consulta sql a ejecutar si la solicitud es completamente valida
-$sql = "INSERT
+//buscando registro anterior
+$sql = "SELECT codpdvsa, rev from registros_total WHERE codpdvsa = '$codPdvsa' ORDER BY fecha_rev";
+$query = $mysqli->query($sql);
+$num_row = $query->num_rows;
+if ($num_row > 0) {
+	//si ya existe ese registro entonce actualizar todos a superado
+	$sql = "UPDATE registros_total SET status = 'SUPERADO' WHERE codpdvsa = '$codPdvsa'";
+	//realizar actualizacion
+	$mysqli->query($sql) or die($mysqli->error);
+	//insertar nuevo registro
+    //pero antes verificar el numero de la revision
+    $rev_old = $query->fetch_array();
+    if (ord($rev_old[1]) < ord($rev)) {
+        $sql = "INSERT INTO
+                registros_total(
+                    codpdvsa,
+                    descripcion,
+                    rev,
+                    fecha_rev,
+                    codcliente,
+                    disciplina,
+                    status,
+                    fase
+                )
+                VALUES('$codPdvsa', '$descripcion', '$rev', '$fecha','$codCliente', '$disciplina', 'ACTIVO','$fase')";
+        if ($mysqli->query($sql)) {
+            $data['Success'] = true;
+            $data['Msg'] = "Registro guardado exitosamente";
+        } else {
+            $data['Msg'] = "Fallo al registar.";
+            $data['Error'] = $mysqli->error;
+        }
+    } else {
+        $data['Msg'] = "Fallo al registar.";
+            $data['Error'] = "Ya se tiene una version mas reciente de este registro";
+    }
+    
+	
+
+    } 
+else {
+	//si no existe ningun registro agregar el nuevo con status activo
+	$sql = sprintf("INSERT
 INTO
    registros_total(
     codpdvsa,
@@ -25,75 +67,21 @@ INTO
     status,
     fase
   )
-VALUES('$codPdvsa', '$descripcion', '$rev', '$fecha','$codCliente', '$disciplina', '$status','$fase')";
-//funcion para limpiar caracteres especiales
-function cleaner($val){
-	/* eliminar todos los caracteres que puedan da;ar la consulta sql como '',"",","*/
-	//eliminando las ,
-	$val = str_replace(","," ", $val);
-	// eliminando las comillas simples "'"
-	$val = str_replace("'"," ", $val);
-	//eliminando las comillas dobles '"'
-	$val = str_replace('"'," ", $val);
-	//retornando la variable sin caracteres que puedan da;ar la consulta
-	return $val;
+VALUES('%s', '%s', '%s', '$fecha','%s', '%s', 'ACTIVO','%s')",
+$mysqli->real_escape_string($codPdvsa),
+$mysqli->real_escape_string($descripcion),
+$mysqli->real_escape_string($rev),
+$mysqli->real_escape_string($codCliente),
+$mysqli->real_escape_string($disciplina),
+$mysqli->real_escape_string($fase));
+	if ($mysqli->query($sql)) {
+		$data['Success'] = true;
+		$data['Msg']= "Registro ingresado con exito";
+	} else {
+		$data['Msg'] = "Error al registrar. ".$mysqli->error;
 	}
-$codPdvsa 		= cleaner($codPdvsa);
-$descripcion 	= cleaner($descripcion);
-$rev 					= cleaner($rev);
-$disciplina 	= cleaner($disciplina);
-$fase 				= cleaner($fase);
-$status 			= cleaner($status);
-$codCliente 	= cleaner($codCliente);
-$fecha  			= cleaner($fecha);
-if ($codPdvsa !='') {
-	if ($descripcion !='') {
-		if ($rev != '') {
-			if ($disciplina!='') {
-				if ($fase !='') {
-					if ($status!='') {
-						if ($codCliente !='') {
-							if ($fecha!='') {
-								//validacion si la consulta es ejecutada con exito
-								if ($mysqli->query($sql)) {
-									$data['Success'] = true;
-									$data['Msg'] = 'Registro guardado con exito';
-									}
-								else{
-									$data['Msg'] = 'Imposible de guardar. ';
-									$data['Error'] = $mysqli->error;
-									}//fin error de consulta
-								}//fin if fecha
-							else{
-								$data['Msg'] = 'No posee fecha';
-								}//fin else fecha
-							}//fin if codCliente
-						else{
-							$data['Msg'] = 'No posee codigo de cliente';
-							}
-						}//fin if status
-					else{
-						$data['Msg'] = 'No posee status';
-						}//fin else status
-					}//fin if fase
-				else{
-					$data['Msg'] = 'No posee fase';
-					}//fin else fase
-				}//fin if disciplina
-			else{
-				$data['Msg'] = 'No posee disciplina';
-				}
-			}//fin if rev
-		else{
-			$data['Msg'] = 'No posee numero de revision o se ha ingresado un numero no valido';
-			}//fin else rev
-		}//fin if descripcion
-	else{
-		$data['Msg'] = 'No posee descripcion en blanco';
-		}//fin else descripcion
-	}//fin if codpdvsa
-else{
-	$data['Msg'] = 'No posee codigo en blanco';
-	}//fin else codpdvsa
+	
+}
+
 echo json_encode($data);
  ?>
