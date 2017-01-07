@@ -9,12 +9,18 @@
 	//desgloce de la data
 	$result = $query->fetch_array();
 	//var_dump($result);
+		if (!is_null($result['fecha_rev'])) {
+			$fecha = new DateTime($result['fecha_rev']);
+			$fecha = $fecha->format('Y-m-d');
+		}
+		else
+			$fecha = null;
 	$data = array(
 		'id' 					=> $result['id'],
 		'codCliente'	=> $result['codCliente'],
 		'descripcion' => utf8_encode($result['descripcion']),
 		'rev' 				=> $result['rev'],
-		'fecha' 			=> $result['fecha_rev'],
+		'fecha' 			=> $fecha,
 		'disciplina' 	=> $result['disciplina'],
 		'fase' 				=> $result['fase']);
 	echo json_encode($data);

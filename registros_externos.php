@@ -51,8 +51,9 @@ $nums = $result->fetch_array();
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-xs-offset-5">
+				<div class="col-xs-offset-4">
 					<button class="btn btn-default" onClick="buscar()">Buscar</button>
+					<button class="btn btn-default" onClick="actualizar()">Actualizar</button>
 					<button class="btn btn-default" onClick="agregar()">Agregar Nuevo</button>
 					<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
 					<button class="btn btn-default" onClick="limpiar()">Limpiar</button>

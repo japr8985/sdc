@@ -179,29 +179,15 @@ function eliminar(){
 							title:'Eliminado',
 							content:data.Msg
 							});
-						//set id
-						$("#id").val('');
-						//set codigo de pdvsa
-						$("#codPdvsa").val('');
-						//set fase
-						$("#fase").val('');
-						//set status
-						$("#status").val('');
-						//set actividad
-						$("#actividad").val('');
-						//set disciplina
-						$("#disciplina").val('');
-						//set instalacion
-						$('#instalacion').val('');
-						//set documento/plano
-						$("#docPlano").val('');
-						//set digital/fisico
-						$("#digitalFisico").val('');
-						$("#loader").prop('hidden',true);
+						limpiar();
 						}
 					else{
-						//Mostrar Msg de error
+						$.alert({
+							title:'Eliminado',
+							content:data.Msg+' '+data.Error
+							});
 						}
+					$("#loader").prop('hidden',true);
 					},
 				error:function(xhr,ajaxOptions,thrownError){
 					$.alert({
@@ -218,3 +204,30 @@ function eliminar(){
 		}
 		});	
 	}
+function actualizar(){
+	$("#loader").prop('hidden',false);
+	var obj={
+		id:$("#id").val(),
+		codPdvsa:$("#codPdvsa").val(),
+		fase: $("#fase").val(),
+		status:$("#status").val(),
+		actividad: $("#actividad").val(),
+		disciplina:$("#disciplina").val(),
+		instalacion:$('#instalacion').val(),
+		docPlano:$("#docPlano").val(''),
+		digitalFisico:$("#digitalFisico").val()
+	};
+	$.ajax({
+		url:'php/especificacion_registros/actualizar.php',
+		data:obj,
+		method:'POST',
+		dataType:'json',
+		success:function(data){
+
+		},
+		error:function(xhr,status,error){
+
+		}
+	});
+	$("#loader").prop('hidden',true);
+}

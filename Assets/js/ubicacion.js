@@ -239,3 +239,50 @@ function eliminar(){
 	
 	
 	}
+function actualizar(){
+	$("#loader").prop('hidden',false);
+	var obj={
+		id 			: $("#id").val(),
+		ciudad	: $("#ciudad").val(),
+		sede 		: $("#sede").val(),
+		departamento 	: $("#departamento").val(),
+		np 			: $("#nProyecto").val(),
+		year 		: $("#year").val(),
+		ncaja 	: $('#nCaja').val(),
+		carpeta	: $("#codCarpeta").val(),
+		sub 		: $("#subCarpeta").val(),
+		ndoc 		: $('#nDoc').val(),
+		codpdvsa: $('#codPdvsa').val(),
+		fase 		: $('#fase').val(),
+		rev 		: $('#rev').val(),
+	};
+	$.ajax({
+		url:'php/ubicacion/actualizar.php',
+		data:obj,
+		method:'POST',
+		dataType:'json',
+		success:function(data){
+			if (data.Success){
+				$.alert({
+						title:'Actualizado',
+						content:data.Msg
+						});
+				$("#loader").prop('hidden',true);
+			}
+			else{
+				$.alert({
+						title:'Error',
+						content:data.Msg+' '+data.Error
+						});
+				$("#loader").prop('hidden',true);
+			}
+		},
+		error:function(xhr,status,error){
+			$.alert({
+				title:xhr.status,
+				content: xhr.status+" "+error
+				});
+			$("#loader").prop('hidden',true);
+		}
+	});
+}

@@ -189,3 +189,44 @@ function eliminar(){
 			}
 		});
 	}
+function actualizar(){
+	$("#loader").prop('hidden',false);
+	var obj ={
+		id					: $("#id").val(),
+		codcliente 	: $("#codCliente").val(),
+		descripcion	: $("#descripcion").val(),
+		rev 				: $("#rev").val(),
+		fecha				: $("#fecha").val(),
+		disciplina	: $("#disciplina").val(),
+		fase 				: $("#fase").val()
+	};
+	$.ajax({
+		url:'php/registros_externos/actualizar.php',
+		data:obj,
+		method:'POST',
+		dataType:'json',
+		success:function(data){
+			if (data.Success){
+				$.alert({
+					title:'Actualizado',
+					content: data.Msg
+					});
+			}
+			else{
+				$.alert({
+					title:'Error',
+					content: data.Msg+" "+data.Error
+					});
+			}
+			$("#loader").prop('hidden',true);
+		},
+		error:function(xhr,status,error){
+			$.alert({
+				title:xhr.status,
+				content: xhr.status+" "+error
+				});
+			//ocultar circulo de carga
+			$("#loader").prop('hidden',true);
+		}
+	});
+}

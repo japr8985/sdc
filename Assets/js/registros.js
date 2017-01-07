@@ -165,7 +165,10 @@ function agregar(){
 				}
 			},
 		error:function(xhr,ajaxOptions,thrownError){
-			alert(xhr.status+" "+thrownError);
+			$.alert({
+				title:'Error',
+				content:xhr.status+" "+thrownError
+			});
 			//ocultar circulo de carga
 			$("#loader").prop('hidden',true);
 			}
@@ -212,3 +215,46 @@ function eliminar(){
 		}
 	});
 	}
+function actualizar(){
+	$("#loader").prop('hidden',false);
+	var obj ={
+		id 					: $('#id').val(),
+		codPdvsa 		: $('#codPdvsa').val(),
+		descripcion : $('#descripcion').val(),
+		rev 				: $('#rev').val(),
+		disciplina 	: $('#disciplina option:selected').val(),
+		fase 				: $('#fase option:selected').val(),
+		status 			: $('#status option:selected').val(),
+		codCliente 	: $('#codCliente').val(),
+		fecha 			: $('#rev_emi').val(),
+		};
+	$.ajax({
+		url:'php/registros/actualizar.php',
+		method:'POST',
+		data:obj,
+		dataType:'json',
+		success:function(data){
+			if (data.Success) {
+				$.alert({
+					title:'Actualizado',
+					content:data.Msg
+				});
+			}
+			else{
+				$.alert({
+					title:'Error',
+					content:data.Msg+' '+data.Error
+				});
+			}
+			$("#loader").prop('hidden',true);
+		},
+		error:function(xhr,status,error){
+			$.alert({
+				title:'Error',
+				content:xhr.status+" "+error
+			});
+			$("#loader").prop('hidden',true);
+		}
+	});
+	limpiar();
+}

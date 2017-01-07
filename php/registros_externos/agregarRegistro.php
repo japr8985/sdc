@@ -1,7 +1,10 @@
 <?php 
+include('../../conexion/conexion.php');
 $descripcion = $_POST['descripcion'];
 $rev = $_POST['rev'];
-$fecha_rev = $_POST['fecha'];
+$fecha_rev = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+$fecha_rev = new DateTime($fecha_rev);
+$fecha_rev = $fecha_rev->format('Y-m-d');
 $codCliente = $_POST['codCliente'];
 $disciplina = $_POST['disciplina'];
 $fase = $_POST['fase'];
@@ -21,7 +24,7 @@ VALUES(
   '$fecha_rev',
   '$codCliente',
   '$disciplina',
-  '$fase',
+  '$fase'
 	)";
 	$data = array('Success' => false , 'Msg'=>'' );
 if ($descripcion!='') {

@@ -1,4 +1,5 @@
 <?php 
+ini_set('display_errors', 1);
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
 	$sql = "SELECT  registros_externos.*, disciplina.simbolo as disciplina from registros_externos, disciplina where  id = (SELECT min(id) FROM ubicacion where id > $id) and disciplina.Disciplina = registros_externos.Disciplina";
@@ -12,13 +13,19 @@
 	$num =$query->fetch_array();
 	$num = $num[0]+1;
 	//----------------------------------------
+	if (!is_null($result['fecha_rev'])) {
+			$fecha = new DateTime($result['fecha_rev']);
+			$fecha = $fecha->format('Y-m-d');
+		}
+		else
+			$fecha = null;
 	$data = array(
 		'Number' => $num,
 		'id' 					=> $result['id'],
 		'codCliente'	=> $result['codCliente'],
 		'descripcion' => utf8_encode($result['descripcion']),
 		'rev' 				=> $result['rev'],
-		'fecha' 			=> $result['fecha_rev'],
+		'fecha' 			=> $fecha,
 		'disciplina' 	=> $result['disciplina'],
 		'fase' 				=> $result['fase']);
 	echo json_encode($data);

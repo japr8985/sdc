@@ -79,7 +79,8 @@ $nums = $result->fetch_array();
 		</form>
 		<hr>
 		<div class="row">
-			<div class="col-xs-offset-5">
+			<div class="col-xs-offset-3">
+				<button class="btn btn-default" onClick="actualizar()">Actualizar</button>
 				<button class="btn btn-default" onClick="buscar()">Buscar</button>
 				<button class="btn btn-default" onClick="agregar()">Agregar Nuevo</button>
 				<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
@@ -88,14 +89,14 @@ $nums = $result->fetch_array();
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-xs-offset-5">
+			<div class="col-xs-offset-4">
 				<input type="text" class="numbers" id="numberToShow" readonly="true">
 				<input type="text" class="numbers" id="totalnumbers" readonly="true" value="<?php echo $nums[0]; ?>">
 			</div>
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-xs-offset-5">
+			<div class="col-xs-offset-3">
 				<button class="btn btn-default" onClick="inicio()">Inicio</button>
 				<button class="btn btn-default" onClick="anterior()">Anterior</button>
 				<button class="btn btn-default" onClick="siguiente()">Siguiente</button>
