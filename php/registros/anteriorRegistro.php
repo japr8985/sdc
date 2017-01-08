@@ -11,22 +11,22 @@
 	//echo $result['Descripcion'];
 	//codificacion e impresion del json
 	//----------------------------------------
-	$sql = "SELECT count(id) FROM registros_total where id < ".$result['ID'];
+	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
 	$query = $mysqli->query($sql);
 	$num =$query->fetch_array();
 	$num = $num[0]+1;
 	//----------------------------------------
 	$data = array(
-		"Number" 		=> $num,
-		"ID" 			=> $result['ID'],
-		"CodPdvsa" 		=> $result['CodPdvsa'],
-		"Descripcion" 	=> utf8_encode($result['Descripcion']),
-		"Rev" 			=> $result['Rev'],
-		"Fecha_Rev" 	=> $result['Fecha_Rev'],
-		"CodCliente" 	=> $result['CodCliente'],
-		"Disciplina" 	=> $result['Disciplina'],
-		"Status" 		=> $result['Status'],
-		"Fase" 			=> $result['Fase']);
+		"Number"		=> $num,
+		"ID" 			=> $result['id'],
+		"CodPdvsa" 		=> $result['codpdvsa'],
+		"Descripcion" 	=> utf8_encode($result['descripcion']),
+		"Rev" 			=> $result['rev'],
+		"Fecha_Rev" 	=> $result['fecha_rev'],
+		"CodCliente" 	=> $result['codcliente'],
+		"Disciplina" 	=> $result['disciplina'],
+		"Status" 		=> $result['status'],
+		"Fase" 			=> $result['fases']);
 	echo json_encode($data);
 	} else {
 		$mysqli->error;

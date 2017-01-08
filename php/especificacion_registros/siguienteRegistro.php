@@ -2,8 +2,7 @@
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
 	$sql = "SELECT 
-	carac_doc.*,
-  	(SELECT disciplina.simbolo FROM disciplina where disciplina.disciplina = carac_doc.disciplina) AS disciplina
+	*  	
 	 FROM carac_doc WHERE id = (SELECT min(id) FROM carac_doc where id > $id)";
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);

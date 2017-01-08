@@ -3,9 +3,7 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT
-  carac_doc.*,
-  (SELECT disciplina.simbolo FROM disciplina where disciplina.disciplina = carac_doc.disciplina) AS disciplina
+	$sql = "SELECT *  
 FROM
   carac_doc
 WHERE

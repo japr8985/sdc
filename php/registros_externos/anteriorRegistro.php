@@ -1,9 +1,9 @@
 <?php 
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
-	$sql = "SELECT registros_externos.*, disciplina.simbolo AS disciplina
-	FROM registros_externos, disciplina
-	WHERE id = (SELECT max(id) FROM registros_externos WHERE id < $id) and disciplina.Disciplina = registros_externos.Disciplina";
+	$sql = "SELECT *
+	FROM registros_externos
+	WHERE id = (SELECT max(id) FROM registros_externos WHERE id < $id) ";
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//desgloce de la data

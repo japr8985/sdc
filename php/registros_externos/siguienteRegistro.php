@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
-	$sql = "SELECT  registros_externos.*, disciplina.simbolo as disciplina from registros_externos, disciplina where  id = (SELECT min(id) FROM ubicacion where id > $id) and disciplina.Disciplina = registros_externos.Disciplina";
+	$sql = "SELECT  * from registros_externos where  id = (SELECT min(id) FROM registros_externos where id > $id)";
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//desgloce de la data

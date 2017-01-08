@@ -9,7 +9,7 @@
 	//desgloce de la data
 	$result = $query->fetch_array();
 	//--------------------------------------------
-	$sql = "SELECT count(id) FROM registros_total where id < ".$result['ID'];
+	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
 	$num = $mysqli->query($sql);
 	$num = $num->fetch_array();
 	$num = $num[0]+1;
@@ -17,15 +17,15 @@
 	$fecha = new DateTime($result['Fecha_Rev']);
 	$fecha = $fecha->format('Y-m-d');
 	$data = array(
-		"ID" 			=> $result['ID'],
-		"CodPdvsa" 		=> $result['CodPdvsa'],
-		"Descripcion" 	=> utf8_encode($result['Descripcion']),
-		"Rev" 			=> $result['Rev'],
-		"fecha" 	=> $fecha,
-		"CodCliente" 	=> $result['CodCliente'],
-		"Disciplina" 	=> $result['Disciplina'],
-		"Status" 		=> $result['Status'],
-		"Fase" 			=> $result['Fase'],
-		"Number"  => $num);
+		"Number"		=> $num,
+		"ID" 			=> $result['id'],
+		"CodPdvsa" 		=> $result['codpdvsa'],
+		"Descripcion" 	=> utf8_encode($result['descripcion']),
+		"Rev" 			=> $result['rev'],
+		"Fecha_Rev" 	=> $result['fecha_rev'],
+		"CodCliente" 	=> $result['codcliente'],
+		"Disciplina" 	=> $result['disciplina'],
+		"Status" 		=> $result['status'],
+		"Fase" 			=> $result['fases']);
 	echo json_encode($data);
  ?>

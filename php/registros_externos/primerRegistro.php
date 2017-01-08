@@ -1,7 +1,7 @@
 <?php 
 //ini_set('display_errors', 1);
 	include('../../conexion/conexion.php');
-	$sql = "SELECT  registros_externos.*, disciplina.simbolo as disciplina from registros_externos, disciplina where  disciplina.Disciplina = registros_externos.Disciplina ORDER BY id ASC LIMIT 0,1";
+	$sql = "SELECT  *from registros_externos ORDER BY id ASC LIMIT 0,1";
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//desgloce de la data
 	$result = $query->fetch_array();

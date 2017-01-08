@@ -9,7 +9,7 @@ $sql = "SELECT
   codcliente as CodCliente,
   status,
   disciplina,
-  fase
+  fases
   FROM registros_total
   WHERE
  status ='ACTIVO'";
@@ -20,11 +20,10 @@ while ($l = $listas->fetch_array()) {
   if(!is_null($fecha))
     $fecha = $fecha->format('Y-m-d');
 	$data[] = array(
-    //$l['id'],
     utf8_encode($l['codpdvsa']),
     utf8_encode($l['descripcion']),
 		utf8_encode($l['rev']),
-		$l['fase'],
+		$l['fases'],
     $l['disciplina'],
     $fecha,
     $l['status'],

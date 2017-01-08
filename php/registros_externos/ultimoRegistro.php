@@ -1,4 +1,5 @@
 <?php 
+	ini_set('display_errors', 1);
 	//inlcuir el archivo de conexion
 	include('../../conexion/conexion.php');
 	//consulta SQL -> selecciona todo de registros_total ordenados por el id de manera desc (del mayor al menor)

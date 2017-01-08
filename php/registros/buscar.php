@@ -3,7 +3,7 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT registros_total.ID, disciplina.simbolo AS Disciplina from registros_total, disciplina where codpdvsa like '%$cod%' and disciplina.Disciplina = registros_total.Disciplina limit 0,1";
+	$sql = "SELECT id from registros_total where codpdvsa like '%$cod%' limit 0,1";
 	//ejecucion de la consulta
 	$query = $mysqli->query($sql);
 	//desgloce de la data
@@ -15,15 +15,15 @@
 	$num = $num[0]+1;
 	//----------------------------------------
 	$data = array(
-		"Number"				=> $num,
-		"ID" 						=> $result['ID'],
-		"CodPdvsa" 			=> $result['CodPdvsa'],
-		"Descripcion" 	=> utf8_encode($result['Descripcion']),
-		"Rev" 					=> $result['Rev'],
-		"Fecha_Rev" 		=> $result['Fecha_Rev'],
-		"CodCliente" 		=> $result['CodCliente'],
-		"Disciplina" 		=> $result['Disciplina'],
-		"Status" 				=> $result['Status'],
-		"Fase" 					=> $result['Fase']);
+		"Number"		=> $num,
+		"ID" 			=> $result['id'],
+		"CodPdvsa" 		=> $result['codpdvsa'],
+		"Descripcion" 	=> utf8_encode($result['descripcion']),
+		"Rev" 			=> $result['rev'],
+		"Fecha_Rev" 	=> $result['fecha_rev'],
+		"CodCliente" 	=> $result['codcliente'],
+		"Disciplina" 	=> $result['disciplina'],
+		"Status" 		=> $result['status'],
+		"Fase" 			=> $result['fases']);
 	echo json_encode($data);
  ?>

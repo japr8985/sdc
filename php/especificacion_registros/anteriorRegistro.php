@@ -1,9 +1,7 @@
 <?php 
 	include ("../../conexion/conexion.php");
 	$id = $_REQUEST['id'];
-	$sql = "SELECT 
-	carac_doc.*,
-  	(SELECT disciplina.simbolo FROM disciplina where disciplina.disciplina = carac_doc.disciplina) AS disciplina
+	$sql = "SELECT *  	
 	FROM carac_doc 
 	WHERE id = (SELECT max(id) FROM carac_doc WHERE id < $id)";
 	//ejecucion de consulta SQL

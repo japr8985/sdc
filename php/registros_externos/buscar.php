@@ -3,7 +3,7 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT registros_externos.*, disciplina.simbolo as disciplina from registros_externos, disciplina where codCliente like '%$cod%' and disciplina.Disciplina = registros_externos.Disciplina limit 0,1";
+	$sql = "SELECT * from registros_externos where codCliente like '%$cod%' limit 0,1";
 	//ejecucion de la consulta
 	$query = $mysqli->query($sql);
 	//desgloce de la data

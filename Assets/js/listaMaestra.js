@@ -18,14 +18,15 @@ function cargar_lista_maestra(){
 			//creando nuevo contenido para la lista
 			for (var i = 0; i < data.length; i++) {
 				//agregando filas a la tabla
+				//crea una linea nueva
 				$("table tbody").append(row(data[i][0]));
-				$("#codpdvsa"+data[i][0]).val(data[i][1]);
-				$("#descripcion"+data[i][0]).val(data[i][2]);
-				$("#rev"+data[i][0]).val(data[i][3]);
-				$("#fase"+data[i][0]).val(data[i][4]);
-				$("#disciplina"+data[i][0]).val(data[i][5]);
-				if (data[i][6] != null) 
-					$("#fecha"+data[i][0]).val(data[i][6]);
+				$("#codpdvsa"+data[i][0]).val(data[i][0]);
+				$("#descripcion"+data[i][0]).val(data[i][1]);
+				$("#rev"+data[i][0]).val(data[i][2]);
+				$("#fase"+data[i][0]).val(data[i][3]);
+				$("#disciplina"+data[i][0]).val(data[i][4]);
+				if (data[i][5] != null) 
+					$("#fecha"+data[i][0]).val(data[i][5]);
 				ids.push(data[i][0]);
 				}
 			console.log(ids);
@@ -125,14 +126,19 @@ function buscarCodigo(){
 		});
 	}
 function inicio(){
+	$("#loader").prop('hidden',false);
 	$("#codpdvsa"+ids[0]).focus();
 	ub = 0;
+	$("#loader").prop('hidden',true);
 	}
 function fin(){
+	$("#loader").prop('hidden',false);
 	$("#codpdvsa"+ids[ids.length-1]).focus();
 	ub = ids.length - 1;
+	$("#loader").prop('hidden',true);
 	}
 function anterior(){
+	$("#loader").prop('hidden',false);
 	//se toma el valor de la ultima ubicacion
 	//y se le resta 1
 	ub = ub - 1;
@@ -145,8 +151,10 @@ function anterior(){
 	else
 		//esto sera la ubicacion en el arreglos de los id
 		$("#codpdvsa"+ids[ub]).focus();
+	$("#loader").prop('hidden',true);
 	}
 function siguiente(){
+	$("#loader").prop('hidden',false);
 	//se toma el valor de la ultima ubicacion
 	//y se le suma 1
 	ub = ub + 1;
@@ -158,6 +166,7 @@ function siguiente(){
 		}
 	else
 		$("#codpdvsa"+ids[ub]).focus();
+	$("#loader").prop('hidden',true);
 	}
 function limpiar(){
 	$("#loader").prop('hidden',false);
