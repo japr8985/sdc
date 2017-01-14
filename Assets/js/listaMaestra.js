@@ -23,15 +23,15 @@ function cargar_lista_maestra(){
 					row(data[i][0])
 					);
 				
-				$("#codpdvsa"+data[i][0]).val(
-					data[i][0]
+				$("#codpdvsa"+(data[i][0].trim())).val(
+					data[i][1]
 					);
-				$("#descripcion"+data[i][0]).val(data[i][1]);
-				$("#rev"+data[i][0]).val(data[i][2]);
-				$("#fase"+data[i][0]).val(data[i][3]);
-				$("#disciplina"+data[i][0]).val(data[i][4]);
+				$("#descripcion"+data[i][0]).val(data[i][2]);
+				$("#rev"+data[i][0]).val(data[i][3]);
+				$("#fase"+data[i][0]).val(data[i][4]);
+				$("#disciplina"+data[i][0]).val(data[i][5]);
 				if (data[i][5] != null) 
-					$("#fecha"+data[i][0]).val(data[i][5]);
+					$("#fecha"+data[i][0]).val(data[i][6]);
 				ids.push(data[i][0]);
 				
 				}
