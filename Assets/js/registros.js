@@ -62,37 +62,42 @@ function inicio(){
 		);
 	}
 function anterior(){
+	$("#loader").prop('hidden',false);
 	//funcion para traer el 
 	//documento anterior al mostrado
 	//mostrar circulo de carga
-	$("#loader").prop('hidden',false);
-	$.getJSON(
-		"php/registros/anteriorRegistro.php",
-		{id:$("#id").val()},
-		function(data){
-			setData(data);
-			$("#loader").prop('hidden',true);
-		});
+	if ($("#numberToShow").val() != 1){
+		$.getJSON(
+			"php/registros/anteriorRegistro.php",
+			{id:$("#id").val()},
+			function(data){
+				setData(data);
+			});
+		}
+	$("#loader").prop('hidden',true);
 	}
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
 	//mostrar circulo de carga
-	$("#loader").prop('hidden',false);
-	$.ajax({
-		url:"php/registros/siguienteRegistro.php",
-		data:{id:$("#id").val()},
-		method:'POST',
-		dataType:'json',
-		success:function(data){
-			setData(data);
-			$("#loader").prop('hidden',true);
-		},
-		error:function(xhr,status,error){
-			
-			$("#loader").prop('hidden',true);
-			}
-		});
+	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
+		$("#loader").prop('hidden',false);
+		$.ajax({
+			url:"php/registros/siguienteRegistro.php",
+			data:{id:$("#id").val()},
+			method:'POST',
+			dataType:'json',
+			success:function(data){
+				setData(data);
+				$("#loader").prop('hidden',true);
+			},
+			error:function(xhr,status,error){
+				
+				$("#loader").prop('hidden',true);
+				}
+			});
+	}
+	
 	}
 function final(){
 	//funcion para traer el ultimo 
@@ -195,8 +200,12 @@ function eliminar(){
 						limpiar();
 						}
 					else{
-						//
-					}
+						$.alert({
+							title:'Error',
+							content:data.Msg+'. '+data.Error
+							});
+						}
+					$("#loader").prop('hidden',true);
 				},
 				error:function(xhr,ajaxOptions,thrownError){
 				$.alert({
@@ -214,6 +223,7 @@ function eliminar(){
 				$("#loader").prop('hidden',true);
 		}
 	});
+	$("#loader").prop('hidden',true);
 	}
 function actualizar(){
 	$("#loader").prop('hidden',false);
