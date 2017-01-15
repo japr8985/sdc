@@ -8,57 +8,73 @@ function cargar_lista_maestra(){
 	$("#loader").prop('hidden',false);
 	//limpiando arreglo de ids
 	ids=[];
+	//limpiando tabla
+	$('table tbody').find('tr').remove()
 	$.ajax({
 		url:'php/lista_maestra/lista_maestra.php',
 		method:'POST',
 		dataType:'json',
-		success:function(data){
-			//limpiar contenido de la lista maestra
-			$('#listaMaestra').empty()
-			//creando nuevo contenido para la lista
-			for (var i = 0; i < data.length; i++) {
-				//agregando filas a la tabla
-				//crea una linea nueva
-				$("table tbody").append(
-					row(data[i][0])
-					);
-				
-				$("#codpdvsa"+(data[i][0].trim())).val(
-					data[i][1]
-					);
-				$("#descripcion"+data[i][0]).val(data[i][2]);
-				$("#rev"+data[i][0]).val(data[i][3]);
-				$("#fase"+data[i][0]).val(data[i][4]);
-				$("#disciplina"+data[i][0]).val(data[i][5]);
-				if (data[i][5] != null) 
-					$("#fecha"+data[i][0]).val(data[i][6]);
-				ids.push(data[i][0]);
-				
-				}
-			//agregando estilo al tbody
-			$("#loader").prop('hidden',true);
-			//habilitando boton de busqueda
-			$("#btnSearch").prop('disabled',false);
-			//habilitando input de busqueda
-			$("#searchCode").prop('disabled',false);
-			},
-		error:function(xhr,status,error){
-			$.alert({
-				title:xhr.status,
-				content:xhr.status+" "+error
+		success:function(res){
+			var data 	= res[0];
+			var filas 	= res[1];
+			//si no hay registros para mostrar
+			if (data == 0) {
+				$.alert({
+					title:'Lista Maestra',
+					content:'No hay registros para visualizar'
 				});
-			$("#loader").prop('hidden',true);
 			}
-		});
+			else{
+				//limpiar contenido de la lista maestra
+				$('#listaMaestra').empty()
+				//creando nuevo contenido para la lista
+				for (var i = 0; i < data.length; i++) {
+					//agregando filas a la tabla
+					//crea una linea nueva
+					$("table tbody").append(
+						row(data[i][0])
+						);
+					
+					$("#codpdvsa"+(data[i][0].trim())).val(
+						data[i][1]
+						);
+					$("#descripcion"+data[i][0]).val(data[i][2]);
+					$("#rev"+data[i][0]).val(data[i][3]);
+					$("#fase"+data[i][0]).val(data[i][4]);
+					$("#disciplina"+data[i][0]).val(data[i][5]);
+					if (data[i][5] != null) 
+						$("#fecha"+data[i][0]).val(data[i][6]);
+					ids.push(data[i][0]);
+					
+					}
+				//mostrando la cantidad de filas
+				$("#totalnumbers").val(filas);
+				//agregando estilo al tbody
+				$("#loader").prop('hidden',true);
+				//habilitando boton de busqueda
+				$("#btnSearch").prop('disabled',false);
+				//habilitando input de busqueda
+				$("#searchCode").prop('disabled',false);
+				},
+				error:function(xhr,status,error){
+				$.alert({
+					title:xhr.status,
+					content:xhr.status+" "+error
+					});
+				$("#loader").prop('hidden',true);
+				}
+				});
+			}
+			
 	}
 function row(data){
 	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
 	var row ='<tr>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" type="hidden" value="'+data+' id="cod'+data+'">';
+				row = row+'<input class="form-control" type="hidden" value="'+data+' id="'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" style="width: 300px;" type="text" id="codpdvsa'+data+'">';
+				row = row+'<input class="form-control" onClick="seleccionado(this.id)"style="width: 300px;" type="text" id="codpdvsa'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
 				row = row+'<input class="form-control" style="width: 300px;" type="text" id="descripcion'+data+'">';
@@ -135,12 +151,14 @@ function inicio(){
 	$("#codpdvsa"+ids[0]).focus();
 	ub = 0;
 	$("#loader").prop('hidden',true);
+	$("#numberToShow").val(ub+1);
 	}
 function fin(){
 	$("#loader").prop('hidden',false);
 	$("#codpdvsa"+ids[ids.length-1]).focus();
 	ub = ids.length - 1;
 	$("#loader").prop('hidden',true);
+	$("#numberToShow").val(ub+1);
 	}
 function anterior(){
 	$("#loader").prop('hidden',false);
@@ -153,9 +171,9 @@ function anterior(){
 				content:"Intenta seleccionar un registro anterior al primero"
 				});
 	}
-	else
-		//esto sera la ubicacion en el arreglos de los id
+	else//esto sera la ubicacion en el arreglos de los id
 		$("#codpdvsa"+ids[ub]).focus();
+	$("#numberToShow").val(ub+1);
 	$("#loader").prop('hidden',true);
 	}
 function siguiente(){
@@ -171,25 +189,60 @@ function siguiente(){
 		}
 	else
 		$("#codpdvsa"+ids[ub]).focus();
+	$("#numberToShow").val(ub+1);
 	$("#loader").prop('hidden',true);
 	}
 function limpiar(){
+	//finalizado
 	$("#loader").prop('hidden',false);
-	$('table tbody tr').find('tr').remove()
+	$('table tbody').find('tr').remove()
 	$("#loader").prop('hidden',true)
 	}
 function actualizar(){
 	$("#loader").prop("hidden",false);
-	$("table > tbody > tr").each(function(){
 		var id = $(this).find("input.value");
 		 $.ajax({
 		 	url:"php/lista_maestra/actualizar_lista.php",
 		 	method:'post',
-		 	data:{id:id},
 		 	dataType:'json',
-		 	success:function(){},
-		 	error:function(xhr,status,error){}
+		 	success:function(data){
+		 		if (data.Success){
+		 		$.alert({
+		 			title:'Exito',
+		 			content:'Todos los registros mostrados, han sido superados'
+		 			});
+		 		}
+		 		else{
+		 			$.alert({
+			 			title:'Error',
+			 			content:data.Msg+" "+data.Error
+			 			});
+		 		}
+		 	},
+		 	error:function(xhr,status,error){
+		 		$.alert({
+		 			title:'Error',
+		 			content:xhr.status+" "+error
+		 		});
+		 	}
 		 });
-		});
+
 	$("#loader").prop("hidden",true);
 	}
+function seleccionado(val){
+	//se obtiene el valor ID del campo codpdvsa#
+	var valor = val.split("codpdvsa");//['','#']
+	//se busca el valor del indice en el arreglo ids donde se encuentra ubicado tal #
+	for (var i = 0; i < ids.length; i++) {
+		if (ids[i] == valor[1]){
+			//se le asigna el nuevo valor a la variable de ubicacion
+			ub = i;
+			//se rompe el ciclo
+			break;
+		}
+	}
+	$("#numberToShow").val(ub+1);
+	//de tal forma se tiene el nuevo valor de ubicacion
+	//donde el usuario realizo el focus
+	console.log(ub);
+}

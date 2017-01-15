@@ -1,6 +1,6 @@
 <?php 
 include("../../conexion/conexion.php");
-
+ini_set('display_errors', 1);
 $sql = "SELECT 
   id,
   codpdvsa,
@@ -31,6 +31,11 @@ while ($l = $listas->fetch_array()) {
     $l['status'],
   );
 }
-//var_dump($data);
-echo json_encode($data);
+//conteo de filas
+$filas = $listas->num_rows;
+//en caso de que la lista este vacia retorna un 0
+if (is_null($data)) {
+  $data = 0;
+}
+echo json_encode(array($data,$filas));
  ?>

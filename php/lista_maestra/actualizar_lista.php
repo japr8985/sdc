@@ -1,6 +1,12 @@
 <?php 
 include("../../conexion/conexion.php");
-$cod = $_POST['id'];
-$sql = "UPDATE registros_total SET status='SUPERADO' where codpdvsa = '$cod'";
-$mysqli->query($sql);
+$data = array("Success" => false, "Msg" => '', "Error" => '');
+$sql = "UPDATE registros_total SET status='SUPERADO' where status = 'ACTIVO'";
+if ($mysqli->query($sql))
+	$data['Success'] = true;
+else{
+	$data['Msg'] = "Error al actualizar:";
+	$data['Error'] = $mysqli->error;
+}
+echo json_encode($data);
  ?>

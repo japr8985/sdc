@@ -50,7 +50,15 @@
 	<hr>
 	<div class="row">
 		<div class="col-xs-offset-5">
-			<button class="btn btn-default">Actualizar Lista Maestra</button>
+			<input type="text" class="numbers" id="numberToShow" readonly="true">
+			/
+			<input type="text" class="numbers" id="totalnumbers" readonly="true" value="0">
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-xs-offset-5">
+			<button class="btn btn-default" onClick="actualizar()">Actualizar Lista Maestra</button>
 		</div>
 	</div>
 </div>
