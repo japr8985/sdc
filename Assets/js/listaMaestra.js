@@ -20,53 +20,48 @@ function cargar_lista_maestra(){
 			//si no hay registros para mostrar
 			if (data == 0) {
 				$.alert({
-					title:'Lista Maestra',
-					content:'No hay registros para visualizar'
+				title:'Lista Maestra',
+				content:'No hay registros para visualizar'
 				});
-			}
-			else{
-				//limpiar contenido de la lista maestra
-				$('#listaMaestra').empty()
-				//creando nuevo contenido para la lista
-				for (var i = 0; i < data.length; i++) {
-					//agregando filas a la tabla
-					//crea una linea nueva
-					$("table tbody").append(
-						row(data[i][0])
-						);
-					
-					$("#codpdvsa"+(data[i][0].trim())).val(
-						data[i][1]
-						);
-					$("#descripcion"+data[i][0]).val(data[i][2]);
-					$("#rev"+data[i][0]).val(data[i][3]);
-					$("#fase"+data[i][0]).val(data[i][4]);
-					$("#disciplina"+data[i][0]).val(data[i][5]);
-					if (data[i][5] != null) 
-						$("#fecha"+data[i][0]).val(data[i][6]);
-					ids.push(data[i][0]);
-					
-					}
-				//mostrando la cantidad de filas
-				$("#totalnumbers").val(filas);
-				//agregando estilo al tbody
-				$("#loader").prop('hidden',true);
-				//habilitando boton de busqueda
-				$("#btnSearch").prop('disabled',false);
-				//habilitando input de busqueda
-				$("#searchCode").prop('disabled',false);
-				},
-				error:function(xhr,status,error){
-				$.alert({
-					title:xhr.status,
-					content:xhr.status+" "+error
-					});
-				$("#loader").prop('hidden',true);
-				}
-				});
-			}
-			
-	}
+			$("#loader").prop('hidden',true);
+			}//fin if
+		else{
+			//limpiar contenido de la lista maestra
+			$('#listaMaestra').empty()
+			//creando nuevo contenido para la lista
+			for (var i = 0; i < data.length; i++) {
+				//agregando filas a la tabla
+				//crea una linea nueva
+				$("table tbody").append(
+					row(data[i][0])
+					);
+				$("#codpdvsa"+(data[i][0].trim())).val(data[i][1]);
+				$("#descripcion"+data[i][0]).val(data[i][2]);
+				$("#rev"+data[i][0]).val(data[i][3]);
+				$("#fase"+data[i][0]).val(data[i][4]);
+				$("#disciplina"+data[i][0]).val(data[i][5]);
+				if (data[i][5] != null) 
+					$("#fecha"+data[i][0]).val(data[i][6]);
+				ids.push(data[i][0]);
+			}//fin for
+		//mostrando la cantidad de filas
+		$("#totalnumbers").val(filas);
+		$("#loader").prop('hidden',true);
+		//habilitando boton de busqueda
+		$("#btnSearch").prop('disabled',false);
+		//habilitando input de busqueda
+		$("#searchCode").prop('disabled',false);
+		}//fin else
+	},//fin success
+	error:function(xhr,status,error){
+		$.alert({
+			title:xhr.status,
+			content:xhr.status+" "+error
+		});
+		$("#loader").prop('hidden',true);
+		}//fin error
+	});//fin ajax			
+	}//fin fucntion
 function row(data){
 	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
 	var row ='<tr>';

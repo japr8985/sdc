@@ -34,8 +34,8 @@ while ($l = $listas->fetch_array()) {
 //conteo de filas
 $filas = $listas->num_rows;
 //en caso de que la lista este vacia retorna un 0
-if (is_null($data)) {
-  $data = 0;
-}
-echo json_encode(array($data,$filas));
+if (!isset($data))
+  echo json_encode(array(0,$filas));
+else
+  echo json_encode(array($data,$filas));
  ?>
