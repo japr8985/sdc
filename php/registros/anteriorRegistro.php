@@ -9,13 +9,13 @@
 		//desgloce de la data
 	$result = $query->fetch_array();
 	//echo $result['Descripcion'];
-	//codificacion e impresion del json
 	//----------------------------------------
 	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
 	$query = $mysqli->query($sql);
-	$num =$query->fetch_array();
+	$num = $query->fetch_array();
 	$num = $num[0]+1;
 	//----------------------------------------
+	//codificacion e impresion del json
 	$data = array(
 		"Number"		=> $num,
 		"ID" 			=> $result['id'],

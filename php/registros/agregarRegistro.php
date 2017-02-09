@@ -1,16 +1,17 @@
 <?php 
 include ("../../conexion/conexion.php");
+include("rev_valor.php");
 ini_set('display_errors', 1);
 
 //variables enviadas desde el formulario
-$codPdvsa 	= $_POST['codPdvsa'];
-$descripcion= $_POST['descripcion'];
-$rev 		= isset($_POST['rev']) ? strtoupper($_POST['rev']) : 'A';
-$disciplina = $_POST['disciplina'];
-$fase 		= $_POST['fase'];
-$codCliente = $_POST['codCliente'];
-$fecha 		= isset($_POST['fecha']) ? new DateTime($_POST['fecha']) : new DateTime();
-$fecha 		= $fecha->format('Y-m-d');
+$codPdvsa 	   = $_POST['codPdvsa'];
+$descripcion   = $_POST['descripcion'];
+$rev 		       = isset($_POST['rev']) ? strtoupper($_POST['rev']) : 'A';
+$disciplina    = $_POST['disciplina'];
+$fase 		     = $_POST['fase'];
+$codCliente    = $_POST['codCliente'];
+$fecha 		     = isset($_POST['fecha']) ? new DateTime($_POST['fecha']) : new DateTime();
+$fecha 		     = $fecha->format('Y-m-d');
 //arreglo de resupesta donde se enviaran los resultados
 //de las validaciones y si la data es guardada correctamente
 $data = array('Success' => false,'Msg' => '', 'Error' => '');
@@ -21,10 +22,11 @@ $query = $mysqli->query($sql);
 $num_rows = $query->num_rows;
 if ($num_rows > 0) {//si existe mas de un registro
   //busca el registro mas reciente y selecciona su revision
-  $sql = "SELECT rev from registros_total WHERE codpdvsa = '$codPdvsa' ORDER BY fecha_rev ASC Limit 0,1";
+  $sql = "SELECT rev from registros_total WHERE codpdvsa = '$codPdvsa' ORDER BY fecha_rev DESC Limit 0,1";
   $result = $mysqli->query($sql);
   $rev_old = $result->fetch_array();
   //valida si la nueva revision es mayor que la vieja
+
   if (revValor($rev) > revValor($rev_old[0])) {//procede a guardar
     //actualiza todos los registros anteriores a superado
     $sql = "UPDATE registros_total SET status = 'SUPERADO' WHERE codpdvsa = '$codPdvsa'";
@@ -53,7 +55,7 @@ if ($num_rows > 0) {//si existe mas de un registro
   }
   else{
     $data['Msg'] = "Fallo al registar.";
-      $data['Error'] = "Intenta ingresar una revision menor a una ya existente";
+    $data['Error'] = "Intenta ingresar una revision menor a una ya existente";
   }
 }
 else{

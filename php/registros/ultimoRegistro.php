@@ -10,8 +10,8 @@
 	$result = $query->fetch_array();
 	//--------------------------------------------
 	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
-	$num = $mysqli->query($sql);
-	$num = $num->fetch_array();
+	$query = $mysqli->query($sql);
+	$num = $query->fetch_array();
 	$num = $num[0]+1;
 	//--------------------------------------------
 	$fecha = new DateTime($result['Fecha_Rev']);

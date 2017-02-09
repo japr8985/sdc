@@ -58,7 +58,7 @@
 	<hr>
 	<div class="row">
 		<div class="col-xs-offset-5">
-			<button class="btn btn-default" onClick="actualizar()">Actualizar Lista Maestra</button>
+			<!--<button class="btn btn-default" onClick="actualizar()">Actualizar Lista Maestra</button>-->
 		</div>
 	</div>
 </div>

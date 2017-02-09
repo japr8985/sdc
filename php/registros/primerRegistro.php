@@ -10,9 +10,9 @@
 	//desgloce de la data
 	$result = $query->fetch_array();
 	//----------------------------------------
-	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
+	$sql = "SELECT id FROM registros_total where id < ".$result['id'];
 	$query = $mysqli->query($sql);
-	$num =$query->fetch_array();
+	$num = $query->num_rows;
 	$num = $num[0]+1;
 	//----------------------------------------
 	$data = array(

@@ -43,7 +43,7 @@
 			<div class="col-xs-6">
 				<a href="#">
 					<h3>
-						Tablas, Consultas e Informes
+						Manual de Usuario
 					</h3>
 				</a>
 			</div>

@@ -8,6 +8,7 @@ FROM
   carac_doc
 WHERE
   codpdvsa LIKE '%$cod%' 
+ORDER BY id ASC
 LIMIT 0, 1";
 //variable de verificacion
 	$success = false;
