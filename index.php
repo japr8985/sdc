@@ -1,53 +1,56 @@
-<?php include("header.php") ?>
-	<div class="container">
-		<div class="row box">
-			<div class="col-xs-6">
-				<a href="listaMaestra.php">
-					<h3>
-					Lista Maestra
-					</h3>
-				</a>
-			</div>
-			<div class="col-xs-6">
-				<a href="ubicacion.php">
-					<h3>
-						Ubicacion de Registros (PDVSA)
-					</h3>
-				</a>
-			</div>
-		</div>
-		<div class="row box">
-			<div class="col-xs-6">
-				<a href="especificacionPlanosDocumentos.php">
-					<h3>
-						Especificaciones de Registros
-					</h3>
-				</a>	
-			</div>
-			<div class="col-xs-6">
-				<a href="registros.php">
-						<h3>
-							Registros PDVSA
-						</h3>
-					</a>
-			</div>
-		</div>
-		<div class="row box">
-			<div class="col-xs-6">
-				<a href="registros_externos.php">
-					<h3>
-						Registros Externos
-					</h3>
-				</a>
-			</div>
-			<div class="col-xs-6">
-				<a href="#">
-					<h3>
-						Manual de Usuario
-					</h3>
-				</a>
-			</div>
-		</div>
-	</div>
-</body>
+<?php 
+session_start();
+if (isset($_SESSION['username'])) {
+    header('location:home.php');
+    exit();
+}
+ ?>
+<html>
+    <head>
+        <title>Sistema De Control Documental</title>
+        <link rel="stylesheet" type="text/css" href="Assets/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="Assets/css/general.css">
+        <link rel="stylesheet" href="Assets/css/jquery-confirm.min.css">
+        <script src="Assets/js/jquery-1-11-03.js"></script>
+        <script src="Assets/js/bootstrap.js"></script>
+        <script src="Assets/js/jquery-confirm.min.js"></script>
+        <script src="Assets/js/login.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row vertical-center">
+                <div class="col-xs-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img src="Assets/img/PDVSAlogo.png" alt="">
+                        </div>
+                        <form action="#" class="form-group">
+                            <div class="panel-body">
+                           <!--Nombre de Usuario-->
+                                <label for="username">
+                                    Nombre de Usuario
+                                </label>
+                                <input type="text" id="username" class="form-control" placeholder="Nombre del usuario">
+                                <hr>
+                            <!--Contraseña del usuario-->
+                                <label for="pass">
+                                    Contraseña
+                                </label>
+                                <input type="password" id="pass" class="form-control" placeholder="******">
+                            </div>
+                            <div class="panel-footer">
+                               <!-- Botones Para iniciar sesion/reset formulario-->
+                                <button class="btn btn-default" onClick="login()">
+                                    Iniciar Session
+                                </button>
+                                <button class="btn btn-warning" onClick="cancel()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

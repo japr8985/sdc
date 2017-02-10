@@ -49,3 +49,10 @@ header{
 	overflow-y: scroll;
 	border: 2px solid black;
 }
+
+.vertical-center{
+    margin-top: 20%;
+    margin-left: 30%;
+
+
+}

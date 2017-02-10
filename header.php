@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('location:index.php');
+    exit();
+}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +22,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-6">
-				<a href="index.php">
+				<a href="home.php">
 					<img src="Assets/img/PDVSAlogo.png" alt="">
 				</a>
 			</div>
