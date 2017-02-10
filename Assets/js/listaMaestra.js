@@ -129,8 +129,16 @@ function buscarCodigo(){
 		method:'POST',
 		success:function(data){
 			console.log(data)
-			$("#codpdvsa"+data).focus();
-			$("#loader").prop('hidden',true);
+            if(data != false){
+			 $("#codpdvsa"+data).focus();
+			 $("#loader").prop('hidden',true);   
+            }
+            else{
+                $.alert({
+                   title:'No encontrado',
+                    content:'Registro no encontrado'
+                });
+            }
 			},
 		error:function(xhr,status,error){
 			$.alert({

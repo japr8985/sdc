@@ -7,7 +7,10 @@ $cod = $_POST['codigo'];
 $sql = "SELECT id FROM registros_total WHERE codpdvsa like '%$cod%' or codpdvsa = '$cod' Limit 0,1";
 //ejecucion de query
 $query = $mysqli->query($sql) or die($mysqli->error);
-$data = $query->fetch_array();
+if($query->num_rows > 0)
+    $data = $query->fetch_array();
+else
+    $data[0] = false;
 //envio del ID encontrado
 echo json_encode($data[0]);
  ?>
