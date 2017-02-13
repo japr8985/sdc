@@ -14,7 +14,7 @@
 	$num = $query->fetch_array();
 	$num = $num[0]+1;
 	//--------------------------------------------
-	$fecha = new DateTime($result['Fecha_Rev']);
+	$fecha = new DateTime($result['fecha_rev']);
 	$fecha = $fecha->format('Y-m-d');
 	$data = array(
 		"Number"		=> $num,
