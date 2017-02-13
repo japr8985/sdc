@@ -66,21 +66,21 @@ function row(data){
 	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
 	var row ='<tr>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" type="hidden" value="'+data+' id="'+data+'">';
+				row = row+'<input class="form-control" readonly type="hidden" value="'+data+' id="'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" onClick="seleccionado(this.id)"style="width: 300px;" type="text" id="codpdvsa'+data+'">';
+				row = row+'<input class="form-control" readonly onClick="seleccionado(this.id)"style="width: 300px;" type="text" id="codpdvsa'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" style="width: 300px;" type="text" id="descripcion'+data+'">';
+				row = row+'<input class="form-control" readonly style="width: 300px;" type="text" id="descripcion'+data+'">';
 			row = row+'</td>';
 			row = row+'<td>';
-				row = row+'<input class="form-control" type="text" id="rev'+data+'" style="width:60px;">';
+				row = row+'<input class="form-control" readonly type="text" id="rev'+data+'" style="width:60px;">';
 			row = row+'</td>';
 			row = row +'<td>';
 			//al id del select se le concatena el id del registro para distinguirlo de los demas
 			//y asignarle el valor en el success del ajax
-				row = row +'<select class="form-control" style="width: 110px;" id="fase'+data+'">';
+				row = row +'<select class="form-control" readonly style="width: 110px;" id="fase'+data+'">';
 					row = row+'<option value=""></option>';
 					row = row+'<option value="C">CONCEPTUALIZAR</option>';
 					row = row+'<option value="D">DEFINIR</option>';
@@ -92,7 +92,7 @@ function row(data){
 			row = row + '<td>';
 			//al id del select se le concatena el id del registro para distinguirlo de los demas
 			//y asignarle el valor en el success del ajax
-				row = row +'<select class="form-control" style="width: 100px;" id="disciplina'+data+'">';
+				row = row +'<select class="form-control" readonly style="width: 100px;" id="disciplina'+data+'">';
 					row = row+'<option value=""></option>';
 					row = row+'<option value="C">Civil</option>';
 					row = row+'<option value="E">Electricidad</option>';
@@ -113,7 +113,7 @@ function row(data){
 			row = row +'</td>';
 			row = row +'<td>';
 				//se le asignara el valor en el success del ajax
-					row = row+'<input type="date" class="form-control" id="fecha'+data+'">';
+					row = row+'<input type="date" readonly class="form-control" id="fecha'+data+'">';
 			row = row+'</td>';
 		row = row+'</tr>';
 	return row;
