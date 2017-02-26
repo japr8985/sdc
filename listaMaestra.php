@@ -9,7 +9,7 @@
 		</div>
 		<div class="col-xs-4">
 			<input type="text" class="form-control" id="searchCode" disabled="true">
-		</div>	
+		</div>
 	</div>
 	<hr>
 	<div class="listaBox">
@@ -57,10 +57,41 @@
 	</div>
 	<hr>
 	<div class="row">
-		<div class="col-xs-offset-5">
-			<!--<button class="btn btn-default" onClick="actualizar()">Actualizar Lista Maestra</button>-->
-		</div>
 	</div>
+		<div class="col-xs-2">
+			<button class="btn btn-default" onClick="imprimir()">Imprimir</button>
+		</div>
+
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+                &times;
+            </span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Lista Maestra - Registro</h4>
+      </div>
+      <div class="modal-body">
+				<label for="cod">C&oacute;digo Pdvsa</label>
+				<input type="text" id="cod" class="form-control">
+				<hr>
+				<label for="desc">Descripci&oacute;n</label>
+				<textarea id="desc" class="form-control"></textarea>
+				<hr>
+				<label for="revision">Revisi&oacute;n</label>
+				<input type="text" id="revision" class="form-control">
+				<label for="disc">Disciplina</label>
+				<input type="text" id="disc" class="form-control">
+				<label for="fr">Fecha Revision/Emision</label>
+				<input type="date" id="fr" class="form-control">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
 		<script src="Assets/js/listaMaestra.js"></script>
 </body>

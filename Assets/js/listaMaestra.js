@@ -40,7 +40,7 @@ function cargar_lista_maestra(){
 				$("#rev"+data[i][0]).val(data[i][3]);
 				$("#fase"+data[i][0]).val(data[i][4]);
 				$("#disciplina"+data[i][0]).val(data[i][5]);
-				if (data[i][5] != null) 
+				if (data[i][5] != null)
 					$("#fecha"+data[i][0]).val(data[i][6]);
 				ids.push(data[i][0]);
 			}//fin for
@@ -60,7 +60,7 @@ function cargar_lista_maestra(){
 		});
 		$("#loader").prop('hidden',true);
 		}//fin error
-	});//fin ajax			
+	});//fin ajax
 	}//fin fucntion
 function row(data){
 	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
@@ -121,7 +121,7 @@ function row(data){
 function buscarCodigo(){
 	$("#loader").prop('hidden',true);
 	var cod = $("#searchCode").val();
-	
+
 	$.ajax({
 		url:'php/lista_maestra/buscar.php',
 		data:{codigo:cod},
@@ -131,7 +131,7 @@ function buscarCodigo(){
 			console.log(data)
             if(data != false){
 			 $("#codpdvsa"+data).focus();
-			 $("#loader").prop('hidden',true);   
+			 $("#loader").prop('hidden',true);
             }
             else{
                 $.alert({
@@ -233,8 +233,10 @@ function actualizar(){
 	$("#loader").prop("hidden",true);
 	}
 function seleccionado(val){
+
 	//se obtiene el valor ID del campo codpdvsa#
 	var valor = val.split("codpdvsa");//['','#']
+	showInfo(valor[1]);
 	//se busca el valor del indice en el arreglo ids donde se encuentra ubicado tal #
 	for (var i = 0; i < ids.length; i++) {
 		if (ids[i] == valor[1]){
@@ -248,4 +250,28 @@ function seleccionado(val){
 	//de tal forma se tiene el nuevo valor de ubicacion
 	//donde el usuario realizo el focus
 	console.log(ub);
+}
+function imprimir(){
+	window.location.href ="php/lista_maestra/info.php"
+}
+
+
+function showInfo(id){
+	console.log($("#codpdvsa"+id).val());
+	$("#cod").val(
+		$("#codpdvsa"+id).val()
+		);
+	$("#desc").val(
+		$("#descripcion"+id).val()
+		);
+	$("#revision").val(
+			$("rev"+id).val()
+		);
+	$("#disc").val(
+			$("#disciplina"+id).val()
+		);
+	$("#fr").val(
+			$("#fecha"+id).val()
+		);
+	$("#editModal").modal(true);
 }

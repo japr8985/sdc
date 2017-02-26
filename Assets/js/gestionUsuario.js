@@ -111,7 +111,7 @@ function editarUsuario(id){
           $("#editType").val(data.tipo);
           //--------------------------------
           var correo = data.correo.split("@");
-          //console.log(correo); 
+          //console.log(correo);
           $("#editCorreo").val(correo[0]);
           $("#editEmail").val("@"+correo[1]);
         },
@@ -141,8 +141,32 @@ function updateUsuario(){
         method:'POST',
         data:obj,
         dataType:'json',
-        success:function(data){},
-        error:function(xhr,status,error){}
+        success:function(data){
+          if (data.Success) {
+            $.confirm({
+              title:'Usuario Actualizado',
+              content:data.Msg,
+              confirm:function(){
+                location.reload();
+              },
+              cancel:function(){
+                location.reload();
+              }
+            });
+          }
+          else{
+            $.alert({
+              title: 'Error Al actualizar',
+              content:data.Msg+" "+data.Error
+            });
+          }
+        },
+        error:function(xhr,status,error){
+          $.alert({
+            title:'Error',
+            content:xhr.status+'. '+error
+          });
+        }
     });
     console.log($("#idEdit").val());
 }
