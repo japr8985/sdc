@@ -57,12 +57,53 @@
 	</div>
 	<hr>
 	<div class="row">
-	</div>
+
 		<div class="col-xs-2">
 			<button class="btn btn-default" onClick="imprimir()">Imprimir</button>
 		</div>
-
+		<div class="col-xs-2">
+			<button class="btn btn-default" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>
+		</div>
+	</div>
+<div class="modal fade" id="filtradoPorFechasModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+                &times;
+            </span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Lista Maestra - Filtrado Por fecha</h4>
+      </div>
+      <div class="modal-body">
+		<div class="input-group">
+			<label for="desde">
+				Desde
+			</label>
+			<input type="date" id="desde" class="form-control">
+		</div>
+		<div class="input-group">
+			<label for="hasta">
+				Hasta
+			</label>
+			<input type="date" id="hasta" class="form-control">
+		</div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" onClick="generarFiltradoPorFecha()" data-dismiss="modal">Generar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
+</div>
+
+
+
+
+
+
+
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -92,6 +133,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 		<script src="Assets/js/listaMaestra.js"></script>
 </body>

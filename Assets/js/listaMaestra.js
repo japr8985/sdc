@@ -275,3 +275,13 @@ function showInfo(id){
 		);
 	$("#editModal").modal(true);
 }
+
+function filtradoPorFechas(){
+	$("#filtradoPorFechasModal").modal(true);
+}
+
+function generarFiltradoPorFecha(){
+	console.log($("#desde").val());
+	var ruta = "php/lista_maestra/reportByFecha.php?desde="+$("#desde").val()+"&hasta="+$("#hasta").val();
+	window.location.href=ruta;
+}
