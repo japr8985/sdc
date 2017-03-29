@@ -7,7 +7,7 @@
 FROM
   carac_doc
 WHERE
-  codpdvsa LIKE '%$cod%' 
+  codpdvsa = '$cod' 
 ORDER BY id ASC
 LIMIT 0, 1";
 //variable de verificacion

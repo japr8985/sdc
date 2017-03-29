@@ -252,7 +252,8 @@ function seleccionado(val){
 	console.log(ub);
 }
 function imprimir(){
-	window.location.href ="php/lista_maestra/info.php"
+	//window.location.href ="php/lista_maestra/info.php"
+	window.open('php/lista_maestra/info.php','blank');
 }
 
 
@@ -283,5 +284,6 @@ function filtradoPorFechas(){
 function generarFiltradoPorFecha(){
 	console.log($("#desde").val());
 	var ruta = "php/lista_maestra/reportByFecha.php?desde="+$("#desde").val()+"&hasta="+$("#hasta").val();
-	window.location.href=ruta;
+	//window.location.href=ruta;
+	window.open(ruta,'blank');
 }

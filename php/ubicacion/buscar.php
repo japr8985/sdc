@@ -3,7 +3,7 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT * from ubicacion where codpdvsa like '%$cod%' ORDER BY id ASC limit 0,1";
+	$sql = "SELECT * from ubicacion where codpdvsa = '$cod' limit 0,1";
 	//variable de verificacion
 	$success = false;
 	$error ='';

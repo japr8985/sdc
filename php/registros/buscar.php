@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT * from registros_total where codpdvsa like '%$cod%' ORDER BY id ASC limit 0,1";
+	$sql = "SELECT * from registros_total where codpdvsa = '$cod' ORDER BY id ASC limit 0,1";
 	//ejecucion de la consulta
 	$query = $mysqli->query($sql);
 	//desgloce de la data

@@ -3,7 +3,7 @@
 	//capturando el valor enviado
 	$cod = $_REQUEST['data'];
 	//consulta
-	$sql = "SELECT * from registros_externos where codCliente like '%$cod%' limit 0,1";
+	$sql = "SELECT * from registros_externos where codCliente = '$cod' limit 0,1";
 	//ejecucion de la consulta
 	$query = $mysqli->query($sql);
 	//desgloce de la data
