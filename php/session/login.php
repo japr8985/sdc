@@ -25,10 +25,15 @@ if ($query->num_rows == 1) {
     
 	$data['Success'] = true;
 	$data['Msg'] = 'Bienvenido '.$result['nombre'];
+	?>
+	<script>
+		window.location.href='../../home.php';
+	</script>
+	<?php
 	}
 else{
 	$data['Msg'] = utf8_encode('Informacion incorrecta'); //utf8_encode('Usuario o contraseña incorrecta');
 	$data['Error'] = $mysqli->error;
 }
-echo json_encode($data);
+
 ?>

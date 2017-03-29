@@ -24,28 +24,25 @@ if (isset($_SESSION['username'])) {
                         <div class="panel-heading">
                             <img src="Assets/img/PDVSAlogo.png" alt="">
                         </div>
-                        <form action="#" class="form-group">
+                        <form action="php/session/login.php" method="POST" class="form-group">
                             <div class="panel-body">
                            <!--Nombre de Usuario-->
                                 <label for="username">
                                     Nombre de Usuario
                                 </label>
-                                <input type="text" id="username" class="form-control" placeholder="Nombre del usuario">
+                                <input type="text" name="user" id="username" class="form-control" placeholder="Nombre del usuario">
                                 <hr>
                             <!--Contraseña del usuario-->
                                 <label for="pass">
                                     Contraseña
                                 </label>
-                                <input type="password" id="pass" class="form-control" placeholder="******">
+                                <input type="password" name="pass" id="pass" class="form-control" placeholder="******">
                             </div>
                             <div class="panel-footer">
+                            <input type="submit" class="btn btn-default" value="Iniciar Session">
                                <!-- Botones Para iniciar sesion/reset formulario-->
-                                <button class="btn btn-default" onClick="login()">
-                                    Iniciar Session
-                                </button>
-                                <button class="btn btn-warning" onClick="cancel()">
-                                    Cancelar
-                                </button>
+                            <input type="reset" class="btn btn-warning" value="Cancelar">
+                                
                             </div>
                         </form>
                     </div>
