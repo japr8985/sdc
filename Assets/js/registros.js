@@ -72,9 +72,9 @@ function anterior(){
 			{id:$("#id").val()},
 			function(data){
 				setData(data);
+
 			});
 		}
-	$("#loader").prop('hidden',true);
 	}
 function siguiente(){
 	//funcion para traer el 
@@ -128,7 +128,15 @@ function buscar(){
 		{data:$("#codPdvsa").val()},
 		function(data){
 			setData(data);
+			if (data.ID == ''){
+				$.alert({
+						title:'Busqueda',
+						content:'No se ha encontrado registro'
+						});
+				$("#loader").prop('hidden',true);
+			}
 		});
+	
 	}
 function agregar(){
 	//variable donde se arma el 

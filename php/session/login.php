@@ -32,8 +32,12 @@ if ($query->num_rows == 1) {
 	<?php
 	}
 else{
-	$data['Msg'] = utf8_encode('Informacion incorrecta'); //utf8_encode('Usuario o contraseña incorrecta');
-	$data['Error'] = $mysqli->error;
+	?>
+	<script>
+	alert('Usuario o clave incorrecta');
+		window.location.href='../../index.php';
+	</script>
+	<?php 
 }
 
 ?>

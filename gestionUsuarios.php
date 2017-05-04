@@ -171,7 +171,7 @@ $total_pages = ceil($total/$limit);
 
 <!--
 |----------------------------------------------------------
-|       VENTANA MODAL PARA CREAR USUARIOS
+|       VENTANA MODAL PARA EDITAR USUARIOS
 |----------------------------------------------------------
    -->   
 
