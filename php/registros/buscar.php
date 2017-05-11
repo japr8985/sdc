@@ -12,11 +12,11 @@ ini_set('display_errors', 1);
 	//----------------------------------------
 	$sql = "SELECT id FROM registros_total where id < ".$result['id'];
 	$query = $mysqli->query($sql);
-	$num = $query->num_rows;
-	$num = $num[0]+1;
-	//----------------------------------------
-	
-	$data = array(
+	if ($query) {
+		$num = $query->num_rows;
+		$num = $num[0]+1;
+		//----------------------------------------
+		$data = array(
 		"Number"		=> $num,
 		"ID" 			=> $result['id'],
 		"CodPdvsa" 		=> $result['codpdvsa'],
@@ -27,5 +27,24 @@ ini_set('display_errors', 1);
 		"Disciplina" 	=> $result['disciplina'],
 		"Status" 		=> $result['status'],
 		"Fase" 			=> $result['fases']);
-	echo json_encode($data);
+		echo json_encode($data);
+	}
+	else{
+		$data= array(
+			"Number"		=> '',
+			"ID" 			=> '',
+			"CodPdvsa" 		=> '',
+			"Descripcion" 	=> '',
+			"Rev" 			=> '',
+			"Fecha_Rev" 	=> '',
+			"CodCliente" 	=> '',
+			"Disciplina" 	=> '',
+			"Status" 		=> '',
+			"Fase" 			=> ''
+			);
+		echo json_encode($data);
+	}
+	
+	
+	
  ?>

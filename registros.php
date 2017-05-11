@@ -66,13 +66,32 @@ $nums = $result->fetch_array();
 				</label>
 				<input type="text" class="form-control" id="codCliente" name="codCliente">
 			</div>
-			<div class="form-group">
-				<label for="rev_emi">
-					Fecha Revision/Emision
-				</label>
-				<div class="row">
-					<div class="col-xs-3">
-						<input type="date" class="form-control" id="fecha">
+			<div class="row">
+				<div class="col-xs-8">
+					<div class="form-group">
+						<label for="rev_emi">
+							Fecha Revision/Emision
+						</label>
+						<div class="row">
+							<div class="col-xs-3">
+								<input type="date" class="form-control" id="fecha">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="status">
+							Status
+						</label>
+						<select class="form-control" id="status">
+							<option value="Activo">
+								Activo
+							</option>
+							<option value="Superado" selected>
+								Superado
+							</option>
+						</select>
 					</div>
 				</div>
 			</div>
