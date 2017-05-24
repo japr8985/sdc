@@ -57,7 +57,8 @@ function inicio(){
 		"php/registros/primerRegistro.php",
 		{},
 		function(data){
-			setData(data)
+			limpiar();
+			setData(data);
 		}
 		);
 	}
@@ -71,6 +72,7 @@ function anterior(){
 			"php/registros/anteriorRegistro.php",
 			{id:$("#id").val()},
 			function(data){
+				limpiar();
 				setData(data);
 
 			});
@@ -88,6 +90,7 @@ function siguiente(){
 			method:'POST',
 			dataType:'json',
 			success:function(data){
+				limpiar();
 				setData(data);
 				$("#loader").prop('hidden',true);
 			},
@@ -109,6 +112,7 @@ function final(){
 		method:'post',
 		dataType:'json',
 		success:function(data){
+			limpiar();
 			setData(data);
 		},
 		error:function(xhr,status,error){
@@ -127,6 +131,7 @@ function buscar(){
 		"php/registros/buscar.php",
 		{data:$("#codPdvsa").val()},
 		function(data){
+			limpiar();
 			setData(data);
 			if (data.ID == ''){
 				$.alert({

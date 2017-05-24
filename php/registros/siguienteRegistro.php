@@ -16,6 +16,10 @@ if ($query->num_rows > 0) {
 	$num = $query->fetch_array();
 	$num = $num[0]+1;
 	//----------------------------------------
+	//Formateando fecha para poder ser visualizada
+	$fecha = new DateTime($result['fecha_rev']);
+	$fecha = $fecha->format('Y-m-d');
+	//-----------------------------------------
 	//codificacion del json
 	$data = array(
 	"Number"		=> $num,
@@ -23,7 +27,7 @@ if ($query->num_rows > 0) {
 	"CodPdvsa" 		=> $result['codpdvsa'],
 	"Descripcion" 	=> utf8_encode($result['descripcion']),
 	"Rev" 			=> $result['rev'],
-	"Fecha_Rev" 	=> $result['fecha_rev'],
+	"fecha" 		=> $fecha,
 	"CodCliente" 	=> $result['codcliente'],
 	"Disciplina" 	=> $result['disciplina'],
 	"Status" 		=> $result['status'],

@@ -33,10 +33,13 @@ if (!isset($_SESSION['username'])) {
 			</div>
 			<div class="col-xs-4">
 				<a href="home.php">
+					<h3 class="text-center">
+						Sistema de Gestion Documental “Proyecto Soto"
+					</h3>
 					<?php if(isset($_SESSION)): ?>
-						<h4>
+						<h5>
 							<?php echo $_SESSION['nombre']; ?>
-						</h4>
+						</h5>
 					<?php endif; ?>
 				</a>
 			</div>

@@ -14,7 +14,12 @@
 	$query = $mysqli->query($sql);
 	$num = $query->fetch_array();
 	$num = $num[0]+1;
+	
 	//----------------------------------------
+	//Formateando fecha para poder ser visualizada
+	$fecha = new DateTime($result['fecha_rev']);
+	$fecha = $fecha->format('Y-m-d');
+	//-----------------------------------------
 	//codificacion e impresion del json
 	$data = array(
 		"Number"		=> $num,
@@ -22,7 +27,7 @@
 		"CodPdvsa" 		=> $result['codpdvsa'],
 		"Descripcion" 	=> utf8_encode($result['descripcion']),
 		"Rev" 			=> $result['rev'],
-		"Fecha_Rev" 	=> $result['fecha_rev'],
+		"fecha"		 	=> $fecha,
 		"CodCliente" 	=> $result['codcliente'],
 		"Disciplina" 	=> $result['disciplina'],
 		"Status" 		=> $result['status'],

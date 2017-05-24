@@ -133,7 +133,7 @@ class PDF extends FPDF
     }
   function header(){
     $this->SetFont('Arial','B',10);
-    $w = array(150,157);
+    $w = array(120,127);
     $a = array('L','R');
     $this->SetWidths($w);
     $this->SetAligns($a);
@@ -142,7 +142,9 @@ class PDF extends FPDF
       $this->PageNo()."/{nb}"
     );
     $this->RowNoBorder($header);
-    $this->Ln();$this->Ln();$this->Ln();$this->Ln();
+    $this->SetFont('Arial','B',20);
+    $this->Multicell(0,5,utf8_decode('Registros Según su fecha'),'','C');
+    $this->Ln();$this->Ln();$this->Ln();
     if ($this->disciplina != 'N/A') {
       $this->SetFont('Arial','BU',10);
       $this->MultiCell(0,5,$this->disciplina);

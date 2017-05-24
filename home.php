@@ -41,13 +41,6 @@
 					</h3>
 				</a>
 			</div>
-			<div class="col-xs-6">
-				<a href="#">
-					<h3>
-						Manual de Usuario
-					</h3>
-				</a>
-			</div>
 		</div>
 		<div class="row box">
 		    <?php if($_SESSION['type'] == 'admin'):?>
@@ -60,7 +53,7 @@
                 </div>
             <?php endif; ?>
 		    <div class="col-xs-6">
-                <a href="php/session/logout.php">
+                <a href="#" onclick="cerrarSesion()">
 		            <h3>
 		                Cerrar Sesion
 		            </h3>
@@ -69,4 +62,17 @@
 		</div>
 	</div>
 </body>
+<script>
+	function cerrarSesion(){
+		console.log("php/session/logout.php");
+		$.confirm({
+			title:'Confirmar',
+			content:'Desea realmente cerrar sesion?',
+			confirm:function(){
+				window.location.href = 'php/session/logout.php'
+			},
+			cancel:function(){}
+		});
+	}
+</script>
 </html>
