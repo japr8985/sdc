@@ -69,7 +69,7 @@ $nums = $result->fetch_array();
 			<div class="row">
 				<div class="col-xs-8">
 					<div class="form-group">
-						<label for="rev_emi">
+						<label for="fecha">
 							Fecha Revision/Emision
 						</label>
 						<div class="row">

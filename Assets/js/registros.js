@@ -79,9 +79,6 @@ function anterior(){
 		}
 	}
 function siguiente(){
-	//funcion para traer el 
-	//documento siguiente al mostrado
-	//mostrar circulo de carga
 	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
 		$("#loader").prop('hidden',false);
 		$.ajax({
@@ -95,7 +92,6 @@ function siguiente(){
 				$("#loader").prop('hidden',true);
 			},
 			error:function(xhr,status,error){
-				
 				$("#loader").prop('hidden',true);
 				}
 			});
@@ -156,7 +152,7 @@ function agregar(){
 		fase 				: $('#fase option:selected').val(),
 		status 			: $('#status option:selected').val(),
 		codCliente 	: $('#codCliente').val(),
-		fecha 			: $('#rev_emi').val(),
+		fecha 			: $('#fecha').val(),
 		};
 	console.log(obj);
 	$.ajax({
@@ -249,7 +245,7 @@ function actualizar(){
 		fase 				: $('#fase option:selected').val(),
 		status 			: $('#status option:selected').val(),
 		codCliente 	: $('#codCliente').val(),
-		fecha 			: $('#rev_emi').val(),
+		fecha 			: $('#fecha').val(),
 		};
 	$.ajax({
 		url:'php/registros/actualizar.php',

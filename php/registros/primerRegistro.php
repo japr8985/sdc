@@ -16,8 +16,12 @@
 	$num = $num[0]+1;
 	//----------------------------------------
 	//Formateando fecha para poder ser visualizada
-	$fecha = new DateTime($result['fecha_rev']);
-	$fecha = $fecha->format('Y-m-d');
+	if (is_null($result['fecha_rev'])) {
+		$fecha = null;
+	} else {
+		$fecha = new DateTime($result['fecha_rev']);
+		$fecha = $fecha->format('Y-m-d');
+	}
 	//-----------------------------------------
 	$data = array(
 		"Number"		=> $num,

@@ -16,13 +16,20 @@ ini_set('display_errors', 1);
 		$num = $query->num_rows;
 		$num = $num[0]+1;
 		//----------------------------------------
+
+		if (is_null($result['fecha_rev'])) {
+			$fecha = null;
+		} else {
+			$fecha = new DateTime($result['fecha_rev']);
+			$fecha = $fecha->format('Y-m-d');
+		}
 		$data = array(
 		"Number"		=> $num,
 		"ID" 			=> $result['id'],
 		"CodPdvsa" 		=> $result['codpdvsa'],
 		"Descripcion" 	=> utf8_encode($result['descripcion']),
 		"Rev" 			=> $result['rev'],
-		"Fecha_Rev" 	=> $result['fecha_rev'],
+		"Fecha_Rev" 	=> $fecha,
 		"CodCliente" 	=> $result['codcliente'],
 		"Disciplina" 	=> $result['disciplina'],
 		"Status" 		=> $result['status'],
