@@ -10,8 +10,9 @@ $rev 		       = isset($_POST['rev']) ? strtoupper($_POST['rev']) : 'A';
 $disciplina    = $_POST['disciplina'];
 $fase 		     = $_POST['fase'];
 $codCliente    = $_POST['codCliente'];
-$fecha 		     = isset($_POST['fecha']) ? new DateTime($_POST['fecha']) : new DateTime();
-$fecha 		     = $fecha->format('Y-m-d');
+$fecha 		     = !empty($_POST['fecha']) ? new DateTime($_POST['fecha']) : null;
+if(!is_null($fecha))
+  $fecha	     = $fecha->format('Y-m-d');
 //arreglo de resupesta donde se enviaran los resultados
 //de las validaciones y si la data es guardada correctamente
 $data = array('Success' => false,'Msg' => '', 'Error' => '');
