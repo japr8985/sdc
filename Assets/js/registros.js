@@ -83,7 +83,10 @@ function siguiente(){
 		$("#loader").prop('hidden',false);
 		$.ajax({
 			url:"php/registros/siguienteRegistro.php",
-			data:{id:$("#id").val()},
+			data:{
+				id:$("#id").val(),
+				codpdvsa:$("#codPdvsa").val()
+			},
 			method:'POST',
 			dataType:'json',
 			success:function(data){
@@ -276,4 +279,4 @@ function actualizar(){
 		}
 	});
 	limpiar();
-}
+	}

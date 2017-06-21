@@ -4,16 +4,16 @@
 		<div class="row box">
 			<div class="col-xs-6">
 				<a href="listaMaestra.php">
-					<h3>
 					<img src="Assets/iconos/lista_ maestra.png" class="icon">
-					Lista Maestra
+					<h3>
+						Lista Maestra
 					</h3>
 				</a>
 			</div>
 			<div class="col-xs-6">
 				<a href="ubicacion.php">
-					<h3>
 					<img src="Assets/iconos/ubicacion.png" class="icon">
+					<h3>
 						Ubicacion de Registros (PDVSA)
 					</h3>
 				</a>
@@ -22,16 +22,16 @@
 		<div class="row box">
 			<div class="col-xs-6">
 				<a href="especificacionPlanosDocumentos.php">
-					<h3>
 					<img src="Assets/iconos/especificaciones.png" class="icon">
+					<h3>
 						Especificaciones de Registros
 					</h3>
 				</a>	
 			</div>
 			<div class="col-xs-6">
 				<a href="registros.php">
-						<h3>
 						<img src="Assets/iconos/registros_pdvsa.png" class="icon">
+						<h3>
 							Registros PDVSA
 						</h3>
 					</a>
@@ -40,8 +40,8 @@
 		<div class="row box">
 			<div class="col-xs-6">
 				<a href="registros_externos.php">
+					<img src="Assets/iconos/registros_externos.png" class="icon">
 					<h3>
-						<img src="Assets/iconos/registros_externos.png" class="icon">
 						Registros Externos
 					</h3>
 				</a>
@@ -51,6 +51,7 @@
 		    <?php if($_SESSION['type'] == 'admin'):?>
                 <div class="col-xs-6">
                     <a href="gestionUsuarios.php">
+					<img src="Assets/iconos/usuarios.jpg" class="icon">
                         <h3>
                             Gestion De usuarios
                         </h3>
@@ -59,8 +60,8 @@
             <?php endif; ?>
 		    <div class="col-xs-6">
                 <a href="#" onclick="cerrarSesion()">
-		            <h3>
-						<img src="Assets/iconos/logout.png" class="icon">
+		            <img src="Assets/iconos/logout.png" class="icon">
+					<h3>
 		                Cerrar Sesion
 		            </h3>
                 </a>

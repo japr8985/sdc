@@ -1,10 +1,10 @@
 <?php 
-
-
 include ("../../conexion/conexion.php");
 ini_set('display_errors', 1);
 $id = $_POST['id'];
-$sql = "SELECT * FROM registros_total WHERE id = (SELECT min(id) FROM registros_total where id > $id)";
+$sql = "SELECT * FROM registros_total 
+	WHERE id = (SELECT min(id) FROM registros_total where id > $id) 
+	and codpdvsa =";
 //ejecucion de consulta SQL
 $query = $mysqli->query($sql) or die($mysqli->error);
 if ($query->num_rows > 0) {
