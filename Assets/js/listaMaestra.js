@@ -1,199 +1,163 @@
-//areglo que contiene todos los id de los registros traidos de la tabla lista maestra
-//estos funcionaran para poder moverse por la tabla generada sin necesidad de realizar
-//mas solicitudes ajax, ni consultas a DB
-var ids = new Array();
-//esta variable sirve para tener el indice del arreglo (ids) y complementar la funcionalidad del arreglo
-var ub = 0;
-function cargar_lista_maestra(){
-	$("#loader").prop('hidden',false);
-	//limpiando arreglo de ids
-	ids=[];
-	//limpiando tabla
-	$('table tbody').find('tr').remove()
-	$.ajax({
-		url:'php/lista_maestra/lista_maestra.php',
-		method:'POST',
-		dataType:'json',
-		success:function(res){
-			var data 	= res[0];
-			var filas 	= res[1];
-			//si no hay registros para mostrar
-			if (data == 0) {
-				$.alert({
-				title:'Lista Maestra',
-				content:'No hay registros para visualizar'
-				});
-			$("#loader").prop('hidden',true);
-			}//fin if
-		else{
-			//limpiar contenido de la lista maestra
-			$('#listaMaestra').empty()
-			//creando nuevo contenido para la lista
-			for (var i = 0; i < data.length; i++) {
-				//agregando filas a la tabla
-				//crea una linea nueva
-				$("table tbody").append(
-					row(data[i][0])
-					);
-				$("#codpdvsa"+(data[i][0].trim())).val(data[i][1]);
-				$("#descripcion"+data[i][0]).val(data[i][2]);
-				$("#rev"+data[i][0]).val(data[i][3]);
-				$("#fase"+data[i][0]).val(data[i][4]);
-				$("#disciplina"+data[i][0]).val(data[i][5]);
-				if (data[i][5] != null)
-					$("#fecha"+data[i][0]).val(data[i][6]);
-				ids.push(data[i][0]);
-			}//fin for
-		//mostrando la cantidad de filas
-		$("#totalnumbers").val(filas);
-		$("#loader").prop('hidden',true);
-		//habilitando boton de busqueda
-		$("#btnSearch").prop('disabled',false);
-		//habilitando input de busqueda
-		$("#searchCode").prop('disabled',false);
-		}//fin else
-	},//fin success
-	error:function(xhr,status,error){
-		$.alert({
-			title:xhr.status,
-			content:xhr.status+" "+error
-		});
-		$("#loader").prop('hidden',true);
-		}//fin error
-	});//fin ajax
-	}//fin fucntion
-function row(data){
-	//funcion para dibujar la fila del registro creando un id para cada elemento unico segun su id en la db
-	var row ='<tr>';
-			row = row+'<td>';
-				row = row+'<input class="form-control" readonly type="hidden" value="'+data+' id="'+data+'">';
-			row = row+'</td>';
-			row = row+'<td>';
-				row = row+'<input class="form-control" readonly onClick="seleccionado(this.id)"style="width: 300px;" type="text" id="codpdvsa'+data+'">';
-			row = row+'</td>';
-			row = row+'<td>';
-				row = row+'<input class="form-control" readonly style="width: 300px;" type="text" id="descripcion'+data+'">';
-			row = row+'</td>';
-			row = row+'<td>';
-				row = row+'<input class="form-control" readonly type="text" id="rev'+data+'" style="width:60px;">';
-			row = row+'</td>';
-			row = row +'<td>';
-			//al id del select se le concatena el id del registro para distinguirlo de los demas
-			//y asignarle el valor en el success del ajax
-				row = row +'<select class="form-control" readonly style="width: 110px;" id="fase'+data+'">';
-					row = row+'<option value=""></option>';
-					row = row+'<option value="C">CONCEPTUALIZAR</option>';
-					row = row+'<option value="D">DEFINIR</option>';
-					row = row+'<option value="I">IMPLANTAR</option>';
-					row = row+'<option value="O">OPERAR</option>';
-					row = row+'<option value="V">VISUALIZAR</option>';
-				row = row +'</select>';
-			row = row +'</td>';
-			row = row + '<td>';
-			//al id del select se le concatena el id del registro para distinguirlo de los demas
-			//y asignarle el valor en el success del ajax
-				row = row +'<select class="form-control" readonly style="width: 100px;" id="disciplina'+data+'">';
-					row = row+'<option value=""></option>';
-					row = row+'<option value="C">Civil</option>';
-					row = row+'<option value="E">Electricidad</option>';
-					row = row+'<option value="EC">Estimacion de Costos</option>';
-					row = row+'<option value="G">General</option>';
-					row = row+'<option value="GN">Gerencia</option>';
-					row = row+'<option value="H">Ambiente e higiene ocupacional</option>';
-					row = row+'<option value="I">Instrumentacion</option>';
-					row = row+'<option value="M">Mecanica</option>';
-					row = row+'<option value="N">Naval</option>';
-					row = row+'<option value="O">Geodesia</option>';
-					row = row+'<option value="P">Proceso</option>';
-					row = row+'<option value="PQ">Procura</option>';
-					row = row+'<option value="Q">Calidad</option>';
-					row = row+'<option value="T">Telecomunicaciones</option>';
-					row = row+'<option value="TB">Tuberias</option>';
-				row = row +'</select>';
-			row = row +'</td>';
-			row = row +'<td>';
-				//se le asignara el valor en el success del ajax
-					row = row+'<input type="date" readonly class="form-control" id="fecha'+data+'">';
-			row = row+'</td>';
-		row = row+'</tr>';
-	return row;
-	}
+var busqueda_cantidad = 0; //variable global para almacenar la 
+//cantidad de registros traidos
+var busqueda_registros = [] //almacena los registros en un arreglo
+var busqueda_indice = 0; //indice de la busqueda
+//------------------
+var indice_pagina = 0;
+/**
+Realiza un busqueda por codigo y trae todos los registros
+activos que tenga este codigo.
+Muestra una ventana modal donde se puede visualizar la informacion
+del registro
+y pasar entre las coincidencias
+*/
 function buscarCodigo(){
-	$("#loader").prop('hidden',true);
-	var cod = $("#searchCode").val();
-
+	//captura el codigo escrito en el input
+	var codigo = $("#search").val().trim();
+	//realiza consulta para buscar todos los resultados que coincidan con el codigo
 	$.ajax({
-		url:'php/lista_maestra/buscar.php',
-		data:{codigo:cod},
-		dataType:'json',
-		method:'POST',
-		success:function(data){
-			console.log(data)
-            if(data != false){
-			 $("#codpdvsa"+data).focus();
-			 $("#loader").prop('hidden',true);
-            }
-            else{
-                $.alert({
-                   title:'No encontrado',
-                    content:'Registro no encontrado'
-                });
-            }
-			},
+		url:"php/lista_maestra/buscar.php",//direccion de la consulta
+		method:"post",//metodo Http
+		data:{codigo:codigo},//objeto a enviar
+		dataType:"json",//tipo de dato que se espera recibir
+		beforeSend:function(){//antes de enviar
+			$("#loader").prop('hidden',false);//mostrar animacion de loading
+		},
+		success:function(response){//una vez recibida la informacion
+			console.log(response)
+			$("#loader").prop('hidden',true);//ocultar la animacion de loading
+			loadmodal(response);//carga informacion
+			$("#showRegistro").modal(true);//mostrar ventana modal
+
+		},
 		error:function(xhr,status,error){
-			$.alert({
-				title:xhr.status,
-				content:xhr.status+" "+error
-				});
-			$("#loader").prop('hidden',true);
-			}
+			$("#loader").prop('hidden',true);	
+		}
+
+	});
+}
+/**
+Funcion para cargar la informacion a la ventana modal
+recibe un obj
+
+Se carga por defecto la primera coincidencia
+**/
+function loadmodal(obj){
+	busqueda_cantidad = obj.cantidad;
+	busqueda_registros = obj.registros;
+	console.log(busqueda_registros);
+	$("#codpdvsa").val(obj.registros[0].codpdvsa);
+	$("#descripcion").val(obj.registros[0].descripcion);
+	$("#rev").val(obj.registros[0].rev);
+	$("#fecha").val(obj.registros[0].fecha);
+	$("#codCliente").val(obj.registros[0].codCliente);
+	$("#status").val(obj.registros[0].status);
+	$("#disciplina").val(obj.registros[0].disciplina);
+	$("#fase").val(obj.registros[0].fase);
+	if (busqueda_cantidad > 0){//si tiene mas de 1 registro
+		//habilita los botones de siguiente y anterior
+		$("#searchBefore").prop('disabled',false);
+		$("#searchNext").prop('disabled',false);
+		//asigna los valores a la referencia
+		$("#numberReg").val(1);//como siempre se muestra el primer registro
+		//siempre se visualiza el primer registro
+		$("#totalReg").val(busqueda_cantidad);
+	}
+
+}
+/**
+Funcion de siguiente para busqueda 
+de registros en la ventana modal
+**/
+function nextReg(){
+	if (busqueda_indice < busqueda_cantidad) {
+		busqueda_indice = busqueda_indice + 1;
+		$("#numberReg").val(busqueda_indice);
+		$("#codpdvsa").val(busqueda_registros[busqueda_indice].codpdvsa);
+		$("#descripcion").val(busqueda_registros[busqueda_indice].descripcion);
+		$("#rev").val(busqueda_registros[busqueda_indice].rev);
+		$("#fecha").val(busqueda_registros[busqueda_indice].fecha);
+		$("#codCliente").val(busqueda_registros[busqueda_indice].codCliente);
+		$("#status").val(busqueda_registros[busqueda_indice].status);
+		$("#disciplina").val(busqueda_registros[busqueda_indice].disciplina);
+		$("#fase").val(busqueda_registros[busqueda_indice].fase);
+	}
+}
+function beforeReg(){
+	if (busqueda_indice > -1 && busqueda_indice != 0) {
+		busqueda_indice = busqueda_indice - 1;
+		$("#numberReg").val(busqueda_indice);
+		$("#codpdvsa").val(busqueda_registros[busqueda_indice].codpdvsa);
+		$("#descripcion").val(busqueda_registros[busqueda_indice].descripcion);
+		$("#rev").val(busqueda_registros[busqueda_indice].rev);
+		$("#fecha").val(busqueda_registros[busqueda_indice].fecha);
+		$("#codCliente").val(busqueda_registros[busqueda_indice].codCliente);
+		$("#status").val(busqueda_registros[busqueda_indice].status);
+		$("#disciplina").val(busqueda_registros[busqueda_indice].disciplina);
+		$("#fase").val(busqueda_registros[busqueda_indice].fase);
+	}
+}
+//Mostrar reporte de la lista maestra
+function imprimir(){
+	//window.location.href ="php/lista_maestra/info.php"
+	window.open('php/lista_maestra/info.php','blank');
+}
+//validacion de fechas
+function checkDates(fDesde,fHasta){
+	var d = new Date(fDesde);
+	var h = new Date(fHasta);
+
+	if (fDesde == '' || fDesde == null || fDesde === 'undefined') 
+		return false;	
+	if (fHasta == '' || fHasta == null || fDesde === 'undefined')
+		return false;
+	if(d.getTime() > h.getTime())
+		return false;
+	return true; 
+}
+//Mostrar reporte por fechas
+function generarFiltradoPorFecha(){
+
+	if(checkDates($("#desde").val(),$("#hasta").val())){
+		var ruta = "php/lista_maestra/reportByFecha.php?desde="+$("#desde").val()+"&hasta="+$("#hasta").val();
+		window.open(ruta,'blank');
+		}
+	else{
+		$.alert({
+			title:'Error',
+			content:'Error en la(s) fecha(s) seleccionada. Seleccione fechas validas para crear el reporte'
 		});
 	}
+	
+}
+//ir al primer registro de la pagina
 function inicio(){
 	$("#loader").prop('hidden',false);
-	$("#codpdvsa"+ids[0]).focus();
-	ub = 0;
+	$("#0").focus();
 	$("#loader").prop('hidden',true);
-	$("#numberToShow").val(ub+1);
+	indice_pagina = 0;
 	}
 function fin(){
 	$("#loader").prop('hidden',false);
-	$("#codpdvsa"+ids[ids.length-1]).focus();
-	ub = ids.length - 1;
+	$("#199").focus();
 	$("#loader").prop('hidden',true);
-	$("#numberToShow").val(ub+1);
+	indice_pagina = 199;
 	}
 function anterior(){
-	$("#loader").prop('hidden',false);
-	//se toma el valor de la ultima ubicacion
-	//y se le resta 1
-	ub = ub - 1;
-	if (ub < 0) {
-		$.alert({
-				title:"Error",
-				content:"Intenta seleccionar un registro anterior al primero"
-				});
-	}
-	else//esto sera la ubicacion en el arreglos de los id
-		$("#codpdvsa"+ids[ub]).focus();
-	$("#numberToShow").val(ub+1);
-	$("#loader").prop('hidden',true);
+	if (indice_pagina >= 0){
+		indice_pagina = indice_pagina - 1;
+		$("#loader").prop('hidden',false);
+		$("#"+indice_pagina).focus();
+		$("#loader").prop('hidden',true);
+		}
 	}
 function siguiente(){
-	$("#loader").prop('hidden',false);
-	//se toma el valor de la ultima ubicacion
-	//y se le suma 1
-	ub = ub + 1;
-	if (ub > ids.length-1) {
-		$.alert({
-				title:"Error",
-				content:"No existen mas registros",
-				});
+	if (indice_pagina <= 199){
+		indice_pagina = indice_pagina + 1;
+		$("#loader").prop('hidden',false);
+		$("#"+indice_pagina).focus();
+		$("#loader").prop('hidden',true);
 		}
-	else
-		$("#codpdvsa"+ids[ub]).focus();
-	$("#numberToShow").val(ub+1);
-	$("#loader").prop('hidden',true);
 	}
 function limpiar(){
 	//finalizado
@@ -201,37 +165,7 @@ function limpiar(){
 	$('table tbody').find('tr').remove()
 	$("#loader").prop('hidden',true)
 	}
-function actualizar(){
-	$("#loader").prop("hidden",false);
-		var id = $(this).find("input.value");
-		 $.ajax({
-		 	url:"php/lista_maestra/actualizar_lista.php",
-		 	method:'post',
-		 	dataType:'json',
-		 	success:function(data){
-		 		if (data.Success){
-		 		$.alert({
-		 			title:'Exito',
-		 			content:'Todos los registros mostrados, han sido superados'
-		 			});
-		 		}
-		 		else{
-		 			$.alert({
-			 			title:'Error',
-			 			content:data.Msg+" "+data.Error
-			 			});
-		 		}
-		 	},
-		 	error:function(xhr,status,error){
-		 		$.alert({
-		 			title:'Error',
-		 			content:xhr.status+" "+error
-		 		});
-		 	}
-		 });
 
-	$("#loader").prop("hidden",true);
-	}
 function seleccionado(val){
 
 	//se obtiene el valor ID del campo codpdvsa#
@@ -251,10 +185,7 @@ function seleccionado(val){
 	//donde el usuario realizo el focus
 	console.log(ub);
 }
-function imprimir(){
-	//window.location.href ="php/lista_maestra/info.php"
-	window.open('php/lista_maestra/info.php','blank');
-}
+
 
 
 function showInfo(id){
@@ -281,9 +212,5 @@ function filtradoPorFechas(){
 	$("#filtradoPorFechasModal").modal(true);
 }
 
-function generarFiltradoPorFecha(){
-	console.log($("#desde").val());
-	var ruta = "php/lista_maestra/reportByFecha.php?desde="+$("#desde").val()+"&hasta="+$("#hasta").val();
-	//window.location.href=ruta;
-	window.open(ruta,'blank');
-}
+
+

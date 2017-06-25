@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sistema De Control Documental</title>
+	<title>SAGD PROYECTO SOTO</title>
 	<link rel="stylesheet" type="text/css" href="Assets/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="Assets/css/general.css">
 	<link rel="stylesheet" href="Assets/css/jquery-confirm.min.css">
@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
 			<div class="col-xs-4">
 				<a href="home.php">
 					<h3 class="text-center">
-						Sistema de Gestion Documental “Proyecto Soto"
+						SAGD PROYECTO SOTO
 					</h3>
 					<?php if(isset($_SESSION)): ?>
 						<h5>
