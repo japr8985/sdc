@@ -83,11 +83,11 @@ tr:after {
 }
 
 thead th { 
-    height: 60px;
+    height: 50px;
     /*text-align: left;*/
 }
 tbody {
-    height: 500px;
+    height: 300px;
     overflow-y: scroll;
 }
 
@@ -106,7 +106,8 @@ tbody td, thead th {
 }
 
 .table--class {
-	margin:0px;padding:0px;
+	margin:0px;
+	padding:0px;
 	margin-left: auto;
     margin-right: auto;
 	box-shadow: 10px 10px 5px #888888;
@@ -127,7 +128,8 @@ tbody td, thead th {
 	-moz-border-radius-topleft:0px;
 	-webkit-border-top-left-radius:0px;
 	border-top-left-radius:0px;
-}.table--class tr:last-child td:last-child {
+}
+.table--class tr:last-child td:last-child {
 	-moz-border-radius-bottomright:0px;
 	-webkit-border-bottom-right-radius:0px;
 	border-bottom-right-radius:0px;
@@ -159,5 +161,10 @@ tbody td, thead th {
 	text-align:center;
 	}
 
+tr.espaciado_de_columnas {
+  td {
+    width: 100%;
+  }
+}
 
 

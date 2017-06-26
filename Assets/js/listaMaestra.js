@@ -51,7 +51,6 @@ function loadmodal(obj){
 	$("#rev").val(obj.registros[0].rev);
 	$("#fecha").val(obj.registros[0].fecha);
 	$("#codCliente").val(obj.registros[0].codCliente);
-	$("#status").val(obj.registros[0].status);
 	$("#disciplina").val(obj.registros[0].disciplina);
 	$("#fase").val(obj.registros[0].fase);
 	if (busqueda_cantidad > 0){//si tiene mas de 1 registro

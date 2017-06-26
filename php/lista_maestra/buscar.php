@@ -19,7 +19,7 @@ FROM
   fases,
   disciplina
 WHERE
-  `codpdvsa` = ' DB050702-XY1I3-IP06011' AND registros_total.fases = fases.codigo AND registros_total.status = 'Activo' and registros_total.disciplina = disciplina.simbolo
+  `codpdvsa` = '$cod' AND registros_total.fases = fases.codigo AND registros_total.status = 'Activo' and registros_total.disciplina = disciplina.simbolo
 ORDER BY
   `codpdvsa` ASC";
 

@@ -16,58 +16,57 @@ else{
 $registros_por_pagina = 200;
 $posicion = (($page_number -1)* $registros_por_pagina);
 $sql = "SELECT   
-        registros_total.id, 
-        registros_total.codpdvsa, 
-        registros_total.descripcion, 
-        registros_total.rev, 
+        registros_total.id as id, 
+        registros_total.codpdvsa as codpdvsa, 
+        registros_total.descripcion as descripcion, 
+        registros_total.rev as rev, 
         registros_total.fecha_rev as fecha, 
-        registros_total.codcliente, 
-        registros_total.status, 
-        registros_total.disciplina, 
-        registros_total.fases
-    FROM registros_total
-    WHERE registros_total.status ='ACTIVO' 
+        registros_total.codcliente as codcliente, 
+        fases.fase as fase,
+        disciplina.disciplina as disciplina
+    FROM registros_total, fases, disciplina
+    WHERE registros_total.status ='ACTIVO' AND registros_total.fases = fases.codigo AND registros_total.disciplina = disciplina.simbolo
     ORDER BY codpdvsa ASC limit $posicion, $registros_por_pagina";
 $query = $mysqli->query($sql);
 $i = 0;
     echo "<table class='table table-hover table--class' id='lista_maestra'>";
         echo "<thead>";
-            echo "<th>";
-                echo "Cod. Pdvsa";
-            echo "</th>";
-            echo "<th>";
-                echo "Descripcion";
-            echo "</th>";
-            echo "<th>";
-                echo "Rev";
-            echo "</th>";
-            echo "<th>";
-                echo "Fecha";
-            echo "</th>";
-            echo "<th>";
-                echo "Cod. Cliente";
-            echo "</th>";
-            echo "<th>";
-                echo "Status";
-            echo "</th>";
-            echo "<th>";
-                echo "Disciplina";
-            echo "</th>";
-            echo "<th>";
-                echo "Fase";
-            echo "</th>";
+            echo "<tr>";
+                echo "<th>";
+                    echo "Cod. Pdvsa";
+                echo "</th>";
+                echo "<th>";
+                    echo "Descripcion";
+                echo "</th>";
+                echo "<th>";
+                    echo "Rev";
+                echo "</th>";
+                echo "<th>";
+                    echo "Fecha";
+                echo "</th>";
+                echo "<th>";
+                    echo "Cod. Cliente";
+                echo "</th>";
+                echo "<th>";
+                    echo "Fase";
+                echo "</th>";
+                echo "<th>";
+                    echo "Disciplina";
+                echo "</th>";
+            echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
         while ($row = $query->fetch_array()) {
-            echo "<tr id='".$row[0]."'>";
-                echo "<td> <input type='text' id='".$i."' class='form-control' value='".trim($row[1])."'></td>";
+            echo "<tr class='espaciado_de_columnas'>";
+                echo "<td > 
+                        <textarea id=".$i." cols='25' rows='3'>".$row[1]."</textarea>
+                    </td>";
                 echo "<td> ".$row[2]."</td>";
                 echo "<td style='text-align:center;'> ".$row[3]."</td>";
                 echo "<td style='text-align:center;'> ".$row[4]."</td>";
                 echo "<td style='text-align:center;'> ".$row[5]."</td>";
                 echo "<td style='text-align:center;'> ".$row[6]."</td>";
                 echo "<td style='text-align:center;'> ".$row[7]."</td>";
-                echo "<td style='text-align:center;'> ".$row[8]."</td>";
             echo "</tr>";
             $i++;
             }

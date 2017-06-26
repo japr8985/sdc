@@ -16,45 +16,50 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            <button class="btn btn-default" onClick="inicio()">Inicio</button>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-default" onClick="fin()">Fin</button>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-default" onClick="anterior()">Anterior</button>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-default" onClick="siguiente()">Siguiente</button>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-3">
-            <button class="btn btn-default" onClick="imprimir()">Imprimir</button>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-default" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>
-        </div>
-        <div class="col-md-3">
-            <input type="text" id="search" class="form-control" placeholder="Registro a buscar">
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-default" onClick="buscarCodigo()">
-                Buscar
-            </button>
+        <div class="text-center">
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="imprimir()">Imprimir</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>
+            </div>
+            <div class="col-md-3">
+                <input type="text" id="search" class="form-control" placeholder="Registro a buscar">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="buscarCodigo()">
+                    Buscar
+                </button>
+            </div>
         </div>
     </div>
 </div>
 <hr>
 <div class="container-fluid">
     <div id="results"></div>
+    <hr>
+    <div class="row">
+        <div class="text-center">
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="inicio()">Inicio</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="fin()">Fin</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="anterior()">Anterior</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default" onClick="siguiente()">Siguiente</button>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="text-center">
             <div class="pagination"></div>
         </div>
     </div>
+        
 </div>
 <!--modal Filtrado por fecha -->
 <div class="modal fade" id="filtradoPorFechasModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
@@ -142,12 +147,6 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
                         Cod. Cliente
                     </label>
                     <input type="text" class="form-control" id="codCliente">
-                </div>
-                <div class="col-md-6">
-                    <label for="status">
-                        Status
-                    </label>
-                    <input type="text" class="form-control" id="status">
                 </div>
             </div>
         </div>
