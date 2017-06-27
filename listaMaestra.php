@@ -43,18 +43,12 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
             <input type="text" class="numbers" readonly value="0" id="actualID">/<input type="text" class="numbers" readonly value="<?php echo $total_registros; ?>">
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="text-center">
-            <div class="col-md-3">
                 <button class="btn btn-default" onClick="inicio()">Inicio</button>
-            </div>
-            <div class="col-md-3">
                 <button class="btn btn-default" onClick="fin()">Fin</button>
-            </div>
-            <div class="col-md-3">
                 <button class="btn btn-default" onClick="anterior()">Anterior</button>
-            </div>
-            <div class="col-md-3">
                 <button class="btn btn-default" onClick="siguiente()">Siguiente</button>
             </div>
         </div>
@@ -193,7 +187,18 @@ $(document).ready(function(){
     $(".pagination").bootpag({
         total: "<?php echo $paginas; ?>",
         page: 1,
-        maxVisible: 200
+        maxVisible: 5,
+        leaps: true,
+        firstLastUse: true,
+        first: '←',
+        last: '→',
+        wrapClass: 'pagination',
+        activeClass: 'active',
+        disabledClass: 'disabled',
+        nextClass: 'next',
+        prevClass: 'prev',
+        lastClass: 'last',
+        firstClass: 'first'
     }).on("page",function(e,num){
         $("#results").load("php/lista_maestra/numero_paginas.php", {'page':num});
     });

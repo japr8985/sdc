@@ -57,18 +57,19 @@ $i = 0;
         echo "</thead>";
         echo "<tbody>";
         while ($row = $query->fetch_array()) {
-            $sql_num = "SELECT count(id) FROM registros_total WHERE id < ".$row['id'];
+            $sql_num = "SELECT count(id) FROM registros_total WHERE id < ".$row['id']." AND status = 'ACTIVO'";
             $query_num = $mysqli->query($sql_num);
             $find_num = $query_num->fetch_array();
-            
+            $fecha = !is_null($row[4]) ? new DateTime($row[4]) : '';
+            $fecha = ($fecha != '') ? $fecha->format('d-m-Y') : '';
             echo "<tr class='espaciado_de_columnas'>";
                 echo "<td style='margin: 0px 20px 5px 5px;'> 
-                        <textarea id=".$i." cols='24' rows='3' readonly>".$row[1]."</textarea>
+                        <textarea id=".$i." cols='24' rows='3' readonly onClick='seleccionado(this.id)'>".$row[1]."</textarea>
                     </td>";
-                echo "<input type='hidden' id='hidden".$i."' value='$find_num[0]'>";
+                echo "<input type='hidden' id='hidden".$i."' value='".(intval($find_num[0])+1)."'>";
                 echo "<td style='margin-top: 20px;'> ".$row[2]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[3]."</td>";
-                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[4]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$fecha."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[5]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[6]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[7]."</td>";

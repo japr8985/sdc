@@ -26,8 +26,16 @@ function buscarCodigo(){
 		success:function(response){//una vez recibida la informacion
 			console.log(response)
 			$("#loader").prop('hidden',true);//ocultar la animacion de loading
-			loadmodal(response);//carga informacion
-			$("#showRegistro").modal(true);//mostrar ventana modal
+			if (response.registros != null) {
+				loadmodal(response);//carga informacion
+				}
+			else{
+				$.alert({
+					title:'Registro no encontrado',
+					content:'El registro '+codigo+' no existe o no fue encontrado'
+				});
+			}
+			
 
 		},
 		error:function(xhr,status,error){
@@ -45,6 +53,7 @@ Se carga por defecto la primera coincidencia
 function loadmodal(obj){
 	busqueda_cantidad = obj.cantidad;
 	busqueda_registros = obj.registros;
+	busqueda_indice = 0;
 	console.log(busqueda_registros);
 	$("#codpdvsa").val(obj.registros[0].codpdvsa);
 	$("#descripcion").val(obj.registros[0].descripcion);
@@ -53,6 +62,7 @@ function loadmodal(obj){
 	$("#codCliente").val(obj.registros[0].codCliente);
 	$("#disciplina").val(obj.registros[0].disciplina);
 	$("#fase").val(obj.registros[0].fase);
+	$("#showRegistro").modal(true);//mostrar ventana modal
 	if (busqueda_cantidad > 0){//si tiene mas de 1 registro
 		//habilita los botones de siguiente y anterior
 		$("#searchBefore").prop('disabled',false);
@@ -69,9 +79,9 @@ Funcion de siguiente para busqueda
 de registros en la ventana modal
 **/
 function nextReg(){
-	if (busqueda_indice < busqueda_cantidad) {
+	if (busqueda_indice < busqueda_cantidad-1) {
 		busqueda_indice = busqueda_indice + 1;
-		$("#numberReg").val(busqueda_indice);
+		$("#numberReg").val(busqueda_indice + 1);
 		$("#codpdvsa").val(busqueda_registros[busqueda_indice].codpdvsa);
 		$("#descripcion").val(busqueda_registros[busqueda_indice].descripcion);
 		$("#rev").val(busqueda_registros[busqueda_indice].rev);
@@ -83,9 +93,11 @@ function nextReg(){
 	}
 }
 function beforeReg(){
-	if (busqueda_indice > -1 && busqueda_indice != 0) {
+	if (busqueda_indice > 0) {
+		console.log(busqueda_indice);
 		busqueda_indice = busqueda_indice - 1;
-		$("#numberReg").val(busqueda_indice);
+		console.log(busqueda_indice);
+		$("#numberReg").val(busqueda_indice + 1);
 		$("#codpdvsa").val(busqueda_registros[busqueda_indice].codpdvsa);
 		$("#descripcion").val(busqueda_registros[busqueda_indice].descripcion);
 		$("#rev").val(busqueda_registros[busqueda_indice].rev);
@@ -139,29 +151,32 @@ function inicio(){
 	indice_pagina = 0;
 	}
 function fin(){
+	var id = $("#lista_maestra tr:last").find("td>textarea").attr('id');
 	$("#loader").prop('hidden',false);
-	$("#199").focus();
-	console.log($("#hidden199").val());
-	$("#actualID").val($("#hidden199").val());
+	$("#"+id).focus();
+	$("#actualID").val($("#hidden"+id).val());
+	indice_pagina = id;
 	$("#loader").prop('hidden',true);
-	indice_pagina = 199;
+
 	}
 function anterior(){
-	if (indice_pagina >= 0){
+	console.log(indice_pagina);
+	if (indice_pagina >= 0 && indice_pagina != -1){
 		indice_pagina = indice_pagina - 1;
 		$("#loader").prop('hidden',false);
 		$("#"+indice_pagina).focus();
-		console.log($("#hidden"+indice_pagina).val());
+		
 		$("#actualID").val($("#hidden"+indice_pagina).val());
 		$("#loader").prop('hidden',true);
 		}
 	}
 function siguiente(){
-	if (indice_pagina <= 199){
-		indice_pagina = indice_pagina + 1;
+	
+	var id = $("#lista_maestra tr:last").find("td>textarea").attr('id');
+	if(indice_pagina <= id){
 		$("#loader").prop('hidden',false);
+		indice_pagina = indice_pagina + 1;
 		$("#"+indice_pagina).focus();
-		console.log($("#hidden"+indice_pagina).val());
 		$("#actualID").val($("#hidden"+indice_pagina).val());
 		$("#loader").prop('hidden',true);
 		}
@@ -174,7 +189,11 @@ function limpiar(){
 	}
 
 function seleccionado(val){
-
+	console.log(val);
+	var sel = $("#hidden"+val).val();
+	$("#actualID").val($("#hidden"+sel).val());
+	indice_pagina = sel;
+	/*
 	//se obtiene el valor ID del campo codpdvsa#
 	var valor = val.split("codpdvsa");//['','#']
 	showInfo(valor[1]);
@@ -190,7 +209,7 @@ function seleccionado(val){
 	$("#numberToShow").val(ub+1);
 	//de tal forma se tiene el nuevo valor de ubicacion
 	//donde el usuario realizo el focus
-	console.log(ub);
+	console.log(ub);*/
 }
 
 
