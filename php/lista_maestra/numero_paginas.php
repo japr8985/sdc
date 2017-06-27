@@ -26,7 +26,7 @@ $sql = "SELECT
         disciplina.disciplina as disciplina
     FROM registros_total, fases, disciplina
     WHERE registros_total.status ='ACTIVO' AND registros_total.fases = fases.codigo AND registros_total.disciplina = disciplina.simbolo
-    ORDER BY codpdvsa ASC limit $posicion, $registros_por_pagina";
+    ORDER BY registros_total.id ASC limit $posicion, $registros_por_pagina";
 $query = $mysqli->query($sql);
 $i = 0;
     echo "<table class='table table-hover table--class' id='lista_maestra'>";
@@ -57,16 +57,21 @@ $i = 0;
         echo "</thead>";
         echo "<tbody>";
         while ($row = $query->fetch_array()) {
+            $sql_num = "SELECT count(id) FROM registros_total WHERE id < ".$row['id'];
+            $query_num = $mysqli->query($sql_num);
+            $find_num = $query_num->fetch_array();
+            
             echo "<tr class='espaciado_de_columnas'>";
-                echo "<td > 
-                        <textarea id=".$i." cols='25' rows='3'>".$row[1]."</textarea>
+                echo "<td style='margin: 0px 20px 5px 5px;'> 
+                        <textarea id=".$i." cols='24' rows='3' readonly>".$row[1]."</textarea>
                     </td>";
-                echo "<td> ".$row[2]."</td>";
-                echo "<td style='text-align:center;'> ".$row[3]."</td>";
-                echo "<td style='text-align:center;'> ".$row[4]."</td>";
-                echo "<td style='text-align:center;'> ".$row[5]."</td>";
-                echo "<td style='text-align:center;'> ".$row[6]."</td>";
-                echo "<td style='text-align:center;'> ".$row[7]."</td>";
+                echo "<input type='hidden' id='hidden".$i."' value='$find_num[0]'>";
+                echo "<td style='margin-top: 20px;'> ".$row[2]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[3]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[4]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[5]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[6]."</td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> ".$row[7]."</td>";
             echo "</tr>";
             $i++;
             }

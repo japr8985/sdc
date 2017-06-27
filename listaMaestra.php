@@ -40,6 +40,11 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
     <hr>
     <div class="row">
         <div class="text-center">
+            <input type="text" class="numbers" readonly value="0" id="actualID">/<input type="text" class="numbers" readonly value="<?php echo $total_registros; ?>">
+        </div>
+    </div>
+    <div class="row">
+        <div class="text-center">
             <div class="col-md-3">
                 <button class="btn btn-default" onClick="inicio()">Inicio</button>
             </div>

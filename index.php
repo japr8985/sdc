@@ -42,7 +42,7 @@ if (isset($_SESSION['username'])) {
                             <input type="submit" class="btn btn-default" value="Iniciar Session">
                                <!-- Botones Para iniciar sesion/reset formulario-->
                             <input type="reset" class="btn btn-warning" value="Cancelar">
-                            <a href="#" class="btn btn-success">
+                            <a href="manual.docx" class="btn btn-success">
                                 Manual de Usuario
                             </a>
                             </div>

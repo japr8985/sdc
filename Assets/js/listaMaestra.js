@@ -133,12 +133,16 @@ function generarFiltradoPorFecha(){
 function inicio(){
 	$("#loader").prop('hidden',false);
 	$("#0").focus();
+	console.log($("#hidden0").val());
+	$("#actualID").val($("#hidden0").val());
 	$("#loader").prop('hidden',true);
 	indice_pagina = 0;
 	}
 function fin(){
 	$("#loader").prop('hidden',false);
 	$("#199").focus();
+	console.log($("#hidden199").val());
+	$("#actualID").val($("#hidden199").val());
 	$("#loader").prop('hidden',true);
 	indice_pagina = 199;
 	}
@@ -147,6 +151,8 @@ function anterior(){
 		indice_pagina = indice_pagina - 1;
 		$("#loader").prop('hidden',false);
 		$("#"+indice_pagina).focus();
+		console.log($("#hidden"+indice_pagina).val());
+		$("#actualID").val($("#hidden"+indice_pagina).val());
 		$("#loader").prop('hidden',true);
 		}
 	}
@@ -155,6 +161,8 @@ function siguiente(){
 		indice_pagina = indice_pagina + 1;
 		$("#loader").prop('hidden',false);
 		$("#"+indice_pagina).focus();
+		console.log($("#hidden"+indice_pagina).val());
+		$("#actualID").val($("#hidden"+indice_pagina).val());
 		$("#loader").prop('hidden',true);
 		}
 	}
