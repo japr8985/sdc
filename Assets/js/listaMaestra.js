@@ -157,22 +157,19 @@ function fin(){
 	}
 function anterior(){
 	if (id_reg > 0){
-		id_reg = id_reg + 1;
+		id_reg = parseInt(id_reg) - 1;
+		console.log(id_reg);
 		$("#"+id_reg).focus();
+		$("#actualID").val($("#hidden"+id_reg).val());
 		}
 	}
 function siguiente(){
-	if (id_reg < $("#lista_maestra tr:last").find("td>textarea").attr('id')) {
+	if (id_reg < parseInt($("#lista_maestra tr:last").find("td>textarea").attr('id'))) {
 		id_reg = parseInt(id_reg) + 1;
+		console.log(id_reg);
 		$("#"+id_reg).focus();//selecciona el textarea siguiente
 		$("#actualID").val($("#hidden"+id_reg).val());
 		}
-	else{
-		$.alert({
-			title:'Ultimo registro',
-			content:''
-		});
-	}
 	}
 function limpiar(){
 	//finalizado
@@ -183,7 +180,8 @@ function limpiar(){
 
 function seleccionado(val){
 	//val [0,199]
-	id_reg = val;
+	id_reg = parseInt(val);
+	console.log(id_reg);
 	$("#actualID").val($("#hidden"+val).val());
 }
 function showInfo(id){

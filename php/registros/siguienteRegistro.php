@@ -32,8 +32,10 @@ $query = $mysqli->query($sql) or die($sql."---".$mysqli->error);
 	//listado de codigos repetidos
 	$sql = "SELECT * FROM registros_total WHERE codpdvsa = '$cod'";
 	$query = $mysqli->query($sql);
-	foreach ($query->fetch_array() as $repetido) {
-		$repetido_array[] = $repetido;
+
+	$repetido_array= [];
+	while ($data = $query->fetch_array()) {
+		$repetido_array[] = $data;
 	}
 	//-----------------------------------------
 	

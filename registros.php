@@ -123,6 +123,94 @@ $nums = $result->fetch_array();
 			</div>
 		</div>
 	</div>
+
+
+	<div class="modal fade" id="coincidencia"tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<input type="text" class="numbers" readonly value="0" id="numberReg">/<input type="text" class="numbers" readonly value="0" id="totalReg">
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<label for="modalCodPdvsa">
+								Cod. Pdvsa
+							</label>
+							<input type="text" class="form-control" id="modalCodPdvsa">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<label for="modalDescripcion">
+								Descripcion
+							</label>
+							<textarea class="form-control" id="modalDescripcion"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<label for="modalRev">
+								Rev
+							</label>
+							<input type="text" class="form-control" id="modalRev">
+						</div>
+						<div class="col-sm-4">
+							<label for="modalDisc">
+								Disciplina
+							</label>
+							<select id="modalDisc" class="form-control">
+								<option value=""></option>
+								<?php while($r = $query->fetch_array()): ?>
+									<option value="<?php echo $r[1]; ?>"><?php echo $r[0]; ?> </option>
+								<?php endwhile; ?>
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<label for="fase">
+								Fase
+							</label>
+							<select name="fase" id="fase" class="form-control">
+								<option value=""></option>
+								<?php while($f = $fases->fetch_array()): ?>
+									<option value="<?php echo $f[0]; ?>"><?php echo $f[1]; ?></option>
+								<?php  endwhile;?>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<label for="modalCliente">
+								Cod. Cliente
+							</label>
+							<input type="text" class="form-control" id="modalCliente">
+						</div>
+						<div class="col-sm-4">
+							
+						</div>
+						<div class="col-sm-4">
+							<label for="status">
+								Status
+							</label>
+							<select class="form-control" id="status">
+								<option value="Activo">
+									Activo
+								</option>
+								<option value="Superado" selected>
+									Superado
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<script src="Assets/js/registros.js"></script>
 </body>
 </html>

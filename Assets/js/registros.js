@@ -1,3 +1,7 @@
+//Arreglo para traer todos los registros repetidos
+var registros_repetidos = [];//un arreglo de objetos
+
+
 //funcion para la asignacion de la data de respuesta
 //a los diferentes campos del formulario
 //AGREGAR LOADING
@@ -98,9 +102,27 @@ function siguiente(){
 			dataType:'json',
 			success:function(data){
 				console.log(data);
-				limpiar();
-				setData(data);
-				$("#loader").prop('hidden',true);
+				if (data.Coincidencia > 1 ){
+					$.confirm({
+						title:'Registros repetidos',
+						content:'Existen '+data.Coincidencia+' registros de '+data.CodPdvsa+'. Desea visualizarlos',
+						confirm:function(){
+							$("#loader").prop('hidden',true);
+							registros_repetidos = data.Data;
+							console.log(registros_repetidos);
+							set_rep(registros_repetidos[0]);
+							$("#coincidencia").modal(true);
+						},
+						cancel:function(){
+							$("#loader").prop('hidden',true);
+						}
+					});
+				}
+				else{
+					$("#loader").prop('hidden',true);
+					limpiar();
+					setData(data);					
+				}				
 			},
 			error:function(xhr,status,error){
 				$("#loader").prop('hidden',true);
@@ -284,3 +306,22 @@ function actualizar(){
 	});
 	limpiar();
 	}
+//funcion para asignar los datos los registros repeditos
+function set_rep(data){
+	$("#modalCodPdvsa").val(data.codpdvsa);
+	$("#modalDescripcion").val(data.descripcion);
+	$("#modalRev").val(data.rev);
+	$("#modalDisc").val(data.codcliente);
+	$("#modalFase").val(data.fases);
+	$("#modalCliente").val(data.codcliente);
+	$("#modalFecha").val(data.fecha_rev);
+	$("#modalStatus").val(data.status);
+}
+//siguiente valor
+function reg_next(){
+
+}
+//valor anterior
+function before_next(){
+
+}
