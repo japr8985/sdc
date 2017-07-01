@@ -160,26 +160,26 @@ function fin(){
 
 	}
 function anterior(){
-	console.log(indice_pagina);
-	if (indice_pagina >= 0 && indice_pagina != -1){
+	if (indice_pagina > 1) {
 		indice_pagina = indice_pagina - 1;
 		$("#loader").prop('hidden',false);
-		$("#"+indice_pagina).focus();
-		
+		$("#"+indice_pagina.toString()).focus();
 		$("#actualID").val($("#hidden"+indice_pagina).val());
 		$("#loader").prop('hidden',true);
 		}
 	}
 function siguiente(){
-	
-	var id = $("#lista_maestra tr:last").find("td>textarea").attr('id');
-	if(indice_pagina <= id){
-		$("#loader").prop('hidden',false);
-		indice_pagina = indice_pagina + 1;
-		$("#"+indice_pagina).focus();
+	var id_actual = indice_pagina;
+	if (id_actual.toString() < 200){
+		indice_pagina = parseInt(indice_pagina) + 1;
+		console.log(indice_pagina);
 		$("#actualID").val($("#hidden"+indice_pagina).val());
-		$("#loader").prop('hidden',true);
-		}
+		$("#"+indice_pagina).focus();
+	}
+	else{
+		console.error("Ultimo registro");
+	}
+
 	}
 function limpiar(){
 	//finalizado
@@ -189,31 +189,10 @@ function limpiar(){
 	}
 
 function seleccionado(val){
-	console.log(val);
-	var sel = $("#hidden"+val).val();
-	$("#actualID").val($("#hidden"+sel).val());
-	indice_pagina = sel;
-	/*
-	//se obtiene el valor ID del campo codpdvsa#
-	var valor = val.split("codpdvsa");//['','#']
-	showInfo(valor[1]);
-	//se busca el valor del indice en el arreglo ids donde se encuentra ubicado tal #
-	for (var i = 0; i < ids.length; i++) {
-		if (ids[i] == valor[1]){
-			//se le asigna el nuevo valor a la variable de ubicacion
-			ub = i;
-			//se rompe el ciclo
-			break;
-		}
-	}
-	$("#numberToShow").val(ub+1);
-	//de tal forma se tiene el nuevo valor de ubicacion
-	//donde el usuario realizo el focus
-	console.log(ub);*/
+	$("#actualID").val($("#hidden"+val).val());
+	indice_pagina = parseInt($("#hidden"+val).val())-1;
+	console.log(indice_pagina);
 }
-
-
-
 function showInfo(id){
 	console.log($("#codpdvsa"+id).val());
 	$("#cod").val(
@@ -233,7 +212,6 @@ function showInfo(id){
 		);
 	$("#editModal").modal(true);
 }
-
 function filtradoPorFechas(){
 	$("#filtradoPorFechasModal").modal(true);
 }

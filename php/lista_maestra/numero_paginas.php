@@ -66,7 +66,7 @@ $i = 0;
                 echo "<td style='margin: 0px 20px 5px 5px;'> 
                         <textarea id=".$i." cols='24' rows='3' readonly onClick='seleccionado(this.id)'>".$row[1]."</textarea>
                     </td>";
-                echo "<input type='hidden' id='hidden".$i."' value='".(intval($find_num[0])+1)."'>";
+                echo "<input type='hidden' id='hidden".$i."' value='".($find_num[0]+1)."'>";
                 echo "<td style='margin-top: 20px;'> ".$row[2]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[3]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$fecha."</td>";

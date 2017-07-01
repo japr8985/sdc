@@ -14,6 +14,7 @@ $total_registros = $total[0];//accediendo a la primera posicion donde se encuent
 //obtener la cantidad de paginas
 $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
 ?>
+<link rel="stylesheet" href="Assets/css/listamaestra.css">
 <div class="container">
     <div class="row">
         <div class="text-center">
