@@ -3,7 +3,8 @@ var busqueda_cantidad = 0; //variable global para almacenar la
 var busqueda_registros = [] //almacena los registros en un arreglo
 var busqueda_indice = 0; //indice de la busqueda
 //------------------
-var indice_pagina = 0;
+var num_reg = 0;
+var id_reg = 0;
 /**
 Realiza un busqueda por codigo y trae todos los registros
 activos que tenga este codigo.
@@ -143,43 +144,35 @@ function generarFiltradoPorFecha(){
 }
 //ir al primer registro de la pagina
 function inicio(){
-	$("#loader").prop('hidden',false);
-	$("#0").focus();
-	console.log($("#hidden0").val());
+	id_reg = 0;
+	$("#"+id_reg).focus();
 	$("#actualID").val($("#hidden0").val());
-	$("#loader").prop('hidden',true);
-	indice_pagina = 0;
 	}
 function fin(){
-	var id = $("#lista_maestra tr:last").find("td>textarea").attr('id');
-	$("#loader").prop('hidden',false);
-	$("#"+id).focus();
-	$("#actualID").val($("#hidden"+id).val());
-	indice_pagina = id;
-	$("#loader").prop('hidden',true);
+	id_reg = $("#lista_maestra tr:last").find("td>textarea").attr('id');
+	$("#"+id_reg).focus(); 
+	var show = $("#hidden"+id_reg).val();
+	$("#actualID").val($("#hidden"+id_reg).val());
 
 	}
 function anterior(){
-	if (indice_pagina > 1) {
-		indice_pagina = indice_pagina - 1;
-		$("#loader").prop('hidden',false);
-		$("#"+indice_pagina.toString()).focus();
-		$("#actualID").val($("#hidden"+indice_pagina).val());
-		$("#loader").prop('hidden',true);
+	if (id_reg > 0){
+		id_reg = id_reg + 1;
+		$("#"+id_reg).focus();
 		}
 	}
 function siguiente(){
-	var id_actual = indice_pagina;
-	if (id_actual.toString() < 200){
-		indice_pagina = parseInt(indice_pagina) + 1;
-		console.log(indice_pagina);
-		$("#actualID").val($("#hidden"+indice_pagina).val());
-		$("#"+indice_pagina).focus();
-	}
+	if (id_reg < $("#lista_maestra tr:last").find("td>textarea").attr('id')) {
+		id_reg = parseInt(id_reg) + 1;
+		$("#"+id_reg).focus();//selecciona el textarea siguiente
+		$("#actualID").val($("#hidden"+id_reg).val());
+		}
 	else{
-		console.error("Ultimo registro");
+		$.alert({
+			title:'Ultimo registro',
+			content:''
+		});
 	}
-
 	}
 function limpiar(){
 	//finalizado
@@ -189,9 +182,9 @@ function limpiar(){
 	}
 
 function seleccionado(val){
+	//val [0,199]
+	id_reg = val;
 	$("#actualID").val($("#hidden"+val).val());
-	indice_pagina = parseInt($("#hidden"+val).val())-1;
-	console.log(indice_pagina);
 }
 function showInfo(id){
 	console.log($("#codpdvsa"+id).val());

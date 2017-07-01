@@ -2,12 +2,13 @@
 include ("../../conexion/conexion.php");
 ini_set('display_errors', 1);
 $id = $_POST['id'];
+$cod = $_POST['codpdvsa'];
 $sql = "SELECT * FROM registros_total 
 	WHERE id = (SELECT min(id) FROM registros_total where id > $id) 
-	and codpdvsa =";
+	and codpdvsa <> '$cod'";
 //ejecucion de consulta SQL
-$query = $mysqli->query($sql) or die($mysqli->error);
-if ($query->num_rows > 0) {
+$query = $mysqli->query($sql) or die($sql."---".$mysqli->error);
+//if ($query->num_rows > 0) {
 	//desgloce de la data
 	$result = $query->fetch_array();
 	//----------------------------------------
@@ -24,6 +25,18 @@ if ($query->num_rows > 0) {
 		$fecha = $fecha->format('Y-m-d');
 	}
 	//-----------------------------------------
+	//cantidad de codigos repetidos 
+	$sql = "SELECT count(id) FROM registros_total WHERE codpdvsa = '$cod'";
+	$query = $mysqli->query($sql);
+	$coinc = $query->fetch_array();
+	//listado de codigos repetidos
+	$sql = "SELECT * FROM registros_total WHERE codpdvsa = '$cod'";
+	$query = $mysqli->query($sql);
+	foreach ($query->fetch_array() as $repetido) {
+		$repetido_array[] = $repetido;
+	}
+	//-----------------------------------------
+	
 	//codificacion del json
 	$data = array(
 	"Number"		=> $num,
@@ -35,17 +48,14 @@ if ($query->num_rows > 0) {
 	"CodCliente" 	=> $result['codcliente'],
 	"Disciplina" 	=> $result['disciplina'],
 	"Status" 		=> $result['status'],
-	"Fase" 			=> $result['fases']);
+	"Fase" 			=> $result['fases'],
+	"Coincidencia"	=> $coinc[0],
+	"Data" 			=> $repetido_array
+	);
 	//impresion del json
 	echo json_encode($data);
+//}
 
-
-	
-
-}
-else {
-	# code...
-}
 
 
  ?>

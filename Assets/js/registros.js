@@ -62,45 +62,6 @@ function inicio(){
 		}
 		);
 	}
-function anterior(){
-	$("#loader").prop('hidden',false);
-	//funcion para traer el 
-	//documento anterior al mostrado
-	//mostrar circulo de carga
-	if ($("#numberToShow").val() != 1){
-		$.getJSON(
-			"php/registros/anteriorRegistro.php",
-			{id:$("#id").val()},
-			function(data){
-				limpiar();
-				setData(data);
-
-			});
-		}
-	}
-function siguiente(){
-	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
-		$("#loader").prop('hidden',false);
-		$.ajax({
-			url:"php/registros/siguienteRegistro.php",
-			data:{
-				id:$("#id").val(),
-				codpdvsa:$("#codPdvsa").val()
-			},
-			method:'POST',
-			dataType:'json',
-			success:function(data){
-				limpiar();
-				setData(data);
-				$("#loader").prop('hidden',true);
-			},
-			error:function(xhr,status,error){
-				$("#loader").prop('hidden',true);
-				}
-			});
-	}
-	
-	}
 function final(){
 	//funcion para traer el ultimo 
 	//documento
@@ -123,6 +84,49 @@ function final(){
 	});
 
 	}
+
+function siguiente(){
+	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
+		$("#loader").prop('hidden',false);
+		$.ajax({
+			url:"php/registros/siguienteRegistro.php",
+			data:{
+				id:$("#id").val(),
+				codpdvsa:$("#codPdvsa").val()
+			},
+			method:'POST',
+			dataType:'json',
+			success:function(data){
+				console.log(data);
+				limpiar();
+				setData(data);
+				$("#loader").prop('hidden',true);
+			},
+			error:function(xhr,status,error){
+				$("#loader").prop('hidden',true);
+				}
+			});
+	}
+	
+	}
+
+function anterior(){
+	$("#loader").prop('hidden',false);
+	//funcion para traer el 
+	//documento anterior al mostrado
+	//mostrar circulo de carga
+	if ($("#numberToShow").val() != 1){
+		$.getJSON(
+			"php/registros/anteriorRegistro.php",
+			{id:$("#id").val()},
+			function(data){
+				limpiar();
+				setData(data);
+
+			});
+		}
+	}
+
 function buscar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);

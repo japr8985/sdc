@@ -21,25 +21,29 @@ if (!isset($_SESSION['username'])) {
 <header>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-md-3">
 				<a href="home.php">
 					<img src="Assets/img/PDVSAlogo.png" alt="">
 				</a>
 			</div>
-			<div class="col-xs-offset-4">
+			<div class="col-md-offset-3">
 				<div id="loader" hidden="true">
 					<!-- Circulo de carga -->
 				</div>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-md-3">
 				<a href="home.php">
 					<h3 class="text-center">
 						SAGD PROYECTO SOTO
 					</h3>
+				</a>
+			</div>
+			<div class="col-md-3">
+				<a href="#">
 					<?php if(isset($_SESSION)): ?>
-						<h5>
+						<h4>
 							<?php echo $_SESSION['nombre']; ?>
-						</h5>
+						</h4>
 					<?php endif; ?>
 				</a>
 			</div>
