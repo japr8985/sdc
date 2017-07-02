@@ -37,6 +37,7 @@ ini_set('display_errors', 1);
 		while ($data = $query->fetch_array()) {
 			$repetido_array[] = $data;
 		}
+		
 		$data = array(
 		"Number"		=> $num,
 		"ID" 			=> $result['id'],

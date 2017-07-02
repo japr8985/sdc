@@ -85,10 +85,10 @@ $nums = $result->fetch_array();
 							Status
 						</label>
 						<select class="form-control" id="status">
-							<option value="Activo">
+							<option value="ACTIVO">
 								Activo
 							</option>
-							<option value="Superado" selected>
+							<option value="SUPERADO" selected>
 								Superado
 							</option>
 						</select>
@@ -133,6 +133,7 @@ $nums = $result->fetch_array();
 					<input type="text" class="numbers" readonly value="0" id="numberReg">/<input type="text" class="numbers" readonly value="0" id="totalReg">
 				</div>
 				<div class="modal-body">
+				<input type="hidden" id="modalId" value="">
 					<div class="row">
 						<div class="col-sm-12">
 							<label for="modalCodPdvsa">
@@ -162,9 +163,22 @@ $nums = $result->fetch_array();
 							</label>
 							<select id="modalDisc" class="form-control">
 								<option value=""></option>
-								<?php while($r = $query->fetch_array()): ?>
-									<option value="<?php echo $r[1]; ?>"><?php echo $r[0]; ?> </option>
-								<?php endwhile; ?>
+								<option value="H">Ambiente e higiene ocupacional </option>
+								<option value="Q">Calidad </option>
+								<option value="C">Civil </option>
+								<option value="E">Electricidad </option>
+								<option value="EC">Estimacion de Costos </option>
+								<option value="G">General </option>
+								<option value="O">Geodesia </option>
+								<option value="GN">Gerencia </option>
+								<option value="I">Instrumentacion </option>
+								<option value="M">Mecanica </option>
+								<option value="N">Naval </option>
+								<option value="P">Proceso </option>
+								<option value="PC">Procura </option>
+								<option value="S">Seguridad </option>
+								<option value="T">Telecomunicaciones </option>
+								<option value="TB">Tuberias </option>
 							</select>
 						</div>
 						<div class="col-sm-4">
@@ -173,9 +187,11 @@ $nums = $result->fetch_array();
 							</label>
 							<select id="modalFase" class="form-control">
 								<option value=""></option>
-								<?php while($f = $fases->fetch_array()): ?>
-									<option value="<?php echo $f[0]; ?>"><?php echo $f[1]; ?></option>
-								<?php endwhile; ?>
+								<option value="C">CONCEPTUALIZAR</option>
+								<option value="D">DEFINIR</option>
+								<option value="I">IMPLANTAR</option>
+								<option value="O">OPERAR</option>
+								<option value="V">VISUALIZAR</option>
 							</select>
 						</div>
 					</div>
@@ -187,17 +203,20 @@ $nums = $result->fetch_array();
 							<input type="text" class="form-control" id="modalCliente">
 						</div>
 						<div class="col-sm-4">
-							
+							<label for="modalFecha">
+								Fecha
+							</label>
+								<input type="date" class="form-control" id="modalFecha">
 						</div>
 						<div class="col-sm-4">
-							<label for="status">
+							<label for="modalStatus">
 								Status
 							</label>
-							<select class="form-control" id="status">
-								<option value="Activo">
+							<select class="form-control" id="modalStatus">
+								<option value="ACTIVO">
 									Activo
 								</option>
-								<option value="Superado" selected>
+								<option value="SUPERADO" selected>
 									Superado
 								</option>
 							</select>
@@ -205,6 +224,7 @@ $nums = $result->fetch_array();
 					</div>
 				</div>
 				<div class="modal-footer">
+				<button class="btn success" onclick="seleccionar()">Seleccionar</button>
 				<button class="btn" onclick="reg_before()">Anterior</button>
 				<button type="button" class="btn btn-primary" onclick="reg_next()">Siguiente</button>
 				</div>

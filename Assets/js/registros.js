@@ -304,18 +304,18 @@ function actualizar(){
 //funcion para asignar los datos los registros repeditos
 //index = indice + 1
 function set_rep(data,index){
-
+	$("#modalId").val(data.id)
 	$("#modalCodPdvsa").val(data.codpdvsa);
 	$("#modalDescripcion").val(data.descripcion);
 	$("#modalRev").val(data.rev);
-	$("#modalDisc").val(data.codcliente);
+	$("#modalDisc").val(data.disciplina);
 	$("#modalFase").val(data.fases);
 	$("#modalCliente").val(data.codcliente);
 	$("#modalFecha").val(data.fecha_rev);
 	$("#modalStatus").val(data.status);
+
 	$("#numberReg").val(index);
-	$("#totalReg").val(registros_repetidos.length);
-	
+	$("#totalReg").val(registros_repetidos.length);	
 }
 //siguiente valor
 function reg_next(){
@@ -332,4 +332,20 @@ function reg_before(){
 		set_rep(registros_repetidos[indice],indice + 1);
 		console.log(indice);
 	}
+}
+function seleccionar(){
+	var obj ={
+		ID : $("#modalId").val(),
+		CodPdvsa 		: $('#modalCodPdvsa').val(),
+		Descripcion : $('#modalDescripcion').val(),
+		Rev 				: $('#modalRev').val(),
+		Disciplina 	: $('#modalDisc option:selected').val(),
+		Fase 				: $('#modalFase option:selected').val(),
+		Status 			: $('#modalStatus option:selected').val(),
+		CodCliente 	: $('#modalCliente').val(),
+		fecha 			: $('#modalFecha').val(),
+		};
+		console.log(obj);
+	setData(obj);
+	$("#coincidencia").modal('toggle');
 }
