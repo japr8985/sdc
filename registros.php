@@ -125,7 +125,7 @@ $nums = $result->fetch_array();
 	</div>
 
 
-	<div class="modal fade" id="coincidencia"tabindex="-1" role="dialog">
+	<div class="modal fade" id="coincidencia" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -171,11 +171,11 @@ $nums = $result->fetch_array();
 							<label for="fase">
 								Fase
 							</label>
-							<select name="fase" id="fase" class="form-control">
+							<select id="modalFase" class="form-control">
 								<option value=""></option>
 								<?php while($f = $fases->fetch_array()): ?>
 									<option value="<?php echo $f[0]; ?>"><?php echo $f[1]; ?></option>
-								<?php  endwhile;?>
+								<?php endwhile; ?>
 							</select>
 						</div>
 					</div>
@@ -205,8 +205,8 @@ $nums = $result->fetch_array();
 					</div>
 				</div>
 				<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button class="btn" onclick="reg_before()">Anterior</button>
+				<button type="button" class="btn btn-primary" onclick="reg_next()">Siguiente</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

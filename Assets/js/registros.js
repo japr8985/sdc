@@ -1,6 +1,6 @@
 //Arreglo para traer todos los registros repetidos
 var registros_repetidos = [];//un arreglo de objetos
-
+var indice = 0;
 
 //funcion para la asignacion de la data de respuesta
 //a los diferentes campos del formulario
@@ -102,28 +102,10 @@ function siguiente(){
 			dataType:'json',
 			success:function(data){
 				console.log(data);
-				if (data.Coincidencia > 1 ){
-					$.confirm({
-						title:'Registros repetidos',
-						content:'Existen '+data.Coincidencia+' registros de '+data.CodPdvsa+'. Desea visualizarlos',
-						confirm:function(){
-							$("#loader").prop('hidden',true);
-							registros_repetidos = data.Data;
-							console.log(registros_repetidos);
-							set_rep(registros_repetidos[0]);
-							$("#coincidencia").modal(true);
-						},
-						cancel:function(){
-							$("#loader").prop('hidden',true);
-						}
-					});
-				}
-				else{
 					$("#loader").prop('hidden',true);
 					limpiar();
 					setData(data);					
-				}				
-			},
+				},
 			error:function(xhr,status,error){
 				$("#loader").prop('hidden',true);
 				}
@@ -131,7 +113,6 @@ function siguiente(){
 	}
 	
 	}
-
 function anterior(){
 	$("#loader").prop('hidden',false);
 	//funcion para traer el 
@@ -156,7 +137,21 @@ function buscar(){
 		"php/registros/buscar.php",
 		{data:$("#codPdvsa").val()},
 		function(data){
+			console.log(data);
 			limpiar();
+			if (data.Coincidencia > 0){
+				$.confirm({
+					title:'Registro repetido',
+					content:'Se han encontrado '+data.Coincidencia+' registros iguales a este. ¿Desea visualizarlos?',
+					confirm:function(){
+						registros_repetidos = data.Data;
+						set_rep(registros_repetidos[0],1);
+						//dispara modal
+						$("#coincidencia").modal(true);
+						},
+					cancel:function(){}
+				});
+			}
 			setData(data);
 			if (data.ID == ''){
 				$.alert({
@@ -307,7 +302,9 @@ function actualizar(){
 	limpiar();
 	}
 //funcion para asignar los datos los registros repeditos
-function set_rep(data){
+//index = indice + 1
+function set_rep(data,index){
+
 	$("#modalCodPdvsa").val(data.codpdvsa);
 	$("#modalDescripcion").val(data.descripcion);
 	$("#modalRev").val(data.rev);
@@ -316,12 +313,23 @@ function set_rep(data){
 	$("#modalCliente").val(data.codcliente);
 	$("#modalFecha").val(data.fecha_rev);
 	$("#modalStatus").val(data.status);
+	$("#numberReg").val(index);
+	$("#totalReg").val(registros_repetidos.length);
+	
 }
 //siguiente valor
 function reg_next(){
-
+	if (indice < registros_repetidos.length -1){
+		indice = indice + 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+	}
 }
 //valor anterior
-function before_next(){
-
+function reg_before(){
+	console.log(indice);
+	if (indice > 0) {
+		indice = indice - 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+		console.log(indice);
+	}
 }

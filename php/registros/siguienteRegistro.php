@@ -25,18 +25,7 @@ $query = $mysqli->query($sql) or die($sql."---".$mysqli->error);
 		$fecha = $fecha->format('Y-m-d');
 	}
 	//-----------------------------------------
-	//cantidad de codigos repetidos 
-	$sql = "SELECT count(id) FROM registros_total WHERE codpdvsa = '$cod'";
-	$query = $mysqli->query($sql);
-	$coinc = $query->fetch_array();
-	//listado de codigos repetidos
-	$sql = "SELECT * FROM registros_total WHERE codpdvsa = '$cod'";
-	$query = $mysqli->query($sql);
-
-	$repetido_array= [];
-	while ($data = $query->fetch_array()) {
-		$repetido_array[] = $data;
-	}
+	
 	//-----------------------------------------
 	
 	//codificacion del json
@@ -51,8 +40,7 @@ $query = $mysqli->query($sql) or die($sql."---".$mysqli->error);
 	"Disciplina" 	=> $result['disciplina'],
 	"Status" 		=> $result['status'],
 	"Fase" 			=> $result['fases'],
-	"Coincidencia"	=> $coinc[0],
-	"Data" 			=> $repetido_array
+
 	);
 	//impresion del json
 	echo json_encode($data);
