@@ -133,7 +133,7 @@ class PDF extends FPDF
     }
   function header(){
     $this->SetFont('Arial','B',10);
-    $w = array(120,127);
+    $w = array(120,200);
     $a = array('L','R');
     $this->SetWidths($w);
     $this->SetAligns($a);

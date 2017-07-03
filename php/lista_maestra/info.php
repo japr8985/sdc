@@ -227,13 +227,20 @@ while ($disciplina = $disciplinas->fetch_array()) {
 
     $w = array(48,120,10,22,45,16,35,30);
     $pdf->SetWidths($w);
+    //FORMATEANDO FECHA
+    if (!is_null($registro->fecha)) {
+      $fecha = new DateTime($registro->fecha);
+      $fecha = $fecha->format('d-m-Y');
+    }
+    else
+      $fecha = '';
 
     $pdf->SetFont('Arial','',8);
     $row = array(
       $registro->codpdvsa,
       $registro->descripcion,
       $registro->rev,
-      $registro->fecha,
+      $fecha,
       $registro->CodCliente,
       $registro->status,
       strtoupper($disciplina[0]),

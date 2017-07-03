@@ -4,15 +4,18 @@ ini_set('display_errors', 1);
 $id = $_POST['id'];
 $cod = $_POST['codpdvsa'];
 $sql = "SELECT * FROM registros_total 
-	WHERE id = (SELECT min(id) FROM registros_total where id > $id) 
-	and codpdvsa <> '$cod'";
+	WHERE id = (SELECT min(id) FROM registros_total where id > $id)";
+	
 //ejecucion de consulta SQL
 $query = $mysqli->query($sql) or die($sql."---".$mysqli->error);
 //if ($query->num_rows > 0) {
 	//desgloce de la data
 	$result = $query->fetch_array();
+	//echo $sql;
 	//----------------------------------------
 	$sql = "SELECT count(id) FROM registros_total where id < ".$result['id'];
+	//echo $sql;
+	//echo $id;
 	$query = $mysqli->query($sql);
 	$num = $query->fetch_array();
 	$num = $num[0]+1;
