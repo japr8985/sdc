@@ -1,3 +1,7 @@
+//Arreglo para traer todos los registros repetidos
+var registros_repetidos = [];//un arreglo de objetos
+var indice = 0;
+//funcion para limpiar formulario
 function limpiar(){
 	//set id
 	$("#id").val('');
@@ -20,6 +24,7 @@ function limpiar(){
 	//set numero a mostrar
 	$("#numberToShow").val('');
 	}
+//funcion para asignar valores al formulario
 function setData(data){
 	console.log(data);
 	//set id
@@ -45,6 +50,7 @@ function setData(data){
 	//ocultar circulo de carga
 	$("#loader").prop('hidden',true);
 	}
+//funcion para ir al primer registro
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
@@ -58,6 +64,7 @@ function inicio(){
 		}
 		);
 	}
+//funcion para ir al registro anterior
 function anterior(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -70,6 +77,7 @@ function anterior(){
 			setData(data)
 		});
 	}
+//funcion para ir al siguiente registro
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
@@ -82,6 +90,7 @@ function siguiente(){
 			setData(data)
 		});
 	}
+//funcion para ir al ultimo registro
 function final(){
 	//funcion para traer el ultimo 
 	//documento
@@ -94,6 +103,7 @@ function final(){
 			setData(data)
 		});
 	}
+//funcion para buscar un registro en especifico
 function buscar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -102,18 +112,35 @@ function buscar(){
 		{data:$("#codPdvsa").val()},
 		function(data){
 			if(data.Success) {
-				setData(data);
+				if (data.Coincidencia > 1){
+				$.confirm({
+					title:'Registro repetido',
+					content:'Se han encontrado '+data.Coincidencia+' registros iguales a este. ¿Desea visualizarlos?',
+					confirm:function(){
+						registros_repetidos = data.Data;
+						console.log(data.Data);
+						set_rep(registros_repetidos[0],1);
+						//dispara modal
+						$("#coincidencia").modal(true);
+						},
+					cancel:function(){}
+				});
+				}
+				else
+					setData(data);
+
 				}
 			else{
 				//mostrar circulo de carga
-				$("#loader").prop('hidden',true);
 				$.alert({
 					title:'Error',
 					content:data.error
 				});
 			}
+			$("#loader").prop('hidden',true);
 		});
 	}
+//funcion para agregar un nuevo registro
 function agregar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -160,6 +187,7 @@ function agregar(){
 			}
 		});
 	}
+//funcion para eliminar el registro que aparece en el formulario
 function eliminar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -204,6 +232,7 @@ function eliminar(){
 		}
 		});	
 	}
+//funcion para actualizar el registro que aparece en el formulario
 function actualizar(){
 	$("#loader").prop('hidden',false);
 	var obj={
@@ -230,4 +259,51 @@ function actualizar(){
 		}
 	});
 	$("#loader").prop('hidden',true);
-}
+	}
+//funcion para asignar valores a la ventana modal
+function set_rep(data,index){
+	$("#modalActividad").val(data.actividad);
+	$("#modalcodpdvsa").val(data.codpdvsa);
+	$("#modalDigFis").val(data.digital_fisico);
+	$("#modalDisc").val(data.disciplina);
+	$("#modalDocPlano").val(data.doc_plano);
+	$("#modalFase").val(data.fase);
+	$("#modalId").val(data.id);
+	$("#modalInstalacion").val(data.instalacion);
+	$("#modalStatus").val(data.status);
+	
+	$("#numberReg").val(index);
+	$("#totalReg").val(registros_repetidos.length);
+
+
+	}
+//funcion para ir al siguiente registro de la ventana modal
+function reg_next(){
+	if (indice < registros_repetidos.length -1){
+		indice = indice + 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+	}
+	}
+//funcion para ir al registro anterior de la ventana modal
+function reg_before(){
+	if (indice > 0) {
+		indice = indice - 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+		}
+	}
+//funcion para pasar los valores de la ventana modal al formulario 
+function seleccionar(){
+	var obj ={
+		actividad : $("#modalActividad").val(),
+		CodPdvsa : $("#modalcodpdvsa").val(),
+		digitalFisico: $("#modalDigFis").val(),
+		disciplina: $("#modalDisc").val(),
+		docPlano:$("#modalDocPlano").val(),
+		fase: $("#modalFase").val(),
+		id: $("#modalId").val(),
+		instalacion: $("#modalInstalacion").val(),
+		status: $("#modalStatus").val(),
+	};
+	setData(obj);
+	$("#coincidencia").modal('toggle');
+	}

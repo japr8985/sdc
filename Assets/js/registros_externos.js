@@ -1,3 +1,7 @@
+//Arreglo para traer todos los registros repetidos
+var registros_repetidos = [];//un arreglo de objetos
+var indice = 0;
+//funcion para limpiar formulario
 function limpiar(data){
 	//limpiando id
 	$("#id").val('');
@@ -16,6 +20,7 @@ function limpiar(data){
 	//limpiando Number to show
 	$("#numberToShow").val('');
 	}
+//funcion para asignar valores al formulario
 function setData(data){
 	console.log(data);
 	//set id
@@ -37,6 +42,7 @@ function setData(data){
 	//ocultar circulo de carga
 	$("#loader").prop('hidden',true);
 	}
+//funcion para ir al primer registro
 function inicio(){
 	//primer registro externo
 	//mostrar circulo de carga
@@ -48,6 +54,7 @@ function inicio(){
 			setData(data);
 		});
 	}
+//funcion para ir al registro anterior
 function anterior(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -58,6 +65,7 @@ function anterior(){
 			setData(data)
 		});
 	}
+//funcion para ir al siguiente registro
 function siguiente(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -68,6 +76,7 @@ function siguiente(){
 			setData(data);
 		});
 	}
+//funcion para ir al ultimo registro
 function final(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -78,6 +87,7 @@ function final(){
 			setData(data)
 		});
 	}
+//funcion para buscar registro
 function buscar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -91,9 +101,26 @@ function buscar(){
 					content:'No se ha podido encontrar el registro solicitado'
 				})
 			}
-			setData(data);
+			else{
+				if (data.Coincidencia > 1){
+					$.confirm({
+						title:'Registro repetido',
+						content:'Se han encontrado '+data.Coincidencia+ ' registros iguales a este. ¿Desea visualizarlos?',
+						confirm:function(){
+							registros_repetidos = data.Data;
+							set_rep(registros_repetidos[0],1);
+							//dispara modal
+							$("#coincidencia").modal(true);
+						},
+						cancel:function(){}
+					});
+				}
+				else
+					setData(data);
+			}
 		});
 	}
+//funcion para agregar un nuevo registro
 function agregar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -135,6 +162,7 @@ function agregar(){
 			}
 	});
 	}
+//funcion para eliminar registro
 function eliminar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -189,6 +217,7 @@ function eliminar(){
 			}
 		});
 	}
+//funcion para actualizar registro
 function actualizar(){
 	$("#loader").prop('hidden',false);
 	var obj ={
@@ -229,4 +258,46 @@ function actualizar(){
 			$("#loader").prop('hidden',true);
 		}
 	});
-}
+	}
+	
+//funcion para asignar valores a la ventana modal
+function set_rep(data,index){
+	$("#modalId").val(data.id);
+	$("#modalCliente").val(data.codCliente);
+	$("#modalDescripcion").val(data.descripcion);
+	$("#modalRev").val(data.rev);
+	$("#modalDisc").val(data.disciplina);
+	$("#modalFase").val(data.fase);
+	$("#modalFecha").val(data.fecha_rev);
+
+	$("#numberReg").val(index);
+	$("#totalReg").val(registros_repetidos.length);
+	}
+//funcion para ir al siguiente registro de la ventana modal
+function reg_next(){
+	if (indice < registros_repetidos.length -1){
+		indice = indice + 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+	}
+	}
+//funcion para ir al registro anterior de la ventana modal
+function reg_before(){
+	if (indice > 0) {
+		indice = indice - 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+		}
+	}
+//funcion para pasar los valores de la ventana modal al formulario 
+function seleccionar(){
+	var obj ={
+		id:$("#modalId").val(),
+		codCliente:$("#modalCliente").val(),
+		descripcion:$("#modalDescripcion").val(),
+		rev:$("#modalRev").val(),
+		disciplina:$("#modalDisc").val(),
+		fase:$("#modalFase").val(),
+		fecha:$("#modalFecha").val(),
+	};
+	setData(obj);
+	$("#coincidencia").modal('toggle');
+	}
