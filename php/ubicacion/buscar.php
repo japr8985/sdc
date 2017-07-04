@@ -23,6 +23,18 @@
 	//desgloce de la data
 	$result = $query->fetch_array();
 	
+	//cantidad de codigos repetidos 
+	$sql = "SELECT count(id) FROM ubicacion WHERE codpdvsa = '$cod'";
+	$query = $mysqli->query($sql) or die($sql);
+	$coinc = $query->fetch_array();
+	//listado de codigos repetidos
+	$sql = "SELECT * FROM ubicacion WHERE codpdvsa = '$cod'";
+	$query = $mysqli->query($sql);
+	$repetido_array= [];
+	while ($data = $query->fetch_array()) {
+		$repetido_array[] = $data;
+	}
+
 	$data = array(
 		'Success'			=> $success,
 		'id' 					=> $result['id'],
@@ -38,6 +50,8 @@
 		'codPdvsa' 		=> $result['codpdvsa'],
 		'fase' 				=> $result['fase'],
 		'rev' 				=> $result['rev'],
-		'error'				=> $error);
+		'error'				=> $error,
+		"Coincidencia"	=> intval($coinc[0]),
+		"Data" 			=> $repetido_array);
 	echo json_encode($data);
  ?>

@@ -1,3 +1,7 @@
+//Arreglo para traer todos los registros repetidos
+var registros_repetidos = [];//un arreglo de objetos
+var indice = 0;
+//funcion para limpiar formulario
 function limpiar(){
 	//set id
 	$("#id").val('');
@@ -28,6 +32,7 @@ function limpiar(){
 	//set numero del registro
 	$('#numberToShow').val('');
 	}
+//asignar info
 function setData(data){
 	//set id
 	$("#id").val(data.id);
@@ -60,6 +65,7 @@ function setData(data){
 	//ocultar circulo de carga
 	$("#loader").prop('hidden',true);
 	}
+//primer registro
 function inicio(){
 	//funcion para traer el primer
 	//documento registrado
@@ -73,6 +79,7 @@ function inicio(){
 		}
 		);
 	}
+//registro anterior
 function anterior(){
 	//funcion para traer el 
 	//documento anterior al mostrado
@@ -85,6 +92,7 @@ function anterior(){
 			setData(data)
 		});
 	}
+//siguiente registro
 function siguiente(){
 	//funcion para traer el 
 	//documento siguiente al mostrado
@@ -97,6 +105,7 @@ function siguiente(){
 			setData(data)
 		});
 	}
+//ultimo registro
 function final(){
 	//funcion para traer el ultimo 
 	//documento
@@ -109,6 +118,7 @@ function final(){
 			setData(data)
 		});
 	}
+//buscar registro
 function buscar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -117,7 +127,23 @@ function buscar(){
 		{data:$("#codPdvsa").val()},
 		function(data){
 			if (data.Success) {
-				setData(data);
+				if (data.Coincidencia > 1){
+					$.confirm({
+						title:'Registro repetido',
+						content:'Se han encontrado '+data.Coincidencia+ ' registros iguales a este. ¿Desea visualizarlos?',
+						confirm:function(){
+							registros_repetidos = data.Data;
+							set_rep(registros_repetidos[0],1);
+							//dispara modal
+							$("#coincidencia").modal(true);
+						},
+						cancel:function(){}
+					});
+				}
+				else
+					setData(data);
+				//ocultar circulo de carga
+				$("#loader").prop('hidden',true);
 				}
 			else{
 				$.alert({
@@ -129,6 +155,7 @@ function buscar(){
 			}
 		});
 	}
+//agregar registro
 function agregar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -180,6 +207,7 @@ function agregar(){
 			}
 		});
 	}
+//eliminar registro
 function eliminar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
@@ -239,6 +267,7 @@ function eliminar(){
 	
 	
 	}
+//actualizar registro
 function actualizar(){
 	$("#loader").prop('hidden',false);
 	var obj={
@@ -285,4 +314,57 @@ function actualizar(){
 			$("#loader").prop('hidden',true);
 		}
 	});
-}
+	}
+//funcion para asignar valores a la ventana modal
+function set_rep(data,index){
+	$("#modalId").val(data.id);
+	$("#modalCiudad").val(data.ciudad);
+	$("#modalSede").val(data.sede);
+	$("#modalDep").val(data.dpto);
+	$("#modalNP").val(data.nproyecto);
+	$("#modalYear").val(data.year);
+	$("#modalCaja").val(data.ncaja);
+	$("#modalCarpeta").val(data.codcarprinc);
+	$("#modalSubCarpeta").val(data.codsubcarp);
+	$("#modalNDoc").val(data.ndoc);
+	$("#modalCodPdvsa").val(data.codpdvsa);
+	$("#modalFase").val(data.fase);
+	$("#modalRev").val(data.rev);
+
+	$("#numberReg").val(index);
+	$("#totalReg").val(registros_repetidos.length);
+	}
+//funcion para ir al siguiente registro de la ventana modal
+function reg_next(){
+	if (indice < registros_repetidos.length -1){
+		indice = indice + 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+	}
+	}
+//funcion para ir al registro anterior de la ventana modal
+function reg_before(){
+	if (indice > 0) {
+		indice = indice - 1;
+		set_rep(registros_repetidos[indice],indice + 1);
+		}
+	}
+//funcion para pasar los valores de la ventana modal al formulario 
+function seleccionar(){
+	var obj ={
+		id:$("#modalId").val(),
+		ciudad:$("#modalCiudad").val(),
+		sede:$("#modalSede").val(),
+		departamento:$("#modalDep").val(),
+		nProyecto:$("#modalNP").val(),
+		year:$("#modalYear").val(),
+		nCaja:$("#modalCaja").val(),
+		codCarpeta:$("#modalCarpeta").val(),
+		subCarpeta:$("#modalSubCarpeta").val(),
+		nDoc:$("#modalNDoc").val(),
+		codPdvsa:$("#modalCodPdvsa").val(),
+		fase:$("#modalFase").val(),
+		rev:$("#modalRev").val(),
+	};
+	setData(obj);
+	$("#coincidencia").modal('toggle');
+	}
