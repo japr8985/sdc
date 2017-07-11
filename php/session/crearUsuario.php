@@ -43,34 +43,41 @@ if($pass == $confirm){
                 //expresion regular para emails
                 $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
                 if (preg_match($pattern,$correo)) {
-                /*
-                |--------------------------------------
-                |   ENCRIPTANDO CONTRASEÑA
-                |--------------------------------------
-                */
-                $pass = md5($pass);
-                $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo) VALUES('%s','%s','%s','%s','%s')",
-                        $mysqli->real_escape_string($user),
-                        $mysqli->real_escape_string($pass),
-                        $mysqli->real_escape_string($correo),
-                        $mysqli->real_escape_string($nombre),
-                        $mysqli->real_escape_string($type)
-                        );
-                    if ($mysqli->query($sql)) {
-                        $data['Success'] = true;
-                        $data['Msg'] = "Usuario Creado Exitosamente";
+                    $sql = "SELECT id from usuarios WHERE correo = $correo";
+                    $query = $mysqli->query($sql);
+                    if (!$query) {
+                        /*
+                        |--------------------------------------
+                        |   ENCRIPTANDO CONTRASEÑA
+                        |--------------------------------------
+                        */
+                        $pass = md5($pass);
+                        $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo) VALUES('%s','%s','%s','%s','%s')",
+                                $mysqli->real_escape_string($user),
+                                $mysqli->real_escape_string($pass),
+                                $mysqli->real_escape_string($correo),
+                                $mysqli->real_escape_string($nombre),
+                                $mysqli->real_escape_string($type)
+                                );
+                            if ($mysqli->query($sql)) {
+                                $data['Success'] = true;
+                                $data['Msg'] = "Usuario Creado Exitosamente";
+                            }
+                            else{
+                                
+                                if($mysqli->error == "Duplicate entry '$user' for key 'username'"){
+                                   $data['Msg'] = "Usuario duplicado. Imposible de crear"; 
+                                }
+                                else{
+                                    $data['Msg'] = 'Error al crear usuario.';
+                                    $data['Error'] = $mysqli->error;
+                                }
+                                    
+                            }
                     }
-                    else{
-                        
-                        if($mysqli->error == "Duplicate entry '".$user."' for key 'username'"){
-                           $data['Msg'] = "Usuario duplicado. Imposible de crear"; 
-                        }
-                        else{
-                            $data['Msg'] = 'Error al crear usuario.';
-                            $data['Error'] = $mysqli->error;
-                        }
-                            
-                    }
+                    else
+                        $data['Msg'] = "Ya existe un usuario con este correo '$correo'";
+                
                 }
                 else
                     $data['Msg'] = 'Formato de correo invalido';

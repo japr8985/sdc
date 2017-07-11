@@ -31,34 +31,41 @@ if($pass == $confirm){
 				//expresion regular para emails
                 $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
                 if (preg_match($pattern,$correo)) {
-                	/*
-					|--------------------------------------
-					|   ENCRIPTANDO CONTRASEÑA
-					|--------------------------------------
-					*/
-					$pass = md5($pass);
-					$sql = sprintf("UPDATE usuarios 
-						SET username = '%s', 
-							password = '%s', 
-							correo = '%s', 
-							nombre = '%s', 
-							tipo = '%s' 
-							WHERE id = '%d'
-						",
-						$mysqli->real_escape_string($user),
-			    		$mysqli->real_escape_string($pass),
-			    		$mysqli->real_escape_string($correo),
-			    		$mysqli->real_escape_string($nombre),
-			    		$mysqli->real_escape_string($type),
-			    		$mysqli->real_escape_string($id));
-					if ($mysqli->query($sql)) {
-						$data['Success'] = true;
-						$data['Msg'] = "Usuario Actualizado Exitosamente";
-					}
-					else{
-						$data['Msg'] = 'Error al actualizar usuario.';
-						$data['Error'] = $mysqli->error;
-					}
+                	$sql = "SELECT id from usuarios WHERE username = '$user' and correo <> '$correo'";
+                	$result = $mysqli->query($sql);
+                	if ($result->num_rows > 0) {
+                		/*
+						|--------------------------------------
+						|   ENCRIPTANDO CONTRASEÑA
+						|--------------------------------------
+						*/
+						$pass = md5($pass);
+						$sql = sprintf("UPDATE usuarios 
+							SET username = '%s', 
+								password = '%s', 
+								correo = '%s', 
+								nombre = '%s', 
+								tipo = '%s' 
+								WHERE id = '%d'
+							",
+							$mysqli->real_escape_string($user),
+				    		$mysqli->real_escape_string($pass),
+				    		$mysqli->real_escape_string($correo),
+				    		$mysqli->real_escape_string($nombre),
+				    		$mysqli->real_escape_string($type),
+				    		$mysqli->real_escape_string($id));
+						if ($mysqli->query($sql)) {
+							$data['Success'] = true;
+							$data['Msg'] = "Usuario Actualizado Exitosamente";
+						}
+						else{
+							$data['Msg'] = 'Error al actualizar usuario.';
+							$data['Error'] = ($mysqli->error == "Duplicate entry '$user' for key 'username'") ? "Nombre de usuario no disponible": $mysqli->error;
+						}
+                	}
+                	else
+                		$data['Msg'] = "Ya existe un usuario con este correo '$correo'";
+                	
                 }
                 else
                 	$data['Msg'] = 'El correo no puede estar en blanco';
