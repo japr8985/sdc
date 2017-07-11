@@ -1,7 +1,7 @@
 <?php 
+    ini_set('display_errors', 1); 
     include('conexion/conexion.php');
     include('header.php'); 
-    ini_set('display_errors', 1); 
 /*---------------------------------
         numero total de paginas    
 -----------------------------------*/

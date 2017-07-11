@@ -1,7 +1,7 @@
 <?php 
+    ini_set('display_errors', 1);
     include('conexion/conexion.php');
     include('header.php'); 
-    ini_set('display_errors', 1);
 ?>
 <?php 
 /*
@@ -9,89 +9,26 @@
 |   Generando paginacion en tabla 
 |--------------------------------------------
 */
-$limit = 5;
-$page = isset($_GET['page']) ? $_GET['page'] : 0;
 
-$inicio = $page;
-
-$sql = "SELECT * from usuarios ORDER BY id DESC limit $inicio, $limit";
-
-$result = $mysqli->query($sql);
 //-----------------------------------------------
 $sql2 = "SELECT count(id) FROM usuarios";
 $query = $mysqli->query($sql2);
 $users = $query->fetch_array();
 $total = $users[0];
-$total_pages = ceil($total/$limit);
+$paginas = ceil($total/5);
 ?>
 <div class="container">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   Crear Usuarios
 </button>
    <hr>
-    <table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <td>
-                Nombre
-            </td>
-            <td>
-                Correo
-            </td>
-            <td>
-                Nombre de Usuario
-            </td>
-            <td>
-                Tipo
-            </td>
-            <td>
-                Accion
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($r = $result->fetch_object()): // ?>
-        <tr>
-            <td>
-                <?php echo $r->nombre; ?>
-            </td>
-            <td>
-                <?php echo $r->correo; ?>
-            </td>
-            <td>
-                <?php echo $r->username; ?>
-            </td>
-            <td>
-                <?php if ($r->tipo == 'user'): ?>
-                    <div class="alert alert-info">
-                        <span class="glyphicon glyphicon-user">Usuario</span> 
-                    </div> 
-                <?php else: ?>
-                    <div class="alert alert-success">
-                        <span class="glyphicon glyphicon-eye-open">Administrador</span> 
-                    </div> 
-                <?php endif; ?>
-            </td>
-            <td>
-                <button class="btn btn-warning" onclick="editarUsuario(<?php echo $r->id; ?>)">
-                    Actualizar
-                </button>
-                
-                <button class="btn btn-danger" onclick="eliminarUsuario(<?php echo $r->id; ?>)">
-                    Eliminar
-                </button>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-        
-    </tbody>
-</table>  
-    <div class="pagination">
-        <?php for ($i=1; $i <= $total_pages ; $i++): ?>
-            <a href="gestionUsuarios.php?page=<?php echo $i; ?>" > <?php echo $i; ?></a>
-        <?php endfor; ?>
-    </div> 
+    <div id="result"></div>  
 </div> 
+<div class="row">
+    <div class="text-center">
+        <div class="pagination"></div>
+    </div>
+</div>
 <!--
 |----------------------------------------------------------
 |       VENTANA MODAL PARA CREAR USUARIOS
@@ -249,5 +186,30 @@ $total_pages = ceil($total/$limit);
 
 
 <script src="Assets/js/gestionUsuario.js"></script>
+<script src="Assets/js/bootpag.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $("#result").load("php/session/tablaUsuarios.php");
+    $(".pagination").bootpag({
+        total: "<?php echo $paginas; ?>",
+        page: 1,
+        maxVisible: 5,
+        leaps: true,
+        firstLastUse: true,
+        first: '←',
+        last: '→',
+        wrapClass: 'pagination',
+        activeClass: 'active',
+        disabledClass: 'disabled',
+        nextClass: 'next',
+        prevClass: 'prev',
+        lastClass: 'last',
+        firstClass: 'first'
+    }).on("page",function(e,num){
+        $("#result").load("php/session/tablaUsuarios.php", {'page':num});
+    });
+    
+});
+</script>
 </body>
 </html>

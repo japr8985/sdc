@@ -139,7 +139,7 @@ function buscar(){
 		function(data){
 			console.log(data);
 			limpiar();
-			if (data.Coincidencia > 0){
+			if (data.Coincidencia > 1){
 				$.confirm({
 					title:'Registro repetido',
 					content:'Se han encontrado '+data.Coincidencia+' registros iguales a este. ¿Desea visualizarlos?',

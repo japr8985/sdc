@@ -53,6 +53,7 @@ if ($codPdvsa !='') {
 				if ($status!='') {
 					if ($instalacion!='') {
 						if ($mysqli->query($sql)) {
+							$data['Success'] = true;
 							$data['Msg'] = 'Plano/Documento guardado con exito';
 						}
 						else{
