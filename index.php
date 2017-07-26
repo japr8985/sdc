@@ -18,6 +18,13 @@ if (isset($_SESSION['username'])) {
     </head>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <a href="#" style="font-size: 48px;">
+                        SAGD PROYECTO SOTO
+                    </a>
+                </div>
+            </div>
             <div class="row vertical-center">
                 <div class="col-xs-8">
                     <div class="panel panel-default">

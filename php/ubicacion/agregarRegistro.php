@@ -14,7 +14,14 @@ $ndoc 				= $_POST['ndoc'];
 $codpdvsa 		= $_POST['codpdvsa'];
 $fase 				= $_POST['fase'];
 $rev 					= $_POST['rev'];
-//consulta sql
+
+//arreglo de resupesta donde se enviaran los resultados
+//de las validaciones y si la data es guardada correctamente
+$data = array('Success' => false,'Msg' => '', 'Error' => '','Campo' => '');
+
+if (preg_match('/\s/', $codpdvsa) == 0) {
+	if (preg_match('/\s/', $rev) == 0) {
+		//consulta sql
 $sql ="INSERT
 INTO
   ubicacion(
@@ -32,9 +39,7 @@ INTO
     rev
   )
 VALUES('$ciudad','$sede','$departamento',$nproyecto,$year,$ncaja,'$codcarpeta','$subcarpeta',$ndoc,'$codpdvsa','$fase',$rev)";
-//arreglo de resupesta donde se enviaran los resultados
-//de las validaciones y si la data es guardada correctamente
-$data = array('Success' => false,'Msg' => '', 'Error' => '');
+
 if ($ciudad!='') {
 	if ($sede!='') {
 		if ($departamento!='') {
@@ -105,5 +110,16 @@ if ($ciudad!='') {
 else {
 	$data['Msg'] = "Ciudad no puede estar vacia";
 	}
+	}
+	else{
+		$data['Error'] = 'Campo Rev es requerido';
+		$data['Campo'] = 'rev';
+	}
+}
+else{
+	$data['Msg'] = 'Campo Cod. Pdvsa es requerido';
+	$data['Campo'] = 'codpdvsa';
+}
+
 echo json_encode($data);
  ?>

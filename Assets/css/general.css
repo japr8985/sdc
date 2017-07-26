@@ -60,5 +60,7 @@ header{
 }
 
 
-
+.campo-requerido{
+	border-color: red;
+}
 

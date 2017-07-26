@@ -18,14 +18,34 @@ $sql = "UPDATE registros_total SET
 	codcliente = '$codCliente',
 	fecha_rev = '$fecha'
 	WHERE id = '$id'";
-$data = array('Success' => false, 'Msg' => '' );
-if ($mysqli->query($sql)) {
-	$data['Success'] = true;
-	$data['Msg'] = 'Registro actualizado';
+
+$data = array('Success' => false, 'Msg' => '', 'Campo' => '' );
+if (!empty($codPdvsa) && isset($codPdvsa)) {
+  if (!empty($rev) && isset($rev)) {
+    if (strlen($descripcion) > 0) {
+    	if ($mysqli->query($sql)) {
+			$data['Success'] = true;
+			$data['Msg'] = 'Registro actualizado';
+		}
+		else{
+			$data['Msg'] = 'No se pudo actualizar el registro. '.$mysqli->error;
+			}
+    	}
+    else{
+    	$data['Msg'] = "Descripcion es requerido";
+      	$data['Campo'] = 'descripcion';
+    	}
+    }
+    else{
+	    $data['Msg'] = "Revision es requerido";
+	    $data['Campo'] = 'rev';
+	  }
 }
 else{
-	$data['Msg'] = 'No se pudo actualizar el registro. '.$mysqli->error;
+  $data['Msg'] = "codPdvsa es requerido";
+  $data['Campo'] = 'codPdvsa';
 }
+
 
 echo json_encode($data);
  ?>

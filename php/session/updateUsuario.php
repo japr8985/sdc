@@ -1,7 +1,6 @@
 <?php 
-include("../../conexion/conexion.php");
 ini_set('display_errors', 1);
-
+include("../../conexion/conexion.php");
 /*
 |--------------------------------------
 |   RECIBIENDO VALORES

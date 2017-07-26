@@ -85,12 +85,22 @@ function anterior(){
 	//documento anterior al mostrado
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
-	$.getJSON(
-		"php/ubicacion/anteriorRegistro.php",
-		{id:$("#id").val()},
-		function(data){
-			setData(data)
-		});
+	$.ajax({
+		url:"php/ubicacion/anteriorRegistro.php",
+		data:{id:$("#id").val()},
+		method:'post',
+		dataType:'json',
+		success:function(data){
+			setData(data);
+		},
+		error:function(xhr,ajaxOptions,thrownError){
+			$.alert({
+				title:xhr.status,
+				content:xhr.status+" "+thrownError
+				});
+			$("#loader").prop('hidden',true);
+		}
+	});
 	}
 //siguiente registro
 function siguiente(){

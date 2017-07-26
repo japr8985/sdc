@@ -111,6 +111,7 @@ function buscar(){
 		"php/especificacion_registros/buscar.php",
 		{data:$("#codPdvsa").val()},
 		function(data){
+			console.log(data);
 			if(data.Success) {
 				if (data.Coincidencia > 1){
 				$.confirm({
@@ -189,7 +190,9 @@ function agregar(){
 	}
 //funcion para eliminar el registro que aparece en el formulario
 function eliminar(){
-	//mostrar circulo de carga
+	var patron = /^\s*$/;
+	if (!patron.test($("#codPdvsa").val())) {
+		//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
 	$.confirm({
 		title:'Confirmar',
@@ -232,6 +235,14 @@ function eliminar(){
 		}
 		});	
 	}
+	else{
+		$.alert({
+			title:'Error',
+			content: 'No se puede eliminar. Codigo Pdvsa Vacio'
+		});
+	}
+	
+	}
 //funcion para actualizar el registro que aparece en el formulario
 function actualizar(){
 	$("#loader").prop('hidden',false);
@@ -243,25 +254,45 @@ function actualizar(){
 		actividad: $("#actividad").val(),
 		disciplina:$("#disciplina").val(),
 		instalacion:$('#instalacion').val(),
-		docPlano:$("#docPlano").val(''),
+		docPlano:$("#docPlano").val(),
 		digitalFisico:$("#digitalFisico").val()
 	};
+	console.log(obj);
 	$.ajax({
 		url:'php/especificacion_registros/actualizar.php',
 		data:obj,
 		method:'POST',
 		dataType:'json',
 		success:function(data){
-
+			console.log(data);
+			$("#loader").prop('hidden',true);
+			if(data.Success){
+				$.alert({
+					title:'Actualizado',
+					content:data.Msg
+				});
+			}
+			else{
+				$.alert({
+					title:'Error',
+					content:data.Error
+				});
+				$("#"+data.Campo).addClass('campo-requerido').focus();
+			}
+			$("#loader").prop('hidden',true);
 		},
 		error:function(xhr,status,error){
-
+			$.alert({
+                title:xhr.status,
+                content:xhr.status+" "+thrownError
+                });
 		}
 	});
 	$("#loader").prop('hidden',true);
 	}
 //funcion para asignar valores a la ventana modal
 function set_rep(data,index){
+
 	$("#modalActividad").val(data.actividad);
 	$("#modalcodpdvsa").val(data.codpdvsa);
 	$("#modalDigFis").val(data.digital_fisico);

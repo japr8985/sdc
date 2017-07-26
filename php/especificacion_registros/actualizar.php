@@ -1,5 +1,6 @@
 <?php 
 include('../../conexion/conexion.php');
+
 $id = $_POST['id'];
 $codPdvsa = $_POST['codPdvsa'];
 $fase = $_POST['fase'];
@@ -22,14 +23,28 @@ SET
   digital_fisico = '$digitalFisico'
 WHERE
   id = '$id'";
-$data = array('Success' => fale , 'Msg' => '','Error' => '' );
-if ($mysqli->query($data)) {
-	$data['Success'] = true;
-	$data['Msg'] = 'Registro actualizado';
+$data = array('Success' => false , 'Msg' => '','Error' => '' );
+
+if (!empty($codpdvsa)) {
+  if (!empty($status)) {
+    if ($mysqli->query($sql)) {
+      $data['Success'] = true;
+      $data['Msg'] = 'Registro actualizado';
+    }
+    else{
+      $data['Msg'] = 'Error al registrar';
+      $data['Error'] = $mysqli->error;
+    }
+  }
+  else{
+    $data['Error'] = "Status es requerido";
+    $data['Campo'] = 'status';
+  }
 }
 else{
-	$data['Msg'] = 'Error al registrar';
-	$data['Error'] = $mysqli->error;
+  $data['Error'] = "Cod. PDVSA es requerido";
+  $data['Campo'] = 'codPdvsa';
 }
+
 echo json_encode($data);
  ?>

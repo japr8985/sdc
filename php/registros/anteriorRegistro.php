@@ -1,7 +1,9 @@
 <?php 
 	include ("../../conexion/conexion.php");
-	$id = $_REQUEST['id'];
+	$id = $_REQUEST['id'] != '' ? $_REQUEST['id'] : 2;
+	
 	$sql = "SELECT * FROM registros_total WHERE id = (SELECT max(id) FROM registros_total WHERE id < $id) ";
+	//echo $sql;
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//si tiene al menos una fila

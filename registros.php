@@ -15,13 +15,13 @@ $nums = $result->fetch_array();
 	<div class="container">
 		<h1>REGISTROS PDVSA - PROYECTO SOTO</h1>
 		<form action="#" method="POST">
-			<div class="form-group">
+			<div class="form-group" id="groupPdvsa">
 				<label for="codPdvsa">
 					CodPdvsa
 				</label>
 				<input type="text" class="form-control" id="codPdvsa">
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="groupDesc">
 				<label for="descripcion">
 					Descripcion
 				</label>
@@ -101,7 +101,7 @@ $nums = $result->fetch_array();
 			<div class="col-xs-offset-3">
 				<button class="btn btn-default" onClick="actualizar()">Actualizar</button>
 				<button class="btn btn-default" onClick="buscar()">Buscar</button>
-				<button class="btn btn-default" onClick="agregar()">Agregar Nuevo</button>
+				<button class="btn btn-default" onClick="agregar()" disabled id="btnAgregar">Agregar Nuevo</button>
 				<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
 				<button class="btn btn-default" onClick="limpiar()">Limpiar</button>
 			</div>

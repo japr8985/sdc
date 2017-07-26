@@ -24,19 +24,21 @@ function crearUsuario() {
         data:obj,
         dataType:'json',
         success:function(data){
-            $("#myModal").modal('hide');
-            limpiarCrearUsuario();
+            
+            //limpiarCrearUsuario();
             if (data.Success){
                 $.alert({
                     title:'',
                     content:data.Msg,
                 });
+                $("#myModal").modal('hide');
             }
             else{
                 $.alert({
                     title:'Error',
                     content:data.Msg+' '+data.Error,
                 });
+                $("#"+data.Campo).addClass('campo-requerido').focus();
             }
 
         },

@@ -169,6 +169,7 @@ class PDF extends FPDF
     $this->SetFont('Arial','B',10);
     $w = array(48,120,10,22,45,16,35,30);
     unset($this->aligns);
+    $this->SetAligns(['C','C','C','C','C','C','C','C']);
     $this->SetWidths($w);
     $row = array(
       'Cod. PDVSA',
@@ -181,6 +182,7 @@ class PDF extends FPDF
       'Fase'
     );
     $this->Row($row);
+    unset($this->aligns);
   }
 
 }

@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 include('../../conexion/conexion.php');
 
 session_start();
-
+ 
 $data = array('Success' => false,'Msg' => '','Error' => '' );
 
 $user = $_POST['user'];
@@ -27,6 +27,7 @@ if ($query->num_rows == 1) {
 	$data['Msg'] = 'Bienvenido '.$result['nombre'];
 	?>
 	<script>
+		alert("Bienvenido <?php echo $_SESSION['nombre']; ?>")
 		window.location.href='../../home.php';
 	</script>
 	<?php

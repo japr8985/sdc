@@ -1,7 +1,8 @@
 <?php 
 	include ("../../conexion/conexion.php");
-	$id = $_REQUEST['id'];
-	$sql = "SELECT * FROM ubicacion WHERE id = (SELECT max(id) FROM ubicacion WHERE id < $id)";
+	
+	$id = ($_POST['id'] == '' || intval($_POST['id']) < 2) ? 2 : $_POST['id'];
+	$sql = "SELECT * FROM ubicacion WHERE id = (SELECT max(id) FROM ubicacion WHERE id < ".$id.")";
 	//ejecucion de consulta SQL
 	$query = $mysqli->query($sql) or die($mysqli->error);
 	//desgloce de la data

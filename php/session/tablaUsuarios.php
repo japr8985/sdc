@@ -18,7 +18,7 @@ $posicion = (($page_number - 1) * $total_registros);
 $sql = "SELECT * from usuarios ORDER BY id DESC limit $posicion, $total_registros";
 $query = $mysqli->query($sql);
 
-echo "<table class='table table-hover'>";
+echo "<table class='table table-hover' style='font-size:20px;'>";
 	echo "<thead>";
 		echo "<tr>";
             echo "<td>";

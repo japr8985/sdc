@@ -18,9 +18,18 @@ $total = $users[0];
 $paginas = ceil($total/5);
 ?>
 <div class="container">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-  Crear Usuarios
-</button>
+<div class="row">
+    <div class="text-center">
+        <h1>
+            Gestion de Usuarios
+        </h1>
+    </div>
+</div>
+<div class="row text-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Crear Usuarios
+    </button>
+</div>
    <hr>
     <div id="result"></div>  
 </div> 

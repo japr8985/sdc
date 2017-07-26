@@ -30,11 +30,11 @@
 			</div>
 			<div class="col-xs-6">
 				<a href="registros.php">
-						<img src="Assets/iconos/registros_pdvsa.png" class="icon">
-						<h3>
-							Registros PDVSA
-						</h3>
-					</a>
+					<img src="Assets/iconos/registros_pdvsa.png" class="icon">
+					<h3>
+						Registros PDVSA
+					</h3>
+				</a>
 			</div>
 		</div>
 		<div class="row box">
@@ -46,9 +46,7 @@
 					</h3>
 				</a>
 			</div>
-		</div>
-		<div class="row box">
-		    <?php if($_SESSION['type'] == 'admin'):?>
+			<?php if($_SESSION['type'] == 'admin'):?>
                 <div class="col-xs-6">
                     <a href="gestionUsuarios.php">
 					<img src="Assets/iconos/usuarios.jpg" class="icon">
@@ -57,7 +55,9 @@
                         </h3>
                     </a>
                 </div>
+		</div>
             <?php endif; ?>
+		<div class="row box">
 		    <div class="col-xs-6">
                 <a href="#" onclick="cerrarSesion()">
 		            <img src="Assets/iconos/logout.png" class="icon">

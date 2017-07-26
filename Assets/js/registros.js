@@ -26,6 +26,8 @@ function limpiar(){
 	$("#fecha").val('');
 	//clear numero del registro
 	$("#numberToShow").val('');
+	//habilitar boton para agregar registro
+	$("#btnAgregar").attr('disabled',false);
 	}
 function setData(data){
 	console.log(data)
@@ -63,8 +65,10 @@ function inicio(){
 		function(data){
 			limpiar();
 			setData(data);
+			$("#btnAgregar").attr('disabled',true);
 		}
 		);
+	
 	}
 function final(){
 	//funcion para traer el ultimo 
@@ -78,6 +82,7 @@ function final(){
 		success:function(data){
 			limpiar();
 			setData(data);
+			$("#btnAgregar").attr('disabled',true);
 		},
 		error:function(xhr,status,error){
 			$.alert({
@@ -87,8 +92,8 @@ function final(){
 		}
 	});
 
+	$("#btnAgregar").attr('disabled',true);
 	}
-
 function siguiente(){
 	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
 		$("#loader").prop('hidden',false);
@@ -105,6 +110,7 @@ function siguiente(){
 					$("#loader").prop('hidden',true);
 					limpiar();
 					setData(data);					
+					$("#btnAgregar").attr('disabled',true);
 				},
 			error:function(xhr,status,error){
 				$("#loader").prop('hidden',true);
@@ -114,23 +120,33 @@ function siguiente(){
 	
 	}
 function anterior(){
-	$("#loader").prop('hidden',false);
 	//funcion para traer el 
 	//documento anterior al mostrado
 	//mostrar circulo de carga
-	if ($("#numberToShow").val() != 1){
-		$.getJSON(
-			"php/registros/anteriorRegistro.php",
-			{id:$("#id").val()},
-			function(data){
-				limpiar();
-				setData(data);
 
+	$("#loader").prop('hidden',false);
+	$.ajax({
+		url:'php/registros/anteriorRegistro.php',
+		data:{id:$("#id").val()},
+		method:'post',
+		dataType:'json',
+		success:function(data){
+			limpiar();
+			setData(data);
+			$("#btnAgregar").attr('disabled',true);
+		},
+		error:function(xhr,status,error){
+			$.alert({
+				title:'Error',
+				content:xhr.status+" "+error
 			});
 		}
+	});
+	$("#loader").prop('hidden',true);
+	$("#btnAgregar").attr('disabled',true);
 	}
-
 function buscar(){
+	$("#btnAgregar").attr('disabled',true);
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
 	$.getJSON(
@@ -153,6 +169,7 @@ function buscar(){
 				});
 			}
 			setData(data);
+			$("#btnAgregar").attr('disabled',true);
 			if (data.ID == ''){
 				$.alert({
 						title:'Busqueda',
@@ -160,8 +177,7 @@ function buscar(){
 						});
 				$("#loader").prop('hidden',true);
 			}
-		});
-	
+		});	
 	}
 function agregar(){
 	//variable donde se arma el 
@@ -192,12 +208,16 @@ function agregar(){
 						});
 				//ocultar circulo de carga
 				$("#loader").prop('hidden',true);
+				$("#codPdvsa").removeClass('campo-requerido');
+				$("#descripcion").removeClass('campo-requerido');
+				$("#rev").removeClass('campo-requerido');
 				}
 			else{
 				$.alert({
 						title:'Error',
 						content:data.Msg+" "+data.Error
 						});
+				$("#"+data.Campo).addClass('campo-requerido').focus();
 				//ocultar circulo de carga
 				$("#loader").prop('hidden',true);
 				}
@@ -215,7 +235,9 @@ function agregar(){
 function eliminar(){
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
-	$.confirm({
+	var patron = /^\s*$/;
+	if (!patron.test($("#codPdvsa").val())){
+		$.confirm({
 		title:'Confirmar',
 		content:'Desea realmente eliminar este registro?',
 		confirm:function(){
@@ -256,6 +278,15 @@ function eliminar(){
 				$("#loader").prop('hidden',true);
 		}
 	});
+	}
+	else{
+		$.alert({
+			title:'Error',
+			content: 'No se puede eliminar. Codigo Pdvsa Vacio'
+		});
+	}
+	
+	$("#btnAgregar").attr('disabled',true);
 	$("#loader").prop('hidden',true);
 	}
 function actualizar(){
@@ -282,12 +313,16 @@ function actualizar(){
 					title:'Actualizado',
 					content:data.Msg
 				});
+				$("#codPdvsa").removeClass('campo-requerido');
+				$("#descripcion").removeClass('campo-requerido');
+				$("#rev").removeClass('campo-requerido');
 			}
 			else{
 				$.alert({
 					title:'Error',
 					content:data.Msg+' '+data.Error
 				});
+				$("#"+data.Campo).addClass('campo-requerido').focus();
 			}
 			$("#loader").prop('hidden',true);
 		},
@@ -300,6 +335,7 @@ function actualizar(){
 		}
 	});
 	limpiar();
+	$("#btnAgregar").attr('disabled',true);
 	}
 //funcion para asignar los datos los registros repeditos
 //index = indice + 1

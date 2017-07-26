@@ -35,8 +35,19 @@ LIMIT 0, 1";
 	$sql = "SELECT * FROM carac_doc WHERE codpdvsa = '$cod'";
 	$query = $mysqli->query($sql);
 	$repetido_array= [];
+
 	while ($data = $query->fetch_array()) {
-		$repetido_array[] = $data;
+		$repetido_array[] = [
+			'id' => $data['id'],//
+			'codpdvsa' => $data['codpdvsa'],//
+			'fase' => $data['fase'],//cambiar
+			'status' => $data['status'],//
+			'actividad' => $data['actividad'],//
+			'disciplina' => $data['disciplina'],//
+			'instalacion' => utf8_encode($data['instalacion']),//
+			'doc_plano' => $data['doc_plano'],//
+			'digital_fisico' => $data['digital_fisico']
+		];
 	}
 
 	//armando arreglo

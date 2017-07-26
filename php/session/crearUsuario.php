@@ -35,7 +35,7 @@ if($pass == $confirm){
     |           [6,16]
     |--------------------------------------
     */
-    if (preg_match('/\s/', $nombre) == 0 && !empty($nombre)) {
+    if (!empty($nombre)) {
         //usuarios sin espacio en blanco
         if (preg_match('/\s/',$user) == 0 && !empty($user)) {
             //contraseña sin espacio en blanco
@@ -44,9 +44,11 @@ if($pass == $confirm){
                     //expresion regular para emails
                     $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
                     if (preg_match($pattern,$correo)) {
-                        $sql = "SELECT id from usuarios WHERE correo = $correo";
+                        $sql = "SELECT count(id) from usuarios WHERE correo = '$correo'";
+                        //echo $sql;
                         $query = $mysqli->query($sql);
-                        if (!$query) {
+                        $num_rows = $query->fetch_array();
+                        if ($num_rows == 0) {
                             /*
                             |--------------------------------------
                             |   ENCRIPTANDO CONTRASEÑA
@@ -78,23 +80,32 @@ if($pass == $confirm){
                         }
                         else
                             $data['Msg'] = "Ya existe un usuario con este correo '$correo'";
+                            $data['Campo'] ="correo" ;
                     
                     }
-                    else
+                    else{
                         $data['Msg'] = 'Formato de correo invalido';
+                        $data['Campo'] = "correo";
+                    }
                 }
-                else
+                else{
                    $data['Msg'] = 'La clave debe tener de 6 a 16'; 
+                   $data['Campo'] = "pass";
+                }
             }
             else
-               $data['Msg'] = 'La clave no debe poseer espacios en blancos'; 
+                $data['Msg'] = 'La clave no debe poseer espacios en blancos'; 
+                $data['Campo'] = "pass";
         }
         else{
             $data['Msg'] = "El nombre de usuario no puede poseer espacios en blanco";
+            $data['Campo'] = "username";
         }
     }
-    else
+    else{
         $data['Msg'] = "Nombre no puede estar en blanco";
+        $data['Campo'] = "name";
+    }
     
 }
 else{
