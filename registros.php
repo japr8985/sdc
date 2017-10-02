@@ -101,7 +101,7 @@ $nums = $result->fetch_array();
 			<div class="col-xs-offset-3">
 				<button class="btn btn-default" onClick="actualizar()">Actualizar</button>
 				<button class="btn btn-default" onClick="buscar()">Buscar</button>
-				<button class="btn btn-default" onClick="agregar()" disabled id="btnAgregar">Agregar Nuevo</button>
+				<button class="btn btn-default" onClick="agregar()" id="btnAgregar">Agregar Nuevo</button>
 				<button class="btn btn-default" onClick="eliminar()">Eliminar</button>
 				<button class="btn btn-default" onClick="limpiar()">Limpiar</button>
 			</div>
@@ -117,8 +117,8 @@ $nums = $result->fetch_array();
 		<div class="row">
 			<div class="col-xs-offset-3">
 				<button class="btn btn-default" onClick="inicio()">Inicio</button>
-				<button class="btn btn-default" onClick="anterior()">Anterior</button>
-				<button class="btn btn-default" onClick="siguiente()">Siguiente</button>
+				<button class="btn btn-default" onClick="anterior()" id="anterior">Anterior</button>
+				<button class="btn btn-default" onClick="siguiente()" id="siguiente">Siguiente</button>
 				<button class="btn btn-default" onClick="final()">Final</button>
 			</div>
 		</div>

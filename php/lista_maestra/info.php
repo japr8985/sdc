@@ -146,7 +146,10 @@ class PDF extends FPDF
       $this->PageNo()."/{nb}"
     );
     $this->RowNoBorder($header);
-    $this->Multicell(0,5,utf8_decode('Registros Según su disciplina'),'','C');
+    $this->SetFont('Arial','B',24);
+    $this->Multicell(0,10,utf8_decode('Reporte de registros según su'),'','C');
+    $this->Multicell(0,5,utf8_decode('fase y disciplina'),'','C');
+    $this->SetFont('Arial','B',10);
     $this->Ln();$this->Ln();$this->Ln();
     if ($this->disciplina != 'N/A') {
       $this->SetFont('Arial','BU',10);

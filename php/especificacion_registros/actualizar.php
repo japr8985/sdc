@@ -25,7 +25,7 @@ WHERE
   id = '$id'";
 $data = array('Success' => false , 'Msg' => '','Error' => '' );
 
-if (!empty($codpdvsa)) {
+if (!empty($codPdvsa)) {
   if (!empty($status)) {
     if ($mysqli->query($sql)) {
       $data['Success'] = true;

@@ -31,14 +31,14 @@ if (!isset($_SESSION['username'])) {
 					<!-- Circulo de carga -->
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-5">
 				<a href="home.php">
 					<h3 class="text-center">
 						SAGD PROYECTO SOTO
 					</h3>
 				</a>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-1">
 				<a href="#">
 					<?php if(isset($_SESSION)): ?>
 						<h4>

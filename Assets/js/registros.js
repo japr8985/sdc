@@ -27,7 +27,9 @@ function limpiar(){
 	//clear numero del registro
 	$("#numberToShow").val('');
 	//habilitar boton para agregar registro
-	$("#btnAgregar").attr('disabled',false);
+	//$("#btnAgregar").attr('disabled',false);
+	//$("#anterior").prop("disabled",true);
+	//$("#siguiente").prop('disabled',true);
 	}
 function setData(data){
 	console.log(data)
@@ -65,10 +67,9 @@ function inicio(){
 		function(data){
 			limpiar();
 			setData(data);
-			$("#btnAgregar").attr('disabled',true);
 		}
 		);
-	
+		
 	}
 function final(){
 	//funcion para traer el ultimo 
@@ -82,7 +83,7 @@ function final(){
 		success:function(data){
 			limpiar();
 			setData(data);
-			$("#btnAgregar").attr('disabled',true);
+			
 		},
 		error:function(xhr,status,error){
 			$.alert({
@@ -92,7 +93,6 @@ function final(){
 		}
 	});
 
-	$("#btnAgregar").attr('disabled',true);
 	}
 function siguiente(){
 	if ($("#numberToShow").val() != $("#totalnumbers").val()) {
@@ -146,7 +146,7 @@ function anterior(){
 	$("#btnAgregar").attr('disabled',true);
 	}
 function buscar(){
-	$("#btnAgregar").attr('disabled',true);
+
 	//mostrar circulo de carga
 	$("#loader").prop('hidden',false);
 	$.getJSON(
@@ -169,7 +169,7 @@ function buscar(){
 				});
 			}
 			setData(data);
-			$("#btnAgregar").attr('disabled',true);
+			//$("#btnAgregar").attr('disabled',true);
 			if (data.ID == ''){
 				$.alert({
 						title:'Busqueda',
@@ -177,7 +177,8 @@ function buscar(){
 						});
 				$("#loader").prop('hidden',true);
 			}
-		});	
+		});
+	
 	}
 function agregar(){
 	//variable donde se arma el 

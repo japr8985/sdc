@@ -6,6 +6,7 @@ include("../../conexion/conexion.php");
 |   RECIBIENDO VALORES
 |--------------------------------------
 */
+//var_dump($_POST);
 $id 		= intval($_POST['id']);
 $nombre     = $_POST['name'];
 $user       = $_POST['user'];
@@ -13,8 +14,9 @@ $pass       = $_POST['pass'];
 $confirm    = $_POST['confirm'];
 $correo     = $_POST['correo'].$_POST['email'];
 $type       = $_POST['type'];
-$data = ['Success' => false, 'Msg' => ''];
+$data = ['Success' => false, 'Msg' => '','type' => $type];
 if($pass == $confirm){
+	
 	/*
     |--------------------------------------
     |   CONDICIONES
@@ -31,9 +33,10 @@ if($pass == $confirm){
 					//expresion regular para emails
 	                $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
 	                if (preg_match($pattern,$correo)) {
-	                	$sql = "SELECT id from usuarios WHERE username = '$user' and correo <> '$correo'";
-	                	$result = $mysqli->query($sql);
-	                	if ($result->num_rows > 0) {
+						
+	                	$sql = "SELECT id from usuarios WHERE username = '$user' and correo = '$correo'";
+						$result = $mysqli->query($sql);
+						if ($result->num_rows > 0) {
 	                		/*
 							|--------------------------------------
 							|   ENCRIPTANDO CONTRASEÑA
@@ -64,7 +67,7 @@ if($pass == $confirm){
 							}
 	                	}
 	                	else
-	                		$data['Msg'] = "Ya existe un usuario con este correo '$correo'";
+	                		$data['Msg'] = "No existe un usuario con este correo: '$correo'";
 	                	
 	                }
 	                else
