@@ -165,8 +165,12 @@ class PDF extends FPDF
   function header_table(){
     $this->SetFont('Arial','B',10);
     $w = array(48,120,10,22,45,16,35,30);
-    unset($this->aligns);
     $this->SetWidths($w);
+    $this->SetAligns([
+      'C','C','C','C','C','C','C','C'
+    ]);
+    //unset($this->aligns);
+
     $row = array(
       'Cod. PDVSA',
       utf8_decode('Descripción'),
@@ -213,8 +217,9 @@ $pdf->SetWidths($w);
 //$result->fetch_object();
 
 while ($registro = $result->fetch_object()) {
-
-	
+    $pdf->SetAligns([
+      'L','L','L','L','L','L','L','L'
+    ]);
     $pdf->SetFont('Arial','',8);
     $fecha = new DateTime($registro->fecha);
     $fecha = $fecha->format('d-m-Y');

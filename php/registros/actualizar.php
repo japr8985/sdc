@@ -16,7 +16,8 @@ $sql = "UPDATE registros_total SET
 	rev = '$rev',
 	fases = '$fase',
 	codcliente = '$codCliente',
-	fecha_rev = '$fecha'
+	fecha_rev = '$fecha',
+	disciplina = '$disciplina'
 	WHERE id = '$id'";
 
 $data = array('Success' => false, 'Msg' => '', 'Campo' => '' );

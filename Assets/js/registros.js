@@ -26,10 +26,6 @@ function limpiar(){
 	$("#fecha").val('');
 	//clear numero del registro
 	$("#numberToShow").val('');
-	//habilitar boton para agregar registro
-	//$("#btnAgregar").attr('disabled',false);
-	//$("#anterior").prop("disabled",true);
-	//$("#siguiente").prop('disabled',true);
 	}
 function setData(data){
 	console.log(data)
@@ -110,7 +106,7 @@ function siguiente(){
 					$("#loader").prop('hidden',true);
 					limpiar();
 					setData(data);					
-					$("#btnAgregar").attr('disabled',true);
+					//$("#btnAgregar").attr('disabled',true);
 				},
 			error:function(xhr,status,error){
 				$("#loader").prop('hidden',true);
@@ -133,7 +129,7 @@ function anterior(){
 		success:function(data){
 			limpiar();
 			setData(data);
-			$("#btnAgregar").attr('disabled',true);
+			//$("#btnAgregar").attr('disabled',true);
 		},
 		error:function(xhr,status,error){
 			$.alert({
@@ -143,7 +139,7 @@ function anterior(){
 		}
 	});
 	$("#loader").prop('hidden',true);
-	$("#btnAgregar").attr('disabled',true);
+	//$("#btnAgregar").attr('disabled',true);
 	}
 function buscar(){
 
@@ -169,7 +165,7 @@ function buscar(){
 				});
 			}
 			setData(data);
-			//$("#btnAgregar").attr('disabled',true);
+			////$("#btnAgregar").attr('disabled',true);
 			if (data.ID == ''){
 				$.alert({
 						title:'Busqueda',
@@ -244,7 +240,10 @@ function eliminar(){
 		confirm:function(){
 			$.ajax({
 				url:"php/registros/eliminarRegistro.php",
-				data:{codpdvsa : $('#codPdvsa').val()},
+				data:{
+					codpdvsa : $('#codPdvsa').val(),
+					id: $("#id").val()
+				},
 				method:'POST',
 				dataType:'json',
 				success:function(data){
@@ -287,7 +286,7 @@ function eliminar(){
 		});
 	}
 	
-	$("#btnAgregar").attr('disabled',true);
+	//$("#btnAgregar").attr('disabled',true);
 	$("#loader").prop('hidden',true);
 	}
 function actualizar(){
@@ -336,7 +335,7 @@ function actualizar(){
 		}
 	});
 	limpiar();
-	$("#btnAgregar").attr('disabled',true);
+	//$("#btnAgregar").attr('disabled',true);
 	}
 //funcion para asignar los datos los registros repeditos
 //index = indice + 1

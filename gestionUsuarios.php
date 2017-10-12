@@ -108,8 +108,8 @@ $paginas = ceil($total/5);
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarCrearUsuario()">Cerrar</button>
         <button type="button" class="btn btn-primary" onclick="crearUsuario()">Crear</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarCrearUsuario()">Cerrar</button>
       </div>
     </div>
   </div>
@@ -186,8 +186,8 @@ $paginas = ceil($total/5);
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarEditarUsuario()">Cerrar</button>
         <button type="button" class="btn btn-primary" onclick="updateUsuario()">Actualizar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarEditarUsuario()">Cerrar</button>
       </div>
     </div>
   </div>
