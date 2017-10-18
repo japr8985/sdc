@@ -35,7 +35,7 @@ if($query->num_rows > 0){
     		"codpdvsa" => $reg['codpdvsa'],
     		"descripcion" => $reg['descripcion'],
     		"rev" => $reg['rev'],
-    		"fecha" => $reg['fecha'],
+    		"fecha" => date('Y-m-d',strtotime($reg['fecha'])),
     		"codCliente" => $reg['codcliente'],
     		"status" => $reg['status'],
     		"fase" => $reg['fase'],

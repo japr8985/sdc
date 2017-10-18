@@ -48,7 +48,8 @@ if($pass == $confirm){
                         //echo $sql;
                         $query = $mysqli->query($sql);
                         $num_rows = $query->fetch_array();
-                        if ($num_rows == 0) {
+                        
+                        if (intval($num_rows[0]) == 0) {
                             /*
                             |--------------------------------------
                             |   ENCRIPTANDO CONTRASEÑA
@@ -78,9 +79,10 @@ if($pass == $confirm){
                                         
                                 }
                         }
-                        else
+                        else{
                             $data['Msg'] = "Ya existe un usuario con este correo '$correo'";
-                            $data['Campo'] ="correo" ;
+                            $data['Campo'] ="correo";                           
+                        }
                     
                     }
                     else{
@@ -93,9 +95,10 @@ if($pass == $confirm){
                    $data['Campo'] = "pass";
                 }
             }
-            else
+            else{
                 $data['Msg'] = 'La clave no debe poseer espacios en blancos'; 
                 $data['Campo'] = "pass";
+            }
         }
         else{
             $data['Msg'] = "El nombre de usuario no puede poseer espacios en blanco";
@@ -105,8 +108,7 @@ if($pass == $confirm){
     else{
         $data['Msg'] = "Nombre no puede estar en blanco";
         $data['Campo'] = "name";
-    }
-    
+    }    
 }
 else{
     $data['Msg'] = utf8_encode('Contraseñas no coinciden');

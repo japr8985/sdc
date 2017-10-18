@@ -15,8 +15,7 @@ $confirm    = $_POST['confirm'];
 $correo     = $_POST['correo'].$_POST['email'];
 $type       = $_POST['type'];
 $data = ['Success' => false, 'Msg' => '','type' => $type];
-if($pass == $confirm){
-	
+if($pass == $confirm){	
 	/*
     |--------------------------------------
     |   CONDICIONES
@@ -26,14 +25,13 @@ if($pass == $confirm){
     |           [6,16]
     |--------------------------------------
     */
-    if (preg_match('/\s/',$nombre) == 0 && !empty($nombre)) {
+    if (!empty($nombre)) {
     	if (preg_match('/\s/',$user) == 0 && !empty($user)) {
 			if (preg_match('/\s/',$pass) == 0) {
 				if (strlen($pass) > 5 and strlen($pass) < 17) {
 					//expresion regular para emails
 	                $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
-	                if (preg_match($pattern,$correo)) {
-						
+	                if (preg_match($pattern,$correo)) {						
 	                	$sql = "SELECT id from usuarios WHERE username = '$user' and correo = '$correo'";
 						$result = $mysqli->query($sql);
 						if ($result->num_rows > 0) {
@@ -82,6 +80,9 @@ if($pass == $confirm){
 		else{
 			$data['Msg'] = "El nombre de usuario no puede poseer espacios en blanco";
 		}
+    }
+    else{
+    	$data['Msg'] = "El nombre no puede poseer espacios en blanco";
     }
 	
 }
