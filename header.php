@@ -38,11 +38,11 @@ if (!isset($_SESSION['username'])) {
 					</h3>
 				</a>
 			</div>
-			<div class="col-md-1">
+			<div class="col-md-3">
 				<a href="#">
 					<?php if(isset($_SESSION)): ?>
 						<h4>
-							<?php echo $_SESSION['nombre']; ?>
+							Usuario: <?php echo $_SESSION['nombre']; ?>
 						</h4>
 					<?php endif; ?>
 				</a>

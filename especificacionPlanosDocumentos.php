@@ -119,6 +119,16 @@
 			</div>
 		</div>
 	</div>
+	    <div class="row">
+        <div class="container">
+            <div class="col-md-3 ">
+                <a href="home.php" style="font-size: xx-large;">
+                    <span>&larr;</span>
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
 	<div class="modal fade" id="coincidencia" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">

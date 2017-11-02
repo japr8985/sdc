@@ -38,6 +38,16 @@ $paginas = ceil($total/5);
         <div class="pagination"></div>
     </div>
 </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-3 ">
+                <a href="home.php" style="font-size: xx-large;">
+                    <span>&larr;</span>
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
 <!--
 |----------------------------------------------------------
 |       VENTANA MODAL PARA CREAR USUARIOS

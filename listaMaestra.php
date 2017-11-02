@@ -18,16 +18,19 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <div class="col-md-3">
-                <button class="btn btn-default" onClick="imprimir()">Imprimir</button>
+            <div class="col-md-2">
+                <button class="btn btn-primary" onClick="imprimir()">Imprimir</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info">Graficas F/D</button>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-default" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>
+                <button class="btn btn-success" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" id="search" class="form-control" placeholder="Registro a buscar">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <button class="btn btn-default" onClick="buscarCodigo()">
                     Buscar
                 </button>
@@ -57,6 +60,16 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
     <div class="row">
         <div class="text-center">
             <div class="pagination"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-3 ">
+                <a href="home.php" style="font-size: xx-large;">
+                    <span>&larr;</span>
+                    Regresar
+                </a>
+            </div>
         </div>
     </div>
         
@@ -96,7 +109,6 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
         </div>
     </div>
 </div>
-<!--/modal Filtrado por fecha -->
 <!-- modal vista de registro-->
 <div class="modal fade" id="showRegistro" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -169,13 +181,16 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" id="searchBefore" disabled onClick="beforeReg()">
+        <a class="btn btn-info" id="showDetail" href="#">
+            Imprimir
+        </a>
+        <button class="btn btn-success" id="searchBefore"  onClick="beforeReg()">
             Anterior
         </button>
         <button class="btn btn-primary" id="searchNext" disabled onClick="nextReg()">
             Siguiente
         </button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

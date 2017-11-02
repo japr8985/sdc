@@ -53,6 +53,9 @@ $i = 0;
                 echo "<th>";
                     echo "Disciplina";
                 echo "</th>";
+                echo "<th>";
+                    echo "Detallado";
+                echo "</th>";
             echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -73,6 +76,8 @@ $i = 0;
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[5]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[6]."</td>";
                 echo "<td style='text-align:center; margin-top: 20px;'> ".$row[7]."</td>";
+                //echo "<td style='text-align:center; margin-top: 20px;'> <a href='/sdc/php/lista_maestra/detallado.php?id=".$row['id']."' >Ver</a></td>";
+                echo "<td style='text-align:center; margin-top: 20px;'> <button onclick='showDetail(".$row['id'].")' class='btn btn-info'>Ver</button>";
             echo "</tr>";
             $i++;
             }

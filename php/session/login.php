@@ -27,7 +27,7 @@ if ($query->num_rows == 1) {
 	$data['Msg'] = 'Bienvenido '.$result['nombre'];
 	?>
 	<script>
-		alert("Bienvenido <?php echo $_SESSION['nombre']; ?>")
+		//alert("Bienvenido <?php echo $_SESSION['nombre']; ?>")
 		window.location.href='../../home.php';
 	</script>
 	<?php
@@ -35,7 +35,7 @@ if ($query->num_rows == 1) {
 else{
 	?>
 	<script>
-	alert('Usuario o clave incorrecta');
+		alert('Usuario o clave incorrecta');
 		window.location.href='../../index.php';
 	</script>
 	<?php 

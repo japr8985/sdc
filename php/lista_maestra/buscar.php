@@ -6,6 +6,7 @@ $cod = $_POST['codigo'];
 //hace la busqueda de lo enviado por post donde solo se selecciona el id y se limita a 1 resultado
 //$sql = "SELECT id FROM registros_total WHERE codpdvsa = '$cod' Limit 0,1";
 $sql = "SELECT
+  registros_total.id,
   registros_total.codpdvsa,
   registros_total.rev,
   registros_total.fecha_rev as fecha,
@@ -32,6 +33,7 @@ if($query->num_rows > 0){
     	);
     while ($reg = $query->fetch_array()) {
     	$data['registros'][] = [
+        'id' => $reg['id'],
     		"codpdvsa" => $reg['codpdvsa'],
     		"descripcion" => $reg['descripcion'],
     		"rev" => $reg['rev'],

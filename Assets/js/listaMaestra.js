@@ -63,6 +63,10 @@ function loadmodal(obj){
 	$("#codCliente").val(obj.registros[0].codCliente);
 	$("#disciplina").val(obj.registros[0].disciplina);
 	$("#fase").val(obj.registros[0].fase);
+	//$("#showDetail").attr("href", "php/lista_maestra/detallado.php?id="+obj.registros[0].id);
+	$("#showDetail").on('click',function(){
+		window.open("php/lista_maestra/detallado.php?id="+obj.registros[0].id);
+	});
 	$("#showRegistro").modal(true);//mostrar ventana modal
 	if (busqueda_cantidad > 0){//si tiene mas de 1 registro
 		//habilita los botones de siguiente y anterior
@@ -208,4 +212,6 @@ function filtradoPorFechas(){
 }
 
 
-
+function showDetail(id){
+	window.open('php/lista_maestra/detallado.php?id='+id);
+}
