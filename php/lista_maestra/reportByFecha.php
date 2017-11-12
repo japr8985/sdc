@@ -1,6 +1,7 @@
 <?php
 include('../recursos/fpdf/fpdf.php');
 include("../../conexion/conexion.php");
+session_start();
 
 class PDF extends FPDF
 {
@@ -182,6 +183,18 @@ class PDF extends FPDF
       'Fase'
     );
     $this->Row($row);
+  }
+
+  function footer()
+  {
+    $this->SetFont('Arial','B',10);
+    $this->SetY(200);
+    $this->Cell(160,5,$this->PageNo()."/{nb}",0,0,'R');
+    $this->Cell(150,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
+    $this->Ln();
+    $this->Cell(160,5,"",0,0,'R');
+    $this->Cell(150,5,date('d-m-Y'),0,0,'R');
+    
   }
 
 }

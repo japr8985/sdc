@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $id = $_POST['id'];
 
-$sql = "SELECT id, username, correo, nombre, tipo FROM usuarios WHERE id = $id";
+$sql = "SELECT * FROM usuarios WHERE id = $id";
 
 $query = $mysqli->query($sql);
 

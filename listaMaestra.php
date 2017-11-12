@@ -22,7 +22,7 @@ $paginas = ceil($total_registros / 200);//--> 200 registros por pagina
                 <button class="btn btn-primary" onClick="imprimir()">Imprimir</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-info">Graficas F/D</button>
+                <a href="grafica.php" class="btn btn-info">Graficas F/D</a>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-success" onClick="filtradoPorFechas()">Reporte Por filtrado de fecha</button>

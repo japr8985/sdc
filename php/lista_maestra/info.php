@@ -1,7 +1,7 @@
 <?php
 include('../recursos/fpdf/fpdf.php');
 include("../../conexion/conexion.php");
-
+session_start();
 /*-----------------------------------------
 |
 | CLASE PARA GENERAR LOS PDF
@@ -143,7 +143,7 @@ class PDF extends FPDF
     $this->SetAligns($a);
     $header = array(
       $this->Image('../../Assets/img/PDVSAlogo.png',10,10,100,20),
-      $this->PageNo()."/{nb}"
+      ''//$this->PageNo()."/{nb}"
     );
     $this->RowNoBorder($header);
     $this->SetFont('Arial','B',24);
@@ -188,11 +188,24 @@ class PDF extends FPDF
     unset($this->aligns);
   }
 
+  function footer()
+  {
+    $this->SetFont('Arial','B',10);
+    $this->SetY(200);
+    $this->Cell(160,5,$this->PageNo()."/{nb}",0,0,'R');
+    $this->Cell(150,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
+    $this->Ln();
+    $this->Cell(160,5,"",0,0,'R');
+    $this->Cell(150,5,date('d-m-Y'),0,0,'R');
+    
+  }
+
 }
 /*----------------------------------------
 |
 | SELECCION DE TODAS LAS DISCIPLINAS
 |----------------------------------------*/
+//
 $sql_disciplinas = "SELECT * from disciplina ORDER BY disciplina ASC";
 $disciplinas = $mysqli->query($sql_disciplinas);
 /*-----------------------------------------

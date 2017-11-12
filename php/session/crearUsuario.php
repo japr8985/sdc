@@ -18,14 +18,18 @@ $pass       = $_POST['pass'];
 $confirm    = $_POST['confirm'];
 $correo     = $_POST['correo'].$_POST['email'];
 $type       = $_POST['type'];
+$cargo      = $_POST['cargo'];
+$phone      = $_POST['phone'];
+$sangre     = $_POST['sangre'];
+$direccion  = $_POST['direccion'];
+$cedula = $_POST['cedula'];
 /*
 |--------------------------------------
 |   CONTRASEÑAS IGUALES
 |--------------------------------------
 */
 $data = array('Success' => false, 'Msg' => '', 'Error' => '');
-if($pass == $confirm){
-    
+if($pass == $confirm){    
     /*
     |--------------------------------------
     |   CONDICIONES
@@ -50,34 +54,47 @@ if($pass == $confirm){
                         $num_rows = $query->fetch_array();
                         
                         if (intval($num_rows[0]) == 0) {
-                            /*
-                            |--------------------------------------
-                            |   ENCRIPTANDO CONTRASEÑA
-                            |--------------------------------------
-                            */
-                            $pass = md5($pass);
-                            $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo) VALUES('%s','%s','%s','%s','%s')",
-                                    $mysqli->real_escape_string($user),
-                                    $mysqli->real_escape_string($pass),
-                                    $mysqli->real_escape_string($correo),
-                                    $mysqli->real_escape_string($nombre),
-                                    $mysqli->real_escape_string($type)
-                                    );
-                                if ($mysqli->query($sql)) {
-                                    $data['Success'] = true;
-                                    $data['Msg'] = "Usuario Creado Exitosamente";
-                                }
-                                else{
-                                    
+                            //validando cargo
+                            if (isset($cargo) && !empty($cargo)) {
+                                /*
+                                |--------------------------------------
+                                |   ENCRIPTANDO CONTRASEÑA
+                                |--------------------------------------
+                                */
+                                $pass = md5($pass);
+                                $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo,cargo,phone,sangre,direccion,cedula) 
+                                    VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                                        $mysqli->real_escape_string($user),
+                                        $mysqli->real_escape_string($pass),
+                                        $mysqli->real_escape_string($correo),
+                                        $mysqli->real_escape_string($nombre),
+                                        $mysqli->real_escape_string($type),
+                                        $mysqli->real_escape_string($cargo),
+                                        $mysqli->real_escape_string($phone),
+                                        $mysqli->real_escape_string($sangre),
+                                        $mysqli->real_escape_string($direccion),
+                                        $mysqli->real_escape_string($cedula)
+                                        );
+                                    if ($mysqli->query($sql)) {
+                                        $data['Success'] = true;
+                                        $data['Msg'] = "Usuario Creado Exitosamente";
+                                    }
+                                    else{
+                                        
                                     if($mysqli->error == "Duplicate entry '$user' for key 'username'"){
                                        $data['Msg'] = "Usuario duplicado. Imposible de crear"; 
                                     }
-                                    else{
-                                        $data['Msg'] = 'Error al crear usuario.';
-                                        $data['Error'] = $mysqli->error;
+                                else{
+                                    $data['Msg'] = 'Error al crear usuario.';
+                                    $data['Error'] = $mysqli->error;
                                     }
-                                        
                                 }
+                            }
+                            else{
+                                $data['Msg'] = "Es necesario asignar un cargo al usuario";
+                                $data['Campo'] ="cargo";  
+                            }
+                            
                         }
                         else{
                             $data['Msg'] = "Ya existe un usuario con este correo '$correo'";

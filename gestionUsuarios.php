@@ -68,15 +68,20 @@ $paginas = ceil($total/5);
       </div>
       <div class="modal-body">
         <form action="#" class="form-group">
-           <label for="name">
-               Nombre
-           </label>
-           <input type="text" class="form-control" id="name">
-           <hr>
-            <label for="username">
-                Nombre de Usuario
-            </label>
-            <input type="text" class="form-control" id="username">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name">
+                       Nombre
+                   </label>
+                   <input type="text" class="form-control" id="name">
+                </div>
+                <div class="col-md-6">
+                    <label for="username">
+                        Nombre de Usuario
+                    </label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+            </div>            
             <hr>
             <label for="correo">
                 Correo
@@ -98,23 +103,68 @@ $paginas = ceil($total/5);
                 </div>
             </div>
             <hr>
-            <label for="pass">
-                Contraseña
-            </label>
-            <input type="password" class="form-control" id="pass">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="pass">
+                        Contraseña
+                    </label>
+                    <input type="password" class="form-control" id="pass">
+                </div>
+                <div class="col-md-6">
+                    <label for="confirm">
+                        Confirmacion
+                    </label>
+                    <input type="password" class="form-control" id="confirm">
+                </div>
+            </div>
             <hr>
-            <label for="confirm">
-                Confirmacion
-            </label>
-            <input type="password" class="form-control" id="confirm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="type">
+                        Tipo de Usuario
+                    </label>
+                    <select id="type" class="form-control">
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="cargo">
+                        Cargo
+                    </label>
+                    <input type="text" name="cargo" id="cargo" class="form-control">
+                </div>
+            </div>
             <hr>
-            <label for="type">
-                Tipo de Usuario
-            </label>
-            <select id="type" class="form-control">
-                <option value="user">Usuario</option>
-                <option value="admin">Administrador</option>
-            </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="phone">
+                        Telefono
+                    </label>
+                    <input type="phone" name="phone" id="phone" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="sangre">
+                        Tipo de sangre
+                    </label>
+                    <input type="text" name="sangre" id="sangre" class="form-control">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="direccion">
+                        Direccion
+                    </label>
+                    <input type="text" name="direccion" id="direccion" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="cedula">
+                        Cedula
+                    </label>
+                    <input type="text" name="cedula" id="cedula" class="form-control">
+                </div>
+            </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -189,10 +239,50 @@ $paginas = ceil($total/5);
             <label for="editType">
                 Tipo de Usuario
             </label>
-            <select id="editType" class="form-control">
-                <option value="user">Usuario</option>
-                <option value="admin">Administrador</option>
-            </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <select id="editType" class="form-control">
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="editcargo">
+                        Cargo
+                    </label>
+                    <input type="text" name="editcargo" id="editcargo" class="form-control">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="editphone">
+                        Telefono
+                    </label>
+                    <input type="editphone" name="editphone" id="editphone" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="editsangre">
+                        Tipo de sangre
+                    </label>
+                    <input type="text" name="editsangre" id="editsangre" class="form-control">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="editdireccion">
+                        Direccion
+                    </label>
+                    <input type="text" name="editdireccion" id="editdireccion" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="editcedula">
+                        Cedula
+                    </label>
+                    <input type="text" name="editcedula" id="editcedula" class="form-control">
+                </div>
+            </div>
         </form>
       </div>
       <div class="modal-footer">

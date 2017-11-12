@@ -1,6 +1,7 @@
 <?php 
 include('../recursos/fpdf/fpdf.php');
 include("../../conexion/conexion.php");
+session_start();
 
 $id = $_GET['id'];
 
@@ -141,11 +142,20 @@ class PDF extends FPDF
     	$this->SetFont('Arial','B',20);
     	$this->Image('../../Assets/img/PDVSAlogo.png',5,10,60,20);
     	$this->Ln();
-		$this->Multicell(0,20,'Registro detallado','','C');
-		$this->Ln();
-
+		  $this->Multicell(0,20,'Registro detallado','','C');
+		  $this->Ln();
   }
-
+  function footer()
+  {
+    $this->SetFont('Arial','B',10);
+    $this->SetY(200);
+    $this->Cell(160,5,$this->PageNo()."/{nb}",0,0,'R');
+    $this->Cell(150,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
+    $this->Ln();
+    $this->Cell(160,5,"",0,0,'R');
+    $this->Cell(150,5,date('d-m-Y'),0,0,'R');
+    
+  }
 
 	
 }

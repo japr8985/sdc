@@ -15,7 +15,12 @@ function crearUsuario() {
         pass    : $("#pass").val(),
         confirm : $("#confirm").val(),
         email   : $("#email").val(),
-        type    : $("#type").val()
+        type    : $("#type").val(),
+        cargo   : $("#cargo").val(),
+        phone   : $("#phone").val(),
+        sangre  : $("#sangre").val(),
+        direccion: $("#direccion").val(),
+        cedula : $("#cedula").val()
     }
     console.log(obj);
     $.ajax({
@@ -45,7 +50,7 @@ function crearUsuario() {
         error:function(xhr,status,error){
             $.alert({
                 title:xhr.status,
-                content:xhr.status+" "+thrownError
+                content:xhr.status+" "+error
                 });
         }
     })
@@ -101,21 +106,28 @@ function limpiarEditarUsuario(){
     $("#editType").val('user');
 }
 function editarUsuario(id){
+
     $.ajax({
         url:'php/session/editarUsuario.php',
         method:'POST',
         data:{id:id},
         dataType:'json',
         success:function(data){
-          $("#idEdit").val(data.id)
-          $("#editName").val(data.nombre);
-          $("#editUsername").val(data.username);
-          $("#editType").val(data.tipo);
-          //--------------------------------
-          var correo = data.correo.split("@");
-          //console.log(correo);
-          $("#editCorreo").val(correo[0]);
-          $("#editEmail").val("@"+correo[1]);
+            console.log(data);
+            $("#idEdit").val(data.id)
+            $("#editName").val(data.nombre);
+            $("#editUsername").val(data.username);
+            $("#editType").val(data.tipo);
+            $("#editcargo").val(data.cargo),
+            $("#editphone").val(data.telefono),
+            $("#editsangre").val(data.sangre),
+            $("#editdireccion").val(data.direccion)
+            $("#editcedula").val(data.cedula)
+            //--------------------------------
+            var correo = data.correo.split("@");
+            //console.log(correo);
+            $("#editCorreo").val(correo[0]);
+            $("#editEmail").val("@"+correo[1]);
         },
         error:function(xhr,status,error){
             $.alert({
@@ -135,7 +147,11 @@ function updateUsuario(){
         confirm: $("#editConfirm").val(),
         correo :$("#editCorreo").val(),
         email : $("#editEmail").val(),
-        type :$("#editType").val()
+        type :$("#editType").val(),
+        cargo:$("#editcargo").val(data.cargo),
+        phone: $("#editphone").val(data.phone),
+        sangre:$("#editsangre").val(data.sangre),
+        direccion:$("#editdireccion").val(data.direccion)
     };
     console.log(obj)
     $.ajax({
@@ -172,3 +188,7 @@ function updateUsuario(){
     });
     console.log($("#idEdit").val());
 }
+function mostrarUsuario(id) {
+    console.log(id);
+}
+0412-948-3375
