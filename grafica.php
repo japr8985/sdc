@@ -23,7 +23,17 @@ include('header.php');
 			<div id="gf"></div>
 		</div>
 	</div>
-
+	<hr>
+	<div class="row">
+        <div class="container">
+            <div class="col-md-3 ">
+                <a href="home.php" style="font-size: xx-large;">
+                    <span>&larr;</span>
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="Assets/code/highcharts.js"></script>
 <script src="Assets/code/modules/exporting.js"></script>

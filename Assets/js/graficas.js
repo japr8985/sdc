@@ -32,7 +32,7 @@ var chartDisc = {
     }]
 }
 	$.ajax({
-		url:'/sdc/php/lista_maestra/grafica_disciplina.php',
+		url:'php/lista_maestra/grafica_disciplina.php',
 		method:'post',
 		dataType:'json',
 		success:function(response){
@@ -84,7 +84,7 @@ var chartFase = {
     }]
 }
 $.ajax({
-    url:'/sdc/php/lista_maestra/grafica_fase.php',
+    url:'php/lista_maestra/grafica_fase.php',
     method:'post',
     dataType:'json',
     success:function(response){

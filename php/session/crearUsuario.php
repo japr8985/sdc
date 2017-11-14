@@ -56,39 +56,54 @@ if($pass == $confirm){
                         if (intval($num_rows[0]) == 0) {
                             //validando cargo
                             if (isset($cargo) && !empty($cargo)) {
-                                /*
-                                |--------------------------------------
-                                |   ENCRIPTANDO CONTRASEÑA
-                                |--------------------------------------
-                                */
-                                $pass = md5($pass);
-                                $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo,cargo,phone,sangre,direccion,cedula) 
-                                    VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-                                        $mysqli->real_escape_string($user),
-                                        $mysqli->real_escape_string($pass),
-                                        $mysqli->real_escape_string($correo),
-                                        $mysqli->real_escape_string($nombre),
-                                        $mysqli->real_escape_string($type),
-                                        $mysqli->real_escape_string($cargo),
-                                        $mysqli->real_escape_string($phone),
-                                        $mysqli->real_escape_string($sangre),
-                                        $mysqli->real_escape_string($direccion),
-                                        $mysqli->real_escape_string($cedula)
-                                        );
-                                    if ($mysqli->query($sql)) {
-                                        $data['Success'] = true;
-                                        $data['Msg'] = "Usuario Creado Exitosamente";
+                                if (isset($phone) && !empty($phone)) {
+                                    if (isset($direccion) && !empty($direccion)) {
+                                        if (isset($cedula && !empty($cedula) && is_numeric($cedula))) {
+                                            /*
+                                            |--------------------------------------
+                                            |   ENCRIPTANDO CONTRASEÑA
+                                            |--------------------------------------
+                                            */
+                                            $pass = md5($pass);
+                                            $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo,cargo,phone,sangre,direccion,cedula) 
+                                                VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                                                    $mysqli->real_escape_string($user),
+                                                    $mysqli->real_escape_string($pass),
+                                                    $mysqli->real_escape_string($correo),
+                                                    $mysqli->real_escape_string($nombre),
+                                                    $mysqli->real_escape_string($type),
+                                                    $mysqli->real_escape_string($cargo),
+                                                    $mysqli->real_escape_string($phone),
+                                                    $mysqli->real_escape_string($sangre),
+                                                    $mysqli->real_escape_string($direccion),
+                                                    $mysqli->real_escape_string($cedula)
+                                                    );
+                                                if ($mysqli->query($sql)) {
+                                                    $data['Success'] = true;
+                                                    $data['Msg'] = "Usuario Creado Exitosamente";
+                                                }
+                                                else{
+                                                    
+                                                if($mysqli->error == "Duplicate entry '$user' for key 'username'"){
+                                                   $data['Msg'] = "Usuario duplicado. Imposible de crear"; 
+                                                }
+                                            else{
+                                                $data['Msg'] = 'Error al crear usuario.';
+                                                $data['Error'] = $mysqli->error;
+                                                }
+                                            }
+                                        }
                                     }
                                     else{
-                                        
-                                    if($mysqli->error == "Duplicate entry '$user' for key 'username'"){
-                                       $data['Msg'] = "Usuario duplicado. Imposible de crear"; 
-                                    }
-                                else{
-                                    $data['Msg'] = 'Error al crear usuario.';
-                                    $data['Error'] = $mysqli->error;
+                                        $data['Msg'] = "Es necesario asignar una direccion al usuario";
+                                        $data['Campo'] ="direccion"; 
                                     }
                                 }
+                                else{
+                                    $data['Msg'] = "Es necesario asignar un numero telefonico al usuario";
+                                    $data['Campo'] ="telefono"; 
+                                }
+                                
                             }
                             else{
                                 $data['Msg'] = "Es necesario asignar un cargo al usuario";
