@@ -292,8 +292,113 @@ $paginas = ceil($total/5);
     </div>
   </div>
 </div>
+<!--
+|----------------------------------------------------------
+|       VENTANA MODAL PARA MOSTRAR USUARIOS
+|----------------------------------------------------------
+   -->   
 
-
+<!-- Modal -->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+                &times;
+            </span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"> Usuario</h4>
+      </div>
+      <div class="modal-body">
+        <form action="#" class="form-group">
+            <input type="hidden" id="idEdit" >
+           <label for="showName">
+               Nombre
+           </label>
+           <input type="text" class="form-control" id="showName">
+           <hr>
+            <label for="showUsername">
+                Nombre de Usuario
+            </label>
+            <input type="text" class="form-control" id="showUsername">
+            <hr>
+            <label for="showCorreo">
+                Correo
+            </label>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="showCorreo">
+                </div>  
+                <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">@</span>
+                        <select id="showEmail" class="form-control">
+                            <option value="@pdvsa.com">pdvsa.com</option>
+                            <option value="@gmail.com">gmail.com</option>
+                            <option value="@hotmail.com">hotmail.com</option>
+                            <option value="@yahoo.com">yahoo.com</option>
+                        </select>  
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="showAdmin">
+                        Tipo de Usuario
+                    </label>
+                    <select id="showAdmin" class="form-control">
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="showCargo">
+                        Cargo
+                    </label>
+                    <input type="text" name="showCargo" id="showCargo" class="form-control">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="showPhone">
+                        Telefono
+                    </label>
+                    <input type="showPhone" name="showPhone" id="showPhone" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="showSangre">
+                        Tipo de sangre
+                    </label>
+                    <input type="text" name="showSangre" id="showSangre" class="form-control">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="showDireccion">
+                        Direccion
+                    </label>
+                    <input type="text" name="showDireccion" id="showDireccion" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="showCedula">
+                        Cedula
+                    </label>
+                    <input type="text" name="showCedula" id="showCedula" class="form-control">
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarShowUsuario()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="Assets/js/gestionUsuario.js"></script>
 <script src="Assets/js/bootpag.min.js"></script>
 <script>

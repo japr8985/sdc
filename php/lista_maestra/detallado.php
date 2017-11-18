@@ -169,6 +169,7 @@ $result = $query->fetch_array();
 
 $pdf = new PDF();
 $pdf->AddPage();
+$pdf->AliasNbPages();
 $pdf->SetFont('Arial','',10);
 
 /**

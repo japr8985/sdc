@@ -190,13 +190,14 @@ class PDF extends FPDF
 
   function footer()
   {
+    
     $this->SetFont('Arial','B',10);
     $this->SetY(200);
     $this->Cell(160,5,$this->PageNo()."/{nb}",0,0,'R');
-    $this->Cell(150,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
+    /*$this->Cell(150,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
     $this->Ln();
     $this->Cell(160,5,"",0,0,'R');
-    $this->Cell(150,5,date('d-m-Y'),0,0,'R');
+    $this->Cell(150,5,date('d-m-Y'),0,0,'R');*/
     
   }
 
@@ -320,7 +321,11 @@ while ($d = $disciplinas->fetch_object()) {
 
 
 }
-
+$pdf->SetXY(120,180);
+$pdf->Cell(0,5,"Usuario: ". $_SESSION['nombre'],0,0,'R');
+$pdf->Ln();
+$pdf->Cell(160,5,"",0,0,'R');
+$pdf->Cell(0,5,date('d-m-Y'),0,0,'R');
 $pdf->Output();
 
 ?>

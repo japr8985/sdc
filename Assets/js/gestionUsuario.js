@@ -189,6 +189,46 @@ function updateUsuario(){
     console.log($("#idEdit").val());
 }
 function mostrarUsuario(id) {
+    $.ajax({
+        url:'php/session/showUser.php',
+        method:'POST',
+        data:{
+            id:id
+        },
+        dataType:'json',
+        success:function(response){
+            $("#showName").val(response.nombre);
+            $("#showUsername").val(response.username);
+            var correo = response.correo.split("@");
+            $("#showCorreo").val(correo[0]);
+            $("#showEmail").val(correo[1]);
+            $("#showCargo").val(response.cargo);
+            $("#showPhone").val(response.telefono);
+            $("#showSangre").val(response.sangre);
+            $("#showCedula").val(response.cedula);
+            $("#showDireccion").val(response.direccion);
+
+            $("#showModal").modal(true);
+        },
+        error:function(xhr,status,error){
+          $.alert({
+            title:'Error',
+            content:xhr.status+'. '+error
+          });
+        }
+    });
     console.log(id);
 }
-0412-948-3375
+
+function limpiarShowUsuario() {
+    $("#showName").val('');
+    $("#showUsername").val('');
+    $("#showCorreo").val('');
+    $("#showEmail").val('');
+    $("#showCargo").val('');
+    $("#showPhone").val('');
+    $("#showSangre").val('');
+    $("#showCedula").val('');
+    $("#showDireccion").val('');
+
+}
