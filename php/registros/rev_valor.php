@@ -79,7 +79,7 @@ function revValor($rev){
 		case '9':
 			return 36;
 		default:
-			return 0;
+			return -1;
 	}
 }
  ?>

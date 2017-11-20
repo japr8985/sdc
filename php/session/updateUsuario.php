@@ -14,10 +14,11 @@ $pass       = $_POST['pass'];
 $confirm    = $_POST['confirm'];
 $correo     = $_POST['correo'].$_POST['email'];
 $type       = $_POST['type'];
-$cargo      = $_POST['cargo '];
+$cargo      = $_POST['cargo'];
 $phone      = $_POST['phone'];
 $sangre     = $_POST['sangre'];
 $direccion  = $_POST['direccion'];
+$cedula		= $_POST['cedula'];
 $data = ['Success' => false, 'Msg' => '','type' => $type];
 if($pass == $confirm){	
 	/*
@@ -53,9 +54,9 @@ if($pass == $confirm){
 									tipo = '%s',
 									cargo = '%s',
 									telefono = '%s',
-									sangre = '%s',
 									direccion = '%s',
 									cedula = '%s',
+									sangre = '%s'
 									WHERE id = '%d'
 								",
 								$mysqli->real_escape_string($user),
@@ -67,7 +68,9 @@ if($pass == $confirm){
 					    		$mysqli->real_escape_string($phone),
 					    		$mysqli->real_escape_string($direccion),
 					    		$mysqli->real_escape_string($cedula),
+					    		$mysqli->real_escape_string($sangre),
 					    		$mysqli->real_escape_string($id));
+							
 							if ($mysqli->query($sql)) {
 								$data['Success'] = true;
 								$data['Msg'] = "Usuario Actualizado Exitosamente";

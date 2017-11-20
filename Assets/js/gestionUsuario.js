@@ -148,10 +148,11 @@ function updateUsuario(){
         correo :$("#editCorreo").val(),
         email : $("#editEmail").val(),
         type :$("#editType").val(),
-        cargo:$("#editcargo").val(data.cargo),
-        phone: $("#editphone").val(data.phone),
-        sangre:$("#editsangre").val(data.sangre),
-        direccion:$("#editdireccion").val(data.direccion)
+        cargo:$("#editcargo").val(),
+        phone: $("#editphone").val(),
+        sangre:$("#editsangre").val(),
+        direccion:$("#editdireccion").val(),
+        cedula: $("#editcedula").val()
     };
     console.log(obj)
     $.ajax({
@@ -173,9 +174,11 @@ function updateUsuario(){
             });
           }
           else{
+            var msj = data.Msg;
+            msj = data.Msg === "undefined" ? data.Msg : data.Msg + ' ' + data.Error;
             $.alert({
               title: 'Error Al actualizar',
-              content:data.Msg+" "+data.Error
+              content:data.Msg+" "+msj
             });
           }
         },

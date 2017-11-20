@@ -27,7 +27,7 @@ include('header.php');
 	<div class="row">
         <div class="container">
             <div class="col-md-3 ">
-                <a href="home.php" style="font-size: xx-large;">
+                <a href="listaMaestra.php" style="font-size: xx-large;">
                     <span>&larr;</span>
                     Regresar
                 </a>

@@ -22,7 +22,7 @@ $sql = "UPDATE registros_total SET
 
 $data = array('Success' => false, 'Msg' => '', 'Campo' => '' );
 if (!empty($codPdvsa) && isset($codPdvsa)) {
-  if (!empty($rev) && isset($rev)) {
+  if ($rev != null) {
     if (strlen($descripcion) > 0) {
     	if ($mysqli->query($sql)) {
 			$data['Success'] = true;

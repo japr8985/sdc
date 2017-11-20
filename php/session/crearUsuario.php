@@ -58,15 +58,15 @@ if($pass == $confirm){
                             if (isset($cargo) && !empty($cargo)) {
                                 if (isset($phone) && !empty($phone)) {
                                     if (isset($direccion) && !empty($direccion)) {
-                                        if (isset($cedula && !empty($cedula) && is_numeric($cedula))) {
+                                        if (isset($cedula) && !empty($cedula) && is_numeric($cedula) ) {
                                             /*
                                             |--------------------------------------
                                             |   ENCRIPTANDO CONTRASEÑA
                                             |--------------------------------------
                                             */
                                             $pass = md5($pass);
-                                            $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo,cargo,phone,sangre,direccion,cedula) 
-                                                VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                                            $sql = sprintf("INSERT INTO usuarios (username,password,correo,nombre,tipo,cargo,telefono,sangre,direccion,cedula) 
+                                                VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%d')",
                                                     $mysqli->real_escape_string($user),
                                                     $mysqli->real_escape_string($pass),
                                                     $mysqli->real_escape_string($correo),

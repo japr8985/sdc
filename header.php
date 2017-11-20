@@ -39,7 +39,7 @@ if (!isset($_SESSION['username'])) {
 				</a>
 			</div>
 			<div class="col-md-3">
-				<a href="#">
+				<a href="#" data-toggle="modal" data-target="#show_current_user_modal">
 					<?php if(isset($_SESSION)): ?>
 						<h4>
 							Usuario: <?php echo $_SESSION['nombre']; ?>
@@ -51,3 +51,96 @@ if (!isset($_SESSION['username'])) {
 	</div>
 </header>
 <hr>
+
+<!-- Modal -->
+<div id="show_current_user_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Perfil del usuario: <?php echo $_SESSION['username']; ?></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">Nombre</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['nombre']; ?>">
+        		</div>
+        	</div>
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Nombre de usuario
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['username']; ?>">
+        		</div>
+        	</div>
+        </div>
+        <hr>
+        <div class="row">
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Correo
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['email']; ?>">
+        		</div>
+        	</div>
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Cedula
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['cedula'] ?>">
+        		</div>
+        	</div>
+        </div>
+        <hr>
+        <div class="row">
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Tipo de usuario
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['type']; ?>">
+        		</div>
+        	</div>
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Cargo
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['cargo']; ?>">
+        		</div>
+        	</div>
+        </div>
+        <hr>
+        <div class="row">
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Tipo de sangre
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['sangre']; ?>">
+        		</div>
+        	</div>
+        	<div class="col-md-6">
+        		<div class="form-group">
+        			<label for="">
+        				Direccion
+        			</label>
+        			<input type="text" class="form-control" value="<?php echo $_SESSION['direccion']; ?>">
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>

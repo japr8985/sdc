@@ -2,17 +2,16 @@
 ini_set('display_errors', 1);
 include ("../../conexion/conexion.php");
 include("rev_valor.php");
-
 //variables enviadas desde el formulario
-$codPdvsa 	   = $_POST['codPdvsa'];
+$codPdvsa      = $_POST['codPdvsa'];
 $descripcion   = trim($_POST['descripcion']);
-$rev 		       = isset($_POST['rev']) ? strtoupper($_POST['rev']) : 'A';
+$rev           = isset($_POST['rev']) ? strtoupper($_POST['rev']) : 'A';
 $disciplina    = $_POST['disciplina'];
-$fase 		     = $_POST['fase'];
+$fase          = $_POST['fase'];
 $codCliente    = $_POST['codCliente'];
-$fecha 		     = !empty($_POST['fecha']) ? new DateTime($_POST['fecha']) : null;
+$fecha         = !empty($_POST['fecha']) ? new DateTime($_POST['fecha']) : null;
 if(!is_null($fecha))
-  $fecha	     = $fecha->format('Y-m-d');
+  $fecha       = $fecha->format('Y-m-d');
 //arreglo de resupesta donde se enviaran los resultados
 //de las validaciones y si la data es guardada correctamente
 $data = array('Success' => false,'Msg' => '', 'Error' => '', 'Campo' => '');
@@ -22,9 +21,10 @@ $sql = "SELECT id from registros_total WHERE codpdvsa = '$codPdvsa' ";
 $query = $mysqli->query($sql);
 $num_rows = $query->num_rows;
 
+
 //Validando de que los necesarios tengan informacion
 if (!empty($codPdvsa) && isset($codPdvsa)) {
-  if (!empty($rev) && isset($rev)) {
+  if ($rev != null) {
     if (strlen($descripcion) > 0) {
       if (!empty($disciplina) && isset($disciplina)) {
         if (!empty($fase) && isset($fase)) {
@@ -34,7 +34,6 @@ if (!empty($codPdvsa) && isset($codPdvsa)) {
             $result = $mysqli->query($sql);
             $rev_old = $result->fetch_array();
             //valida si la nueva revision es mayor que la vieja
-
             if (revValor($rev) > revValor($rev_old[0])) {//procede a guardar
               //actualiza todos los registros anteriores a superado
               $sql = "UPDATE registros_total SET status = 'SUPERADO' WHERE codpdvsa = '$codPdvsa'";

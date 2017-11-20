@@ -21,7 +21,15 @@ if ($query->num_rows == 1) {
     
 	$_SESSION['username'] = $result['username'];
 	$_SESSION['nombre'] = $result['nombre'];
+	$_SESSION['email'] = $result['correo'];
+	$_SESSION['cedula'] = $result['cedula'];
+	$_SESSION['cargo'] = $result['cargo'];
+	$_SESSION['telefono'] = $result['telefono'];
+	$_SESSION['direccion'] = $result['direccion'];
+	$_SESSION['sangre'] = $result['sangre'];
+
 	$_SESSION['type'] = $result['tipo'];
+
     
 	$data['Success'] = true;
 	$data['Msg'] = 'Bienvenido '.$result['nombre'];
