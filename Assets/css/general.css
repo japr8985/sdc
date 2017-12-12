@@ -73,3 +73,7 @@ header{
 	width: 150px;
 	height: 150px;
 }
+
+.spaceless{
+	margin: 100px 0px -120px 70px;
+}
