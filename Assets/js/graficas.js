@@ -58,7 +58,7 @@ var chartFase = {
         type: 'pie'
     },
     title: {
-        text: 'Disciplina'
+        text: 'Fase'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.y:.0f}</b>'

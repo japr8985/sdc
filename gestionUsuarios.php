@@ -124,7 +124,7 @@ $paginas = ceil($total/5);
                         Tipo de Usuario
                     </label>
                     <select id="type" class="form-control">
-                        <option value="user">Usuario</option>
+                        <option value="user">Analista</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
@@ -242,7 +242,7 @@ $paginas = ceil($total/5);
             <div class="row">
                 <div class="col-md-6">
                     <select id="editType" class="form-control">
-                        <option value="user">Usuario</option>
+                        <option value="user">Analista</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
@@ -349,7 +349,7 @@ $paginas = ceil($total/5);
                         Tipo de Usuario
                     </label>
                     <select id="showAdmin" class="form-control">
-                        <option value="user">Usuario</option>
+                        <option value="user">Analista</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>

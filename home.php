@@ -11,13 +11,13 @@
 				</a>
 			</div>
 			<div class="col-xs-6">
-				<a href="ubicacion.php">
-					<img src="Assets/iconos/ubicacion.png" class="icon">
+				<a href="registros.php">
+					<img src="Assets/iconos/registros_pdvsa.png" class="icon">
 					<h3>
-						Ubicacion de Registros (PDVSA)
+						Registros PDVSA
 					</h3>
 				</a>
-			</div>
+			</div>			
 		</div>
 		<div class="row box">
 			<div class="col-xs-6">
@@ -29,10 +29,10 @@
 				</a>	
 			</div>
 			<div class="col-xs-6">
-				<a href="registros.php">
-					<img src="Assets/iconos/registros_pdvsa.png" class="icon">
+				<a href="ubicacion.php">
+					<img src="Assets/iconos/ubicacion.png" class="icon">
 					<h3>
-						Registros PDVSA
+						Ubicacion de Registros (PDVSA)
 					</h3>
 				</a>
 			</div>

@@ -32,10 +32,10 @@ if (!isset($_SESSION['username'])) {
 				</div>
 			</div>
 			<div class="col-md-5">
-				<a href="home.php">
-					<h3 class="text-center">
-						SAGD PROYECTO SOTO
-					</h3>
+				<a href="home.php" style="font-size: 48px;" class="text-center">
+					<b>
+						SAGD PROYECTO SOTO                        
+                    </b>					
 				</a>
 			</div>
 			<div class="col-md-3">

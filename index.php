@@ -21,7 +21,9 @@ if (isset($_SESSION['username'])) {
             <div class="row">
                 <div class="text-center">
                     <a href="#" style="font-size: 48px;">
-                        SAGD PROYECTO SOTO
+                        <b>
+                            SAGD PROYECTO SOTO                            
+                        </b>
                     </a>
                 </div>
             </div>
